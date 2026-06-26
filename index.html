@@ -159,7 +159,103 @@ rotate(180deg);
 
 }
 
+/* -----------------------------
+   SIDEBAR
+------------------------------*/
 
+.bracelet-sidebar{
+
+position:fixed;
+
+top:0;
+
+right:0;
+
+width:58px;
+
+padding:8px;
+
+background:#fff0f6;
+
+border-left:2px dashed mediumvioletred;
+
+border-bottom:2px dashed mediumvioletred;
+
+border-radius:0 0 0 12px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:8px;
+
+z-index:5000;
+
+}
+
+.bracelet-sidebar p{
+
+font-size:8px;
+
+color:mediumvioletred;
+
+}
+
+.bracelet-option{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:2px;
+
+cursor:none;
+
+}
+
+.bracelet-option img{
+
+width:34px;
+
+height:34px;
+
+border-radius:50%;
+
+border:2px solid transparent;
+
+transition:.2s;
+
+object-fit:cover;
+
+}
+
+.bracelet-option img:hover{
+
+transform:scale(1.15);
+
+border-color:mediumvioletred;
+
+}
+
+.bracelet-option img.selected{
+
+border-color:mediumvioletred;
+
+box-shadow:0 0 8px mediumvioletred;
+
+}
+
+.bracelet-option span{
+
+font-size:7px;
+
+color:mediumvioletred;
+
+}
 
 /* -----------------------------
    ERA IMAGES
@@ -1083,5 +1179,4 @@ function flyButterfly(el,x,y,m){
 
 </body>
 </html>
-
 
