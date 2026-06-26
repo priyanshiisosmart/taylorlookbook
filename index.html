@@ -62,7 +62,7 @@ cursor:none;
 
 position:fixed;
 
-width:70px;
+width:80px;
 
 pointer-events:none;
 /* ===========================
@@ -85,30 +85,48 @@ body{
 
 /* Cursor bracelet */
 .cursor-pic{
-    width:45px;
+    width:60px;
 }
 
 /* Butterflies */
 .butterfly{
-    width:32px;
+    width:45px;
 }
 
 /* Bracelet menu */
 .bracelet-sidebar{
-    width:48px;
+    width:36px;
     gap:6px;
     padding:6px 0;
 }
-
 .bracelet-option img{
-    width:28px;
-    height:28px;
+    width: 42px;
+    height: 42px;
+    object-fit: cover;      /* Makes every image fill the circle */
+    object-position: center;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: none;
+    transition: 0.25s;
+    overflow: hidden;
 }
 
-.bracelet-option span{
-    font-size:6px;
+.bracelet-option img:hover{
+    transform: scale(1.15);
 }
 
+.bracelet-option img.selected{
+    border: 2px solid mediumvioletred;
+    box-shadow: 0 0 8px hotpink;
+}
+.bracelet-option{
+    width: 46px;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    
 /* Era Images */
 
 .era-img{
@@ -138,7 +156,7 @@ marquee{
 @media screen and (max-width:480px){
 
 .page-title{
-    font-size:22px;
+    font-size:25px;
 }
 
 .era-img{
@@ -147,11 +165,11 @@ marquee{
 }
 
 .cursor-pic{
-    width:38px;
+    width:40px;
 }
 
 .butterfly{
-    width:28px;
+    width:35px;
 }
 
 .bracelet-sidebar{
@@ -159,8 +177,8 @@ marquee{
 }
 
 .bracelet-option img{
-    width:24px;
-    height:24px;
+    width:34px;
+    height:34px;
 }
 
 }
@@ -179,9 +197,9 @@ z-index:99999;
 
 position:fixed;
 
-width:46px;
+width:50px;
 
-height:46px;
+height:50px;
 
 pointer-events:none;
 
@@ -258,104 +276,105 @@ rotate(180deg);
 
 }
 
-/* -----------------------------
-   SIDEBAR
-------------------------------*/
+.top-toolbar{
 
-.bracelet-sidebar{
+position:absolute;
 
-position:fixed;
+top:20px;
 
-top:0;
-
-right:0;
-
-width:58px;
-
-padding:8px;
-
-background:#fff0f6;
-
-border-left:2px dashed mediumvioletred;
-
-border-bottom:2px dashed mediumvioletred;
-
-border-radius:0 0 0 12px;
+right:25px;
 
 display:flex;
 
-flex-direction:column;
+align-items:center;
+
+gap:30px;
+
+z-index:1000;
+
+}
+
+.toolbar-section{
+
+display:flex;
 
 align-items:center;
 
 gap:8px;
 
-z-index:5000;
+background:#fff0f8;
+
+padding:8px 12px;
+
+border-radius:25px;
+
+border:2px dashed mediumvioletred;
 
 }
 
-.bracelet-sidebar p{
+.toolbar-title{
 
-font-size:8px;
+font-size:12px;
 
 color:mediumvioletred;
 
-}
+font-weight:bold;
 
-.bracelet-option{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-gap:2px;
-
-cursor:none;
+font-family:"Kirang Haerang";
 
 }
 
 .bracelet-option img{
 
-width:34px;
+width:38px;
 
-height:34px;
+height:38px;
 
 border-radius:50%;
 
-border:2px solid transparent;
+cursor:none;
 
-transition:.2s;
-
-object-fit:cover;
+transition:.25s;
 
 }
 
 .bracelet-option img:hover{
 
-transform:scale(1.15);
-
-border-color:mediumvioletred;
+transform:scale(1.2);
 
 }
 
 .bracelet-option img.selected{
 
-border-color:mediumvioletred;
+border:2px solid mediumvioletred;
 
-box-shadow:0 0 8px mediumvioletred;
-
-}
-
-.bracelet-option span{
-
-font-size:7px;
-
-color:mediumvioletred;
+box-shadow:0 0 8px hotpink;
 
 }
 
+.glitter-option{
+
+width:26px;
+
+height:26px;
+
+border-radius:50%;
+
+cursor:pointer;
+
+border:2px solid white;
+
+box-shadow:0 0 6px rgba(0,0,0,.2);
+
+transition:.25s;
+
+}
+
+.glitter-option:hover{
+
+transform:scale(1.2);
+
+}
 /* -----------------------------
    ERA IMAGES
 ------------------------------*/
@@ -568,53 +587,73 @@ draggable="false"
 
 <!-- Bracelet Sidebar -->
 
-<div class="bracelet-sidebar">
+<div class="top-toolbar">
 
-<p>💜</p>
+    <!-- Bracelet Picker -->
+    <div class="toolbar-section">
 
-<div class="bracelet-option">
+        <span class="toolbar-title">Bracelet</span>
 
-<img
-class="selected"
-src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg"
-onclick="setCursor(this,this.src)">
+        <div class="bracelet-option">
+            <img src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg"
+            onclick="setCursor(this,this.src)"
+            class="selected">
+        </div>
 
-<span>B1</span>
+        <div class="bracelet-option">
+            <img src="https://www.image2url.com/r2/default/images/1782497503545-0fafd8e5-0b51-4636-8ece-cc0fd430553b.webp"
+           style="transform:scale(1.2);"
+            onclick="setCursor(this,this.src)">
+        </div>
+
+        <div class="bracelet-option">
+            <img src="https://www.image2url.com/r2/default/images/1782497654755-3cc60952-d67b-4911-b5d2-cc9835614a56.webp"
+            onclick="setCursor(this,this.src)">
+        </div>
+
+        <div class="bracelet-option">
+            <img src="https://www.image2url.com/r2/default/images/1782497796607-6272093f-234c-4793-a102-de06d3e20589.webp"
+            onclick="setCursor(this,this.src)">
+        </div>
+
+    </div>
+
+    <!-- Glitter Picker -->
+
+    <div class="toolbar-section">
+
+        <span class="toolbar-title">Glitter</span>
+
+        <div class="glitter-option"
+        style="background:white;"
+        onclick="setGlitter(['#ffffff','#f8f8f8','#e6e6fa'])"></div>
+
+        <div class="glitter-option"
+        style="background:#ff69b4;"
+        onclick="setGlitter(['#ff69b4','#ffc0cb','#ffd6f5'])"></div>
+
+        <div class="glitter-option"
+        style="background:#c084fc;"
+        onclick="setGlitter(['#c084fc','#f3e8ff','#e9d5ff'])"></div>
+
+        <div class="glitter-option"
+        style="background:#60a5fa;"
+        onclick="setGlitter(['#60a5fa','#bfdbfe','#dbeafe'])"></div>
+
+        <div class="glitter-option"
+        style="background:#ffd700;"
+        onclick="setGlitter(['#ffd700','#fff8b5','#fff59d'])"></div>
+
+        <div class="glitter-option"
+        style="background:linear-gradient(45deg,red,orange,yellow,green,blue,purple);"
+        onclick="setGlitter(['rainbow'])"></div>
+
+    </div>
 
 </div>
 
-<div class="bracelet-option">
-
-<img
-src="https://placehold.co/34x34/ff6eb4/fff?text=🌸"
-onclick="setCursor(this,this.src)">
-
-<span>B2</span>
-
 </div>
-
-<div class="bracelet-option">
-
-<img
-src="https://placehold.co/34x34/6a0dad/fff?text=💜"
-onclick="setCursor(this,this.src)">
-
-<span>B3</span>
-
 </div>
-
-<div class="bracelet-option">
-
-<img
-src="https://placehold.co/34x34/111111/fff?text=🐍"
-onclick="setCursor(this,this.src)">
-
-<span>B4</span>
-
-</div>
-
-</div>
-
 <!-- Popup -->
 
 <div
@@ -626,9 +665,7 @@ onclick="closePopup()">
 class="floating-title"
 id="floating-title"></div>
 
-<div class="close-hint">
 
-click anywhere to close
 
 </div>
 
@@ -970,80 +1007,80 @@ function closePopup(){
 
 }
 
-// =====================
-// GLITTER
-// =====================
+// ✨ CURSOR GLITTER (Everywhere)
 
-const glitterColors=[
+let glitterColors=[
 "#ffffff",
-"#eeeeee",
-"#d8d8d8",
-"#cccccc",
-"#f4f4ff"
+"#f8f8f8",
+"#e6e6fa"
 ];
 
-let glitterInterval;
+function setGlitter(colors){
 
-document.addEventListener("mouseover",(e)=>{
+if(colors[0]=="rainbow"){
 
-    if(!e.target.classList.contains("era-img")) return;
+glitterColors=[
+"#ff4d4d",
+"#ffb84d",
+"#ffee58",
+"#81ff81",
+"#5ec8ff",
+"#9b7bff",
+"#ff7ce5"
+];
 
-    clearInterval(glitterInterval);
+}
+else{
 
-    glitterInterval=setInterval(()=>{
+glitterColors=colors;
 
-        const rect=e.target.getBoundingClientRect();
+}
 
-        for(let i=0;i<5;i++){
+}
 
-            const g=document.createElement("div");
 
-            g.className="glitter";
+document.addEventListener("mousemove",function(e){
 
-            const size=Math.random()*4+2;
+for(let i=0;i<6;i++){
 
-            g.style.width=size+"px";
-            g.style.height=size+"px";
+const g=document.createElement("div");
 
-            g.style.borderRadius="50%";
+g.className="glitter";
 
-            g.style.background=
-            glitterColors[
-            Math.floor(Math.random()*glitterColors.length)
-            ];
+const size=Math.random()*7+3;
 
-            g.style.left=
-            rect.left+Math.random()*rect.width+"px";
+g.style.width=size+"px";
 
-            g.style.top=
-            rect.top+Math.random()*rect.height+"px";
+g.style.height=size+"px";
 
-            g.style.boxShadow="0 0 6px white";
+g.style.left=(e.clientX+(Math.random()-0.5)*24)+"px";
 
-            g.style.setProperty("--tx",(Math.random()*20-10)+"px");
+g.style.top=(e.clientY+(Math.random()-0.5)*24)+"px";
 
-            g.style.setProperty("--ty",(Math.random()*20-10)+"px");
+const colour=glitterColors[
+Math.floor(Math.random()*glitterColors.length)
+];
 
-            document.body.appendChild(g);
+g.style.background=colour;
 
-            setTimeout(()=>g.remove(),550);
+g.style.clipPath="polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%)";
 
-        }
+g.style.boxShadow=
+`0 0 5px ${colour},
+0 0 10px ${colour},
+0 0 18px white`;
 
-    },70);
+g.style.setProperty("--tx",(Math.random()-0.5)*35+"px");
+
+g.style.setProperty("--ty",(Math.random()-0.5)*35+"px");
+
+document.body.appendChild(g);
+
+setTimeout(()=>g.remove(),700);
+
+}
 
 });
-
-document.addEventListener("mouseout",(e)=>{
-
-    if(e.target.classList.contains("era-img")){
-
-        clearInterval(glitterInterval);
-
-    }
-
-});
-
 // =====================
 // BUTTERFLIES
 // =====================
