@@ -126,51 +126,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-    /* ======================
-   Mobile
-====================== */
-
-@media (max-width:768px){
-
-    .top-toolbar{
-        position:absolute;
-        top:10px;
-        right:10px;
-        gap:8px;
-        transform:scale(0.82);
-        transform-origin:top right;
-    }
-
-    .toolbar-section{
-        gap:5px;
-        padding:6px 8px;
-    }
-
-    .toolbar-title{
-        font-size:9px;
-    }
-
-    .bracelet-option img{
-        width:26px;
-        height:26px;
-    }
-
-    .glitter-option{
-        width:16px;
-        height:16px;
-    }
-
-}
-@media (max-width:480px){
-
-    .top-toolbar{
-        top:5px;
-        right:5px;
-        transform:scale(0.65);
-        transform-origin:top right;
-    }
-
-}
+    
 /* Era Images */
 
 .era-img{
@@ -320,26 +276,42 @@ rotate(180deg);
 
 }
 
-
 .top-toolbar{
-    position:absolute;
-    top:20px;
-    right:20px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    z-index:1000;
+
+position:absolute;
+
+top:20px;
+
+right:25px;
+
+display:flex;
+
+align-items:center;
+
+gap:30px;
+
+z-index:1000;
+
 }
 
 .toolbar-section{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 12px;
-    background:#fff0f8;
-    border:2px dashed mediumvioletred;
-    border-radius:25px;
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+background:#fff0f8;
+
+padding:8px 12px;
+
+border-radius:25px;
+
+border:2px dashed mediumvioletred;
+
 }
+
 .toolbar-title{
 
 font-size:12px;
@@ -595,54 +567,71 @@ marquee{
 margin:18px 0;
 
 }
-@media screen and (max-width:768px){
+/* Hide mobile button on desktop */
+#mobileSettingsBtn{
+    display:none;
+}
 
-    .page-header{
-        display:grid;
-        grid-template-columns:1fr auto;
-        align-items:start;
-        padding:12px;
-        column-gap:10px;
-    }
+/* ================= MOBILE ================= */
 
-    .page-header h1{
-        font-size:22px;
-        line-height:1.1;
-        margin:0;
+@media (max-width:768px){
+
+    #mobileSettingsBtn{
+        display:flex;
+        position:fixed;
+        top:15px;
+        right:15px;
+
+        width:52px;
+        height:52px;
+
+        border:none;
+        border-radius:50%;
+        background:#fff0f8;
+        box-shadow:0 4px 12px rgba(0,0,0,.18);
+
+        justify-content:center;
+        align-items:center;
+
+        font-size:28px;
+
+        z-index:9999;
     }
 
     .top-toolbar{
-        display:flex;
+
+        position:fixed;
+
+        top:75px;
+        right:15px;
+
+        display:none;
+
         flex-direction:column;
-        align-items:flex-end;
-        gap:6px;
-        margin:0;
+        gap:10px;
+
+        background:white;
+        padding:12px;
+
+        border-radius:18px;
+
+        box-shadow:0 8px 20px rgba(0,0,0,.2);
+
+        max-width:250px;
+
+        z-index:9998;
+    }
+
+    .top-toolbar.show{
+        display:flex;
     }
 
     .toolbar-section{
-        display:flex;
+        justify-content:center;
         flex-wrap:wrap;
-        justify-content:flex-end;
-        gap:4px;
-        padding:5px 7px;
-    }
-
-    .bracelet-option img{
-        width:22px;
-        height:22px;
-    }
-
-    .glitter-option{
-        width:18px;
-        height:18px;
-    }
-
-    .toolbar-title{
-        font-size:8px;
     }
 
 }
-
 </style>
 
 </head>
@@ -661,7 +650,7 @@ draggable="false"
 <!-- Butterflies are created automatically -->
 
 <!-- Bracelet Sidebar -->
-
+<button id="mobileSettingsBtn">🎀</button>
 <div class="top-toolbar">
 
     <!-- Bracelet Picker -->
@@ -1283,7 +1272,37 @@ function flyButterfly(el,x,y,m){
     animate();
 
 }
+ const mobileBtn = document.getElementById("mobileSettingsBtn");
+    const toolbar = document.querySelector(".top-toolbar");
 
+    mobileBtn.addEventListener("click", function () {
+        toolbar.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function(e){
+
+        if(window.innerWidth > 768) return;
+
+        if(
+            !toolbar.contains(e.target) &&
+            e.target !== mobileBtn
+        ){
+            toolbar.classList.remove("show");
+        }
+
+    });
+    document.addEventListener("click", function(e){
+
+    if(window.innerWidth > 768) return;
+
+    if(
+        !toolbar.contains(e.target) &&
+        e.target !== mobileBtn
+    ){
+        toolbar.classList.remove("show");
+    }
+
+});
 
 </script>
 
