@@ -65,6 +65,105 @@ position:fixed;
 width:70px;
 
 pointer-events:none;
+/* ===========================
+   MOBILE RESPONSIVE
+=========================== */
+
+@media screen and (max-width:768px){
+
+body{
+    overflow-x:hidden;
+    font-size:16px;
+}
+
+/* Title */
+.page-title{
+    font-size:28px;
+    margin:15px;
+    text-align:left;
+}
+
+/* Cursor bracelet */
+.cursor-pic{
+    width:45px;
+}
+
+/* Butterflies */
+.butterfly{
+    width:32px;
+}
+
+/* Bracelet menu */
+.bracelet-sidebar{
+    width:48px;
+    gap:6px;
+    padding:6px 0;
+}
+
+.bracelet-option img{
+    width:28px;
+    height:28px;
+}
+
+.bracelet-option span{
+    font-size:6px;
+}
+
+/* Era Images */
+
+.era-img{
+    width:180px;
+    height:180px;
+}
+
+/* Album labels */
+
+.album-label{
+    display:none;
+}
+
+/* Popup */
+
+.floating-title{
+    font-size:22px;
+}
+
+/* Marquee spacing */
+
+marquee{
+    margin-top:10px;
+}
+
+}
+@media screen and (max-width:480px){
+
+.page-title{
+    font-size:22px;
+}
+
+.era-img{
+    width:140px;
+    height:140px;
+}
+
+.cursor-pic{
+    width:38px;
+}
+
+.butterfly{
+    width:28px;
+}
+
+.bracelet-sidebar{
+    width:42px;
+}
+
+.bracelet-option img{
+    width:24px;
+    height:24px;
+}
+
+}
 
 transform:translate(-50%,-50%);
 
@@ -793,107 +892,6 @@ Taylor Swift
 </span>
 
 </marquee>
-
-</p>
-/* ===========================
-   MOBILE RESPONSIVE
-=========================== */
-
-@media screen and (max-width:768px){
-
-body{
-    overflow-x:hidden;
-    font-size:16px;
-}
-
-/* Title */
-.page-title{
-    font-size:28px;
-    margin:15px;
-    text-align:left;
-}
-
-/* Cursor bracelet */
-.cursor-pic{
-    width:45px;
-}
-
-/* Butterflies */
-.butterfly{
-    width:32px;
-}
-
-/* Bracelet menu */
-.bracelet-sidebar{
-    width:48px;
-    gap:6px;
-    padding:6px 0;
-}
-
-.bracelet-option img{
-    width:28px;
-    height:28px;
-}
-
-.bracelet-option span{
-    font-size:6px;
-}
-
-/* Era Images */
-
-.era-img{
-    width:180px;
-    height:180px;
-}
-
-/* Album labels */
-
-.album-label{
-    display:none;
-}
-
-/* Popup */
-
-.floating-title{
-    font-size:22px;
-}
-
-/* Marquee spacing */
-
-marquee{
-    margin-top:10px;
-}
-
-}
-@media screen and (max-width:480px){
-
-.page-title{
-    font-size:22px;
-}
-
-.era-img{
-    width:140px;
-    height:140px;
-}
-
-.cursor-pic{
-    width:38px;
-}
-
-.butterfly{
-    width:28px;
-}
-
-.bracelet-sidebar{
-    width:42px;
-}
-
-.bracelet-option img{
-    width:24px;
-    height:24px;
-}
-
-}
 <script>
 
 // =====================
@@ -1179,4 +1177,3 @@ function flyButterfly(el,x,y,m){
 
 </body>
 </html>
-
