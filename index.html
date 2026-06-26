@@ -126,7 +126,51 @@ body{
     justify-content: center;
     align-items: center;
 }
-    
+    /* ======================
+   Mobile
+====================== */
+
+@media (max-width:768px){
+
+    .top-toolbar{
+        position:absolute;
+        top:10px;
+        right:10px;
+        gap:8px;
+        transform:scale(0.82);
+        transform-origin:top right;
+    }
+
+    .toolbar-section{
+        gap:5px;
+        padding:6px 8px;
+    }
+
+    .toolbar-title{
+        font-size:9px;
+    }
+
+    .bracelet-option img{
+        width:26px;
+        height:26px;
+    }
+
+    .glitter-option{
+        width:16px;
+        height:16px;
+    }
+
+}
+@media (max-width:480px){
+
+    .top-toolbar{
+        top:5px;
+        right:5px;
+        transform:scale(0.65);
+        transform-origin:top right;
+    }
+
+}
 /* Era Images */
 
 .era-img{
@@ -276,42 +320,26 @@ rotate(180deg);
 
 }
 
+
 .top-toolbar{
-
-position:absolute;
-
-top:20px;
-
-right:25px;
-
-display:flex;
-
-align-items:center;
-
-gap:30px;
-
-z-index:1000;
-
+    position:absolute;
+    top:20px;
+    right:20px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    z-index:1000;
 }
 
 .toolbar-section{
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-background:#fff0f8;
-
-padding:8px 12px;
-
-border-radius:25px;
-
-border:2px dashed mediumvioletred;
-
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    background:#fff0f8;
+    border:2px dashed mediumvioletred;
+    border-radius:25px;
 }
-
 .toolbar-title{
 
 font-size:12px;
