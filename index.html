@@ -998,12 +998,45 @@ Taylor Swift
 // CUSTOM CURSOR
 // =====================
 
-const follower = document.getElementById("follower");
+const follower = document.getElementById('follower');
 
-document.addEventListener("mousemove",(e)=>{
+// Desktop
+window.addEventListener('mousemove', (e) => {
 
-    follower.style.left=e.clientX+"px";
-    follower.style.top=e.clientY+"px";
+    follower.style.left = e.clientX + "px";
+    follower.style.top = e.clientY + "px";
+
+    sparkle(e.clientX, e.clientY);
+
+});
+
+// Mobile
+window.addEventListener("touchmove", (e) => {
+
+    const touch = e.touches[0];
+
+    follower.style.left = touch.clientX + "px";
+    follower.style.top = touch.clientY + "px";
+
+    sparkle(touch.clientX, touch.clientY);
+
+}, { passive: true });let lastTouchX = window.innerWidth/2;
+let lastTouchY = window.innerHeight/2;
+
+window.addEventListener("touchmove",(e)=>{
+
+    const touch = e.touches[0];
+
+    lastTouchX = touch.clientX;
+    lastTouchY = touch.clientY;
+
+},{passive:true});
+
+window.addEventListener("scroll",()=>{
+
+    sparkle(lastTouchX,lastTouchY);
+
+},{passive:true});
 
 });
 
@@ -1140,46 +1173,7 @@ g.style.setProperty("--ty",(Math.random()-0.5)*35+"px");
 document.body.appendChild(g);
 
 setTimeout(()=>g.remove(),700);
-// Detect mobile
-const isMobile = window.matchMedia("(max-width:768px)").matches;
 
-// Last touch position
-let lastX = window.innerWidth / 2;
-let lastY = window.innerHeight / 2;
-
-// Sparkle while finger moves
-document.addEventListener("touchmove", function(e){
-
-    const touch = e.touches[0];
-
-    lastX = touch.clientX;
-    lastY = touch.clientY;
-
-    // More glitter on phones
-    if(isMobile){
-        sparkle(lastX,lastY);
-        sparkle(lastX+8,lastY+5);
-    }else{
-        sparkle(lastX,lastY);
-    }
-
-},{passive:true});
-
-
-// Sparkle while scrolling
-window.addEventListener("scroll",function(){
-
-    if(isMobile){
-
-        sparkle(
-            lastX + (Math.random()*20-10),
-            window.innerHeight*0.6 + (Math.random()*30-15)
-        );
-
-    }
-
-},{passive:true});
-}
 
 });
 // =====================
