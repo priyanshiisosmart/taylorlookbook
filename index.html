@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,21 +11,16 @@
 <!-- Google Fonts -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&family=Pacifico&family=Cinzel&family=Special+Elite&family=Playfair+Display&family=Libre+Baskerville&family=Space+Mono&family=Abril+Fatface&family=Dancing+Script&family=Pinyon+Script&family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
+
+/* ===========================
+RESET
+=========================== */
 
 *{
 margin:0;
@@ -32,134 +28,91 @@ padding:0;
 box-sizing:border-box;
 }
 
-html,
+html{
+scroll-behavior:smooth;
+}
+
 body{
 
-width:100%;
-height:100%;
-overflow-x:hidden;
-
-background:#fff8fb;
-
-cursor:none;
+background:#fff8fc;
 
 font-family:"Kirang Haerang",cursive;
 
+overflow-x:hidden;
+
+cursor:none;
+
+min-height:100vh;
+
 }
 
 
-/* ---------- TITLE ---------- */
+/* ===========================
+TITLE
+=========================== */
 
 h1{
 
-margin:25px 0 15px 20px;
+position:fixed;
+
+top:20px;
+
+left:20px;
+
+font-size:42px;
 
 color:mediumvioletred;
 
-font-size:46px;
+z-index:1000;
 
-text-align:left;
+letter-spacing:1px;
 
-}
-
-
-/* ---------- CURSOR ---------- */
-.cursor-pic{
-    position:fixed;
-    width:55px;
-    height:55px;
-    pointer-events:none;
-    z-index:99999;
-    transform:translate(-50%,-50%);
-    left:50%;
-    top:50%;
-}
-
-
-/* ---------- STATIC BUTTERFLIES ---------- */
-
-.butterfly{
-
-position:fixed;
-
-pointer-events:none;
-
-z-index:5;
-
-opacity:.9;
-
-}
-
-.butterfly img{
-
-width:70px;
-
-height:auto;
+text-shadow:
+0 0 8px rgba(255,255,255,.7);
 
 }
 
 
-/* ---------- GLITTER ---------- */
-
-.glitter{
-
-position:fixed;
-
-pointer-events:none;
-
-z-index:99999;
-
-animation:glitter .55s ease-out forwards;
-
-}
-
-@keyframes glitter{
-
-0%{
-opacity:1;
-transform:scale(1.3) translate(0,0);
-}
-
-100%{
-opacity:0;
-transform:scale(0)
-translate(var(--tx),var(--ty));
-}
-
-}
-
-/* ---------- TOOLBARS ---------- */
+/* ===========================
+TOP TOOLBARS
+=========================== */
 
 .top-controls{
 
-display:flex;
+position:fixed;
 
-justify-content:space-between;
+top:18px;
+
+right:18px;
+
+display:flex;
 
 align-items:flex-start;
 
-padding:0 18px;
+gap:14px;
 
-margin-bottom:20px;
+z-index:10000;
 
 }
 
 
-/* ---------- BRACELET ---------- */
+/* ===========================
+BRACELET SIDEBAR
+=========================== */
 
 .bracelet-sidebar{
 
 display:flex;
 
-gap:12px;
+gap:10px;
 
-align-items:center;
+padding:8px 12px;
 
-background:#fff0f6;
+background:rgba(255,240,246,.92);
 
-padding:10px 14px;
+backdrop-filter:blur(8px);
 
-border-radius:14px;
+border-radius:18px;
 
 border:2px dashed mediumvioletred;
 
@@ -173,15 +126,17 @@ flex-direction:column;
 
 align-items:center;
 
+gap:4px;
+
 cursor:none;
 
 }
 
 .bracelet-option img{
 
-width:42px;
+width:46px;
 
-height:42px;
+height:46px;
 
 object-fit:cover;
 
@@ -195,7 +150,7 @@ transition:.25s;
 
 .bracelet-option img:hover{
 
-transform:scale(1.15);
+transform:scale(1.12);
 
 border-color:mediumvioletred;
 
@@ -211,14 +166,16 @@ box-shadow:0 0 10px mediumvioletred;
 
 .bracelet-option span{
 
-font-size:9px;
+font-size:10px;
 
 color:mediumvioletred;
 
 }
 
 
-/* ---------- GLITTER COLORS ---------- */
+/* ===========================
+GLITTER PICKER
+=========================== */
 
 .glitter-sidebar{
 
@@ -226,13 +183,13 @@ display:flex;
 
 gap:10px;
 
-align-items:center;
+padding:8px 12px;
 
-background:#fff0f6;
+background:rgba(255,240,246,.92);
 
-padding:10px 14px;
+backdrop-filter:blur(8px);
 
-border-radius:14px;
+border-radius:18px;
 
 border:2px dashed mediumvioletred;
 
@@ -240,15 +197,17 @@ border:2px dashed mediumvioletred;
 
 .color-btn{
 
-width:30px;
+width:24px;
 
-height:30px;
+height:24px;
 
 border-radius:50%;
 
-cursor:pointer;
+cursor:none;
 
 border:2px solid white;
+
+box-shadow:0 0 6px rgba(0,0,0,.2);
 
 transition:.2s;
 
@@ -256,133 +215,128 @@ transition:.2s;
 
 .color-btn:hover{
 
-transform:scale(1.2);
+transform:scale(1.15);
 
 }
 
 
-/* ---------- ERA IMAGES ---------- */
+/* ===========================
+CURSOR BRACELET
+=========================== */
 
-.era-img{
+.cursor-pic{
 
-width:300px;
+position:fixed;
 
-height:300px;
+width:56px;
 
-object-fit:cover;
-
-cursor:none;
-
-display:block;
-
-}
-
-.era-img-wrap{
-
-position:relative;
-
-display:inline-block;
-
-margin:0 10px;
-
-}
-
-
-/* ---------- LABEL ---------- */
-
-.album-label{
-
-display:none;
-
-position:absolute;
-
-top:50%;
-
-right:-135px;
-
-transform:translateY(-50%);
-
-padding:8px 14px;
-
-background:rgba(0,0,0,.55);
-
-backdrop-filter:blur(5px);
-
-border-radius:8px;
-
-font-size:22px;
-
-white-space:nowrap;
+height:56px;
 
 pointer-events:none;
 
-}
+z-index:99999;
 
-.era-img-wrap:hover .album-label{
-
-display:block;
-
-}
-
-
-/* ---------- POPUP ---------- */
-
-.overlay{
-
-display:none;
-
-position:fixed;
-
-inset:0;
-
-z-index:9998;
-
-}
-
-.overlay.active{
-
-display:block;
-
-}
-
-.floating-title{
-
-position:fixed;
-
-transform:translate(-50%,-120%);
-
-font-size:28px;
-
-pointer-events:none;
-
-white-space:nowrap;
-
-text-shadow:
-
-0 0 20px white,
-
-0 0 8px white;
-
-}
-
-.close-hint{
-
-position:fixed;
-
-bottom:20px;
+transform:translate(-50%,-50%);
 
 left:50%;
 
-transform:translateX(-50%);
-
-font-size:12px;
-
-color:mediumvioletred;
+top:50%;
 
 }
 
 
-/* ---------- MOBILE ---------- */
+/* ===========================
+GLITTER
+=========================== */
+
+.glitter{
+
+position:fixed;
+
+pointer-events:none;
+
+z-index:99998;
+
+animation:glitter .65s ease-out forwards;
+
+}
+
+@keyframes glitter{
+
+0%{
+
+opacity:1;
+
+transform:scale(1.4) translate(0,0);
+
+}
+
+100%{
+
+opacity:0;
+
+transform:scale(0)
+translate(var(--tx),var(--ty));
+
+}
+
+}
+
+
+/* ===========================
+BUTTERFLIES
+=========================== */
+
+.butterfly{
+
+position:fixed;
+
+width:60px;
+
+pointer-events:none;
+
+z-index:20;
+
+animation:floatButterfly 10s ease-in-out infinite alternate;
+
+}
+
+.butterfly img{
+
+width:100%;
+
+display:block;
+
+}
+
+@keyframes floatButterfly{
+
+0%{
+transform:translate(0,0) rotate(-5deg);
+}
+
+25%{
+transform:translate(18px,-8px) rotate(4deg);
+}
+
+50%{
+transform:translate(-12px,16px) rotate(-3deg);
+}
+
+75%{
+transform:translate(14px,-10px) rotate(5deg);
+}
+
+100%{
+transform:translate(-10px,10px) rotate(-5deg);
+}
+
+}
+
+
+/* ===========================
+MOBILE
+=========================== */
 
 .settings-toggle{
 
@@ -392,43 +346,73 @@ display:none;
 
 @media(max-width:768px){
 
-body{
-
-cursor:default;
-
-}
-
-.cursor-pic{
-
-width:30px;
-
-height:30px;
-
-}
-
 h1{
 
 font-size:28px;
 
-margin:15px;
+left:12px;
+
+top:12px;
+
+max-width:58%;
 
 }
 
 .top-controls{
 
-position:fixed;
+top:10px;
 
-top:65px;
+right:10px;
 
-right:12px;
+transform:scale(.88);
 
-flex-direction:column;
+transform-origin:top right;
 
-gap:10px;
+}
+
+.bracelet-option img{
+
+width:38px;
+
+height:38px;
+
+}
+
+.color-btn{
+
+width:20px;
+
+height:20px;
+
+}
+
+.cursor-pic{
+
+width:46px;
+
+height:46px;
+
+}
+
+.butterfly{
+
+width:44px;
+
+}
+
+}
+
+@media(max-width:540px){
+
+.top-controls{
 
 display:none;
 
-z-index:9999;
+flex-direction:column;
+
+align-items:flex-end;
+
+gap:8px;
 
 }
 
@@ -440,42 +424,201 @@ display:flex;
 
 .settings-toggle{
 
-display:flex;
+display:block;
 
 position:fixed;
 
-top:15px;
+top:12px;
 
-right:15px;
+right:12px;
 
-width:50px;
+width:48px;
 
-height:50px;
+height:48px;
 
 border:none;
 
 border-radius:50%;
 
-background:#ffedf5;
+background:#fff0f6;
 
-font-size:26px;
+font-size:24px;
 
-justify-content:center;
+z-index:10001;
 
-align-items:center;
-
-z-index:10000;
+box-shadow:0 4px 12px rgba(0,0,0,.15);
 
 }
 
-.bracelet-sidebar,
-.glitter-sidebar{
+}.lookbook{
 
-flex-wrap:wrap;
+margin-top:120px;
 
-justify-content:center;
+overflow:hidden;
 
-width:220px;
+width:100%;
+
+}
+
+.scroll-track{
+
+overflow:hidden;
+
+white-space:nowrap;
+
+margin:35px 0;
+
+}
+
+.scroll-content{
+
+display:inline-flex;
+
+gap:30px;
+
+animation:scrollLeft 40s linear infinite;
+
+}
+
+.scroll-track.reverse .scroll-content{
+
+animation:scrollRight 40s linear infinite;
+
+}
+
+@keyframes scrollLeft{
+
+from{
+transform:translateX(0);
+}
+
+to{
+transform:translateX(-50%);
+}
+
+}
+
+@keyframes scrollRight{
+
+from{
+transform:translateX(-50%);
+}
+
+to{
+transform:translateX(0);
+}
+
+}
+
+.era-img-wrap{
+
+position:relative;
+
+display:inline-block;
+
+flex-shrink:0;
+
+}
+
+.era-img{
+
+width:290px;
+
+height:290px;
+
+object-fit:cover;
+
+border-radius:16px;
+
+cursor:none;
+
+transition:.35s;
+
+}
+
+.era-img:hover{
+
+transform:scale(1.05);
+
+}
+
+.album-label{
+
+position:absolute;
+
+right:-135px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+display:none;
+
+padding:8px 14px;
+
+background:rgba(0,0,0,.55);
+
+backdrop-filter:blur(6px);
+
+border-radius:10px;
+
+font-size:22px;
+
+white-space:nowrap;
+
+}
+
+.era-img-wrap:hover .album-label{
+
+display:block;
+
+}
+
+.overlay{
+
+position:fixed;
+
+inset:0;
+
+display:none;
+
+z-index:99997;
+
+}
+
+.overlay.active{
+
+display:block;
+
+}
+
+.floating-title{
+
+position:absolute;
+
+font-size:32px;
+
+transform:translate(-50%,-120%);
+
+text-shadow:0 0 15px white;
+
+pointer-events:none;
+
+}
+
+@media(max-width:768px){
+
+.lookbook{
+
+margin-top:90px;
+
+}
+
+.scroll-content{
+
+gap:16px;
+
+animation-duration:28s;
 
 }
 
@@ -489,7 +632,7 @@ height:180px;
 
 .album-label{
 
-display:none!important;
+display:none;
 
 }
 
@@ -499,166 +642,139 @@ display:none!important;
 
 </head>
 
-</body><h1>Taylor Swift Era's Lookbook</h1>
+<body><!-- ===========================
+MOBILE SETTINGS BUTTON
+=========================== -->
 
-<!-- Mobile Settings Button -->
+<button class="settings-toggle" onclick="toggleSettings()">🎀</button>
 
-<button class="settings-toggle" onclick="toggleSettings()">
-🎀
-</button>
-
-
-<!-- ================= TOP CONTROLS ================= -->
+<!-- ===========================
+TOP CONTROLS
+=========================== -->
 
 <div class="top-controls" id="topControls">
 
     <!-- Bracelet Picker -->
-
     <div class="bracelet-sidebar">
 
         <div class="bracelet-option">
             <img
-            class="selected"
             src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg"
+            class="selected"
             onclick="setCursor(this,this.src)">
             <span>B1</span>
         </div>
 
         <div class="bracelet-option">
             <img
-            src="https://placehold.co/100/ffb6d5/ffffff?text=🌸"
+            src="https://placehold.co/46x46/ff6eb4/ffffff?text=🌸"
             onclick="setCursor(this,this.src)">
             <span>B2</span>
         </div>
 
         <div class="bracelet-option">
             <img
-            src="https://placehold.co/100/cda4ff/ffffff?text=💜"
+            src="https://placehold.co/46x46/7b2cbf/ffffff?text=💜"
             onclick="setCursor(this,this.src)">
             <span>B3</span>
         </div>
 
         <div class="bracelet-option">
             <img
-            src="https://placehold.co/100/222222/ffffff?text=🐍"
+            src="https://placehold.co/46x46/111111/ffffff?text=🐍"
             onclick="setCursor(this,this.src)">
             <span>B4</span>
         </div>
 
     </div>
 
-
-    <!-- Glitter Colours -->
-
+    <!-- Glitter Picker -->
     <div class="glitter-sidebar">
 
-        <div
-        class="color-btn"
-        style="background:white"
-        onclick="setGlitterColor('white')">
-        </div>
+        <div class="color-btn"
+             style="background:white"
+             onclick="setGlitterColor('white')"></div>
 
-        <div
-        class="color-btn"
-        style="background:#ffd6ec"
-        onclick="setGlitterColor('#ffd6ec')">
-        </div>
+        <div class="color-btn"
+             style="background:#ff6eb4"
+             onclick="setGlitterColor('#ff6eb4')"></div>
 
-        <div
-        class="color-btn"
-        style="background:#d7c2ff"
-        onclick="setGlitterColor('#d7c2ff')">
-        </div>
+        <div class="color-btn"
+             style="background:#a855f7"
+             onclick="setGlitterColor('#a855f7')"></div>
 
-        <div
-        class="color-btn"
-        style="background:#aee9ff"
-        onclick="setGlitterColor('#aee9ff')">
-        </div>
+        <div class="color-btn"
+             style="background:#7dd3fc"
+             onclick="setGlitterColor('#7dd3fc')"></div>
 
-        <div
-        class="color-btn"
-        style="background:#fff8b0"
-        onclick="setGlitterColor('#fff8b0')">
-        </div>
+        <div class="color-btn"
+             style="background:#fde68a"
+             onclick="setGlitterColor('#fde68a')"></div>
 
     </div>
 
 </div>
 
-
-
-<!-- ================= CUSTOM CURSOR ================= -->
+<!-- ===========================
+CURSOR
+=========================== -->
 
 <img
+
 id="follower"
+
 class="cursor-pic"
-src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg">
 
+src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg"
 
+draggable="false">
 
-<!-- ================= STATIC BUTTERFLIES ================= -->
+<!-- ===========================
+POPUP
+=========================== -->
 
-<div class="butterfly"
-style="top:10%;left:8%;">
-<img src="https://www.image2url.com/r2/default/images/1782471017304-4bdf7140-c1d3-4047-a91c-e9be0ce13167.jpg">
-</div>
-
-<div class="butterfly"
-style="top:18%;right:10%;">
-<img src="https://www.image2url.com/r2/default/images/1782471475997-1d011609-acf4-4342-977a-5a41b3a664f8.jpg">
-</div>
-
-<div class="butterfly"
-style="bottom:12%;left:12%;">
-<img src="https://www.image2url.com/r2/default/images/1782471475997-1d011609-acf4-4342-977a-5a41b3a664f8.jpg">
-</div>
-
-<div class="butterfly"
-style="bottom:8%;right:8%;">
-<img src="https://www.image2url.com/r2/default/images/1782471017304-4bdf7140-c1d3-4047-a91c-e9be0ce13167.jpg">
-</div>
-
-
-
-<!-- ================= POPUP ================= -->
+<div class="overlay" id="overlay" onclick="closePopup()">
 
 <div
-class="overlay"
-id="overlay"
-onclick="closePopup()">
+id="floating-title"
+class="floating-title"></div>
 
-    <div
-    class="floating-title"
-    id="floating-title">
-    </div>
+</div>
 
-    <div class="close-hint">
-        tap anywhere to close
-    </div>
+<!-- ===========================
+LOOKBOOK
+=========================== -->
 
+<div class="lookbook">
+
+<div class="scroll-track">
+
+<div class="scroll-content"><div class="butterfly" style="top:18%;right:6%;">
+<img src="https://www.image2url.com/r2/default/images/1782471475997-1d011609-acf4-4342-977a-5a41b3a664f8.jpg">
+</div>
+
+<div class="butterfly" style="bottom:15%;left:10%;">
+<img src="https://www.image2url.com/r2/default/images/1782471475997-1d011609-acf4-4342-977a-5a41b3a664f8.jpg">
+</div>
+
+<div class="butterfly" style="bottom:8%;right:8%;">
+<img src="https://www.image2url.com/r2/default/images/1782471017304-4bdf7140-c1d3-4047-a91c-e9be0ce13167.jpg">
 </div>
 
 
 
-<!-- ================= FIRST MARQUEE ================= -->
+<!-- ================= FIRST ROW ================= -->
 
-<marquee
-behavior="scroll"
-direction="left"
-scrollamount="10"><span class="era-img-wrap">
+<span class="era-img-wrap">
 
 <img
 class="era-img"
 src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"
 onclick="openPopup(event,'TLOAS','Cinzel','#a8c0ff')">
 
-<span
-class="album-label"
-style="color:#a8c0ff;font-family:'Cinzel';">
-
+<span class="album-label"
+style="font-family:Cinzel;color:#a8c0ff;">
 TLOAS
-
 </span>
 
 </span>
@@ -670,14 +786,11 @@ TLOAS
 <img
 class="era-img"
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"
-onclick="openPopup(event,'TTPD','Special Elite','#cccccc')">
+onclick="openPopup(event,'TTPD','Special Elite','#ddd')">
 
-<span
-class="album-label"
-style="color:#cccccc;font-family:'Special Elite';">
-
+<span class="album-label"
+style="font-family:'Special Elite';color:#ddd;">
 TTPD
-
 </span>
 
 </span>
@@ -689,14 +802,11 @@ TTPD
 <img
 class="era-img"
 src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"
-onclick="openPopup(event,'Midnights','Space Mono','#818cf8')">
+onclick="openPopup(event,'Midnights','Space Mono','#8ea2ff')">
 
-<span
-class="album-label"
-style="color:#818cf8;font-family:'Space Mono';font-size:16px;">
-
+<span class="album-label"
+style="font-family:'Space Mono';color:#8ea2ff;">
 Midnights
-
 </span>
 
 </span>
@@ -710,12 +820,9 @@ class="era-img"
 src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"
 onclick="openPopup(event,'Evermore','Libre Baskerville','#d4a574')">
 
-<span
-class="album-label"
-style="color:#d4a574;font-family:'Libre Baskerville';">
-
+<span class="album-label"
+style="font-family:'Libre Baskerville';color:#d4a574;">
 Evermore
-
 </span>
 
 </span>
@@ -726,15 +833,12 @@ Evermore
 
 <img
 class="era-img"
-src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600%2Cc_limit/Petrusich-TaylorSwift.jpg"
+src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg"
 onclick="openPopup(event,'Folklore','Playfair Display','#dddddd')">
 
-<span
-class="album-label"
-style="color:#dddddd;font-family:'Playfair Display';">
-
+<span class="album-label"
+style="font-family:'Playfair Display';color:#dddddd;">
 Folklore
-
 </span>
 
 </span>
@@ -748,12 +852,9 @@ class="era-img"
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"
 onclick="openPopup(event,'Lover','Pacifico','#ff6eb4')">
 
-<span
-class="album-label"
-style="color:#ff6eb4;font-family:'Pacifico';">
-
+<span class="album-label"
+style="font-family:Pacifico;color:#ff6eb4;">
 Lover
-
 </span>
 
 </span>
@@ -767,12 +868,9 @@ class="era-img"
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"
 onclick="openPopup(event,'Reputation','UnifrakturMaguntia','#eeeeee')">
 
-<span
-class="album-label"
-style="color:#eeeeee;font-family:'UnifrakturMaguntia';">
-
+<span class="album-label"
+style="font-family:UnifrakturMaguntia;color:#eeeeee;">
 Reputation
-
 </span>
 
 </span>
@@ -784,20 +882,14 @@ Reputation
 <img
 class="era-img"
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"
-onclick="openPopup(event,'1989','Press Start 2P','#9fd8ff')">
+onclick="openPopup(event,'1989','Press Start 2P','#a8d8ea')">
 
-<span
-class="album-label"
-style="color:#9fd8ff;font-family:'Press Start 2P';font-size:14px;">
-
+<span class="album-label"
+style="font-family:'Press Start 2P';font-size:14px;color:#a8d8ea;">
 1989
-
 </span>
 
 </span>
-
-
-
 <span class="era-img-wrap">
 
 <img
@@ -807,7 +899,7 @@ onclick="openPopup(event,'Red','Abril Fatface','#ff6b6b')">
 
 <span
 class="album-label"
-style="color:#ff6b6b;font-family:'Abril Fatface';">
+style="font-family:'Abril Fatface';color:#ff6b6b;">
 
 Red
 
@@ -826,7 +918,7 @@ onclick="openPopup(event,'Speak Now','Pinyon Script','#c084fc')">
 
 <span
 class="album-label"
-style="color:#c084fc;font-family:'Pinyon Script';font-size:28px;">
+style="font-family:'Pinyon Script';font-size:28px;color:#c084fc;">
 
 Speak Now
 
@@ -845,7 +937,7 @@ onclick="openPopup(event,'Fearless','Dancing Script','#fcd34d')">
 
 <span
 class="album-label"
-style="color:#fcd34d;font-family:'Dancing Script';font-size:28px;">
+style="font-family:'Dancing Script';font-size:28px;color:#fcd34d;">
 
 Fearless
 
@@ -864,7 +956,7 @@ onclick="openPopup(event,'Taylor Swift','Pacifico','#6ee7b7')">
 
 <span
 class="album-label"
-style="color:#6ee7b7;font-family:'Pacifico';font-size:16px;">
+style="font-family:'Pacifico';font-size:18px;color:#6ee7b7;">
 
 Taylor Swift
 
@@ -872,20 +964,20 @@ Taylor Swift
 
 </span>
 
-</marquee>
-<p>
 
-<marquee
-behavior="scroll"
-direction="right"
-scrollamount="10"><img
+
+<!-- DUPLICATE FOR INFINITE LOOP -->
+
+<span class="era-img-wrap">
+
+<img
 class="era-img"
 src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"
 onclick="openPopup(event,'TLOAS','Cinzel','#a8c0ff')">
 
 <span
 class="album-label"
-style="color:#a8c0ff;font-family:'Cinzel';">
+style="font-family:Cinzel;color:#a8c0ff;">
 
 TLOAS
 
@@ -900,11 +992,11 @@ TLOAS
 <img
 class="era-img"
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"
-onclick="openPopup(event,'TTPD','Special Elite','#cccccc')">
+onclick="openPopup(event,'TTPD','Special Elite','#ddd')">
 
 <span
 class="album-label"
-style="color:#cccccc;font-family:'Special Elite';">
+style="font-family:'Special Elite';color:#ddd;">
 
 TTPD
 
@@ -912,358 +1004,384 @@ TTPD
 
 </span>
 
+</div>
 
-
+</div>
 <span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"
-onclick="openPopup(event,'Midnights','Space Mono','#818cf8')">
-
-<span
-class="album-label"
-style="color:#818cf8;font-family:'Space Mono';font-size:16px;">
-
-Midnights
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"
-onclick="openPopup(event,'Evermore','Libre Baskerville','#d4a574')">
-
-<span
-class="album-label"
-style="color:#d4a574;font-family:'Libre Baskerville';">
-
-Evermore
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600%2Cc_limit/Petrusich-TaylorSwift.jpg"
-onclick="openPopup(event,'Folklore','Playfair Display','#dddddd')">
-
-<span
-class="album-label"
-style="color:#dddddd;font-family:'Playfair Display';">
-
-Folklore
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"
-onclick="openPopup(event,'Lover','Pacifico','#ff6eb4')">
-
-<span
-class="album-label"
-style="color:#ff6eb4;font-family:'Pacifico';">
-
-Lover
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"
-onclick="openPopup(event,'Reputation','UnifrakturMaguntia','#eeeeee')">
-
-<span
-class="album-label"
-style="color:#eeeeee;font-family:'UnifrakturMaguntia';">
-
-Reputation
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"
-onclick="openPopup(event,'1989','Press Start 2P','#9fd8ff')">
-
-<span
-class="album-label"
-style="color:#9fd8ff;font-family:'Press Start 2P';font-size:14px;">
-
-1989
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10"
-onclick="openPopup(event,'Red','Abril Fatface','#ff6b6b')">
-
-<span
-class="album-label"
-style="color:#ff6b6b;font-family:'Abril Fatface';">
-
-Red
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10"
-onclick="openPopup(event,'Speak Now','Pinyon Script','#c084fc')">
-
-<span
-class="album-label"
-style="color:#c084fc;font-family:'Pinyon Script';font-size:28px;">
-
-Speak Now
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"
-onclick="openPopup(event,'Fearless','Dancing Script','#fcd34d')">
-
-<span
-class="album-label"
-style="color:#fcd34d;font-family:'Dancing Script';font-size:28px;">
-
-Fearless
-
-</span>
-
-</span>
-
-
-
-<span class="era-img-wrap">
-
-<img
-class="era-img"
+<img class="era-img"
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100"
 onclick="openPopup(event,'Taylor Swift','Pacifico','#6ee7b7')">
-
-<span
-class="album-label"
-style="color:#6ee7b7;font-family:'Pacifico';font-size:16px;">
-
+<span class="album-label"
+style="font-family:'Pacifico';color:#6ee7b7;">
 Taylor Swift
-
 </span>
-</marquee>
+</span>
 
-</p><script>
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"
+onclick="openPopup(event,'Fearless','Dancing Script','#fcd34d')">
+<span class="album-label"
+style="font-family:'Dancing Script';color:#fcd34d;">
+Fearless
+</span>
+</span>
 
-//================ SETTINGS =================
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10"
+onclick="openPopup(event,'Speak Now','Pinyon Script','#c084fc')">
+<span class="album-label"
+style="font-family:'Pinyon Script';color:#c084fc;">
+Speak Now
+</span>
+</span>
 
-function toggleSettings(){
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10"
+onclick="openPopup(event,'Red','Abril Fatface','#ff6b6b')">
+<span class="album-label"
+style="font-family:'Abril Fatface';color:#ff6b6b;">
+Red
+</span>
+</span>
 
-document.getElementById("topControls").classList.toggle("show");
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"
+onclick="openPopup(event,'1989','Press Start 2P','#a8d8ea')">
+<span class="album-label"
+style="font-family:'Press Start 2P';font-size:14px;color:#a8d8ea;">
+1989
+</span>
+</span>
+
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"
+onclick="openPopup(event,'Reputation','UnifrakturMaguntia','#eeeeee')">
+<span class="album-label"
+style="font-family:'UnifrakturMaguntia';color:#eeeeee;">
+Reputation
+</span>
+</span>
+
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"
+onclick="openPopup(event,'Lover','Pacifico','#ff6eb4')">
+<span class="album-label"
+style="font-family:'Pacifico';color:#ff6eb4;">
+Lover
+</span>
+</span>
+
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg"
+onclick="openPopup(event,'Folklore','Playfair Display','#dddddd')">
+<span class="album-label"
+style="font-family:'Playfair Display';color:#dddddd;">
+Folklore
+</span>
+</span>
+
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"
+onclick="openPopup(event,'Evermore','Libre Baskerville','#d4a574')">
+<span class="album-label"
+style="font-family:'Libre Baskerville';color:#d4a574;">
+Evermore
+</span>
+</span>
+
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"
+onclick="openPopup(event,'Midnights','Space Mono','#8ea2ff')">
+<span class="album-label"
+style="font-family:'Space Mono';color:#8ea2ff;">
+Midnights
+</span>
+</span>
+
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"
+onclick="openPopup(event,'TTPD','Special Elite','#dddddd')">
+<span class="album-label"
+style="font-family:'Special Elite';color:#dddddd;">
+TTPD
+</span>
+</span>
+
+<span class="era-img-wrap">
+<img class="era-img"
+src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"
+onclick="openPopup(event,'TLOAS','Cinzel','#a8c0ff')">
+<span class="album-label"
+style="font-family:'Cinzel';color:#a8c0ff;">
+TLOAS
+</span>
+</span>
+
+</div>
+</div>
+
+<!-- End Lookbook -->
+</div>
+
+
+<script>
+
+/* ==========================================================
+   MOBILE SETTINGS BUTTON
+========================================================== */
+
+function toggleSettings() {
+    document.getElementById("topControls").classList.toggle("show");
+}
+
+/* ==========================================================
+   CURSOR FOLLOWER
+========================================================== */
+
+const follower = document.getElementById("follower");
+
+function moveFollower(x, y) {
+    follower.style.left = x + "px";
+    follower.style.top = y + "px";
+}
+
+/* ==========================================================
+   BRACELET PICKER
+========================================================== */
+
+function setCursor(clickedImg, src) {
+
+    document
+        .querySelectorAll(".bracelet-option img")
+        .forEach(img => img.classList.remove("selected"));
+
+    clickedImg.classList.add("selected");
+
+    follower.src = src;
 
 }
 
+/* ==========================================================
+   GLITTER COLOUR PICKER
+========================================================== */
 
-//================ CURSOR =================
+let glitterColor = "#ffffff";
 
-cconst follower = document.getElementById("follower");
+function setGlitterColor(color) {
 
-document.addEventListener("mousemove", function(e){
-
-    follower.style.left = e.clientX + "px";
-    follower.style.top = e.clientY + "px";
-
-    sparkle(e.clientX,e.clientY);
-
-});
-
-document.addEventListener("touchmove", function(e){
-
-    const touch = e.touches[0];
-
-    follower.style.left = touch.clientX + "px";
-    follower.style.top = touch.clientY + "px";
-
-    sparkle(touch.clientX,touch.clientY);
-
-},{passive:true});
-
-
-//================ CURSOR CHANGE =================
-
-function setCursor(img,src){
-
-document.querySelectorAll(".bracelet-option img")
-.forEach(i=>i.classList.remove("selected"));
-
-img.classList.add("selected");
-
-follower.src=src;
+    glitterColor = color;
 
 }
 
+/* ==========================================================
+   GLITTER
+========================================================== */
 
+function sparkle(x, y) {
 
-//================ GLITTER =================
+    const amount = window.innerWidth < 768 ? 6 : 3;
 
-let glitterColor = "white";
+    for (let i = 0; i < amount; i++) {
 
-function sparkle(x,y){
+        const s = document.createElement("div");
 
-    for(let i=0;i<3;i++){
+        s.className = "glitter";
 
-        const s=document.createElement("div");
+        const size = 2 + Math.random() * 4;
 
-        s.className="glitter";
+        s.style.width = size + "px";
+        s.style.height = size + "px";
 
-        const size=2+Math.random()*4;
+        s.style.left =
+            (x + Math.random() * 20 - 10) + "px";
 
-        s.style.width=size+"px";
-        s.style.height=size+"px";
+        s.style.top =
+            (y + Math.random() * 20 - 10) + "px";
 
-        s.style.left=(x+(Math.random()*20-10))+"px";
-        s.style.top=(y+(Math.random()*20-10))+"px";
+        s.style.borderRadius = "50%";
 
-        s.style.borderRadius="50%";
+        s.style.background = glitterColor;
 
-        s.style.background=glitterColor;
+        s.style.boxShadow =
+            `0 0 4px ${glitterColor},
+             0 0 8px ${glitterColor},
+             0 0 14px white`;
 
-        s.style.boxShadow=
-        `0 0 5px ${glitterColor},
-         0 0 12px white`;
+        s.style.setProperty(
+            "--tx",
+            (Math.random() * 18 - 9) + "px"
+        );
 
-        s.style.setProperty("--tx",(Math.random()*20-10)+"px");
-        s.style.setProperty("--ty",(Math.random()*20-10)+"px");
+        s.style.setProperty(
+            "--ty",
+            (Math.random() * 18 - 9) + "px"
+        );
 
         document.body.appendChild(s);
 
-        setTimeout(()=>{
+        setTimeout(() => {
+
             s.remove();
-        },550);
+
+        }, 600);
 
     }
 
 }
 
+/* ==========================================================
+   DESKTOP
+========================================================== */
 
+document.addEventListener("mousemove", e => {
 
-//============== EXTRA MOBILE SPARKLES ==============
+    moveFollower(e.clientX, e.clientY);
 
-window.addEventListener("scroll",()=>{
+    sparkle(e.clientX, e.clientY);
 
-if(window.innerWidth>768)return;
+});
 
-const x=window.innerWidth*0.5;
+/* ==========================================================
+   MOBILE
+========================================================== */
 
-const y=window.innerHeight*0.7;
+document.addEventListener("touchstart", e => {
 
-sparkle(x,y);
+    const t = e.touches[0];
 
-},{passive:true});
+    moveFollower(t.clientX, t.clientY);
 
+    sparkle(t.clientX, t.clientY);
 
+}, { passive: true });
 
-document.addEventListener("touchmove",(e)=>{
+document.addEventListener("touchmove", e => {
 
-if(window.innerWidth>768)return;
+    const t = e.touches[0];
 
-const t=e.touches[0];
+    moveFollower(t.clientX, t.clientY);
 
-sparkle(t.clientX,t.clientY);
+    sparkle(t.clientX, t.clientY);
 
-},{passive:true});
+}, { passive: true });
 
+/* ==========================================================
+   MOBILE SCROLL GLITTER
+========================================================== */
 
+window.addEventListener("scroll", () => {
 
-//================ POPUP =================
+    if (window.innerWidth > 768) return;
 
-let popupOpen=false;
+    sparkle(
 
-function openPopup(e,title,font,color){
+        window.innerWidth * 0.5,
 
-e.stopPropagation();
+        window.innerHeight * 0.75
 
-const rect=e.target.getBoundingClientRect();
+    );
 
-const popup=document.getElementById("floating-title");
+}, { passive: true });
 
-popup.innerHTML=title;
+/* ==========================================================
+   POPUP
+========================================================== */
 
-popup.style.fontFamily=font;
+function openPopup(e, title, font, color) {
 
-popup.style.color=color;
+    e.stopPropagation();
 
-popup.style.left=(rect.left+rect.width/2)+"px";
+    const rect = e.target.getBoundingClientRect();
 
-popup.style.top=rect.top+"px";
+    const popup = document.getElementById("floating-title");
 
-document.getElementById("overlay")
-.classList.add("active");
+    popup.textContent = title;
 
-popupOpen=true;
+    popup.style.fontFamily = font;
+
+    popup.style.color = color;
+
+    popup.style.left =
+        rect.left + rect.width / 2 + "px";
+
+    popup.style.top =
+        rect.top + "px";
+
+    document
+        .getElementById("overlay")
+        .classList.add("active");
 
 }
 
+function closePopup() {
 
-function closePopup(){
-
-document.getElementById("overlay")
-.classList.remove("active");
-
-popupOpen=false;
+    document
+        .getElementById("overlay")
+        .classList.remove("active");
 
 }
+
+/* ==========================================================
+   PAUSE CAROUSEL
+========================================================== */
+
+document
+.querySelectorAll(".scroll-content")
+.forEach(track => {
+
+    track.addEventListener("mouseenter", () => {
+
+        track.style.animationPlayState = "paused";
+
+    });
+
+    track.addEventListener("mouseleave", () => {
+
+        track.style.animationPlayState = "running";
+
+    });
+
+});
+
+/* ==========================================================
+   BUTTERFLIES
+========================================================== */
+
+document
+.querySelectorAll(".butterfly")
+.forEach((b, i) => {
+
+    b.style.animationDuration =
+        (8 + i * 2) + "s";
+
+    b.style.animationDelay =
+        (i * 1.4) + "s";
+
+});
+
+/* ==========================================================
+   RESET CURSOR POSITION
+========================================================== */
+
+window.addEventListener("resize", () => {
+
+    follower.style.left = "50vw";
+
+    follower.style.top = "50vh";
+
+});
 
 </script>
 
 </body>
-
 </html>
