@@ -58,12 +58,15 @@ cursor:none;
 ------------------------------*/
 
 .cursor-pic{
-
-position:fixed;
-
-width:80px;
-
-pointer-events:none;
+    position:fixed;
+    width:70px;
+    z-index:9999;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+}
+   .cursor-pic{
+    transition:left .03s linear, top .03s linear;
+}
 /* ===========================
    MOBILE RESPONSIVE
 =========================== */
