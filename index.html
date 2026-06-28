@@ -64,21 +64,15 @@ text-align:left;
 
 
 /* ---------- CURSOR ---------- */
-
 .cursor-pic{
-
-position:fixed;
-
-width:38px;
-
-height:38px;
-
-transform:translate(-50%,-50%);
-
-pointer-events:none;
-
-z-index:99999;
-
+    position:fixed;
+    width:55px;
+    height:55px;
+    pointer-events:none;
+    z-index:99999;
+    transform:translate(-50%,-50%);
+    left:50%;
+    top:50%;
 }
 
 
@@ -113,36 +107,26 @@ position:fixed;
 
 pointer-events:none;
 
-z-index:9999;
+z-index:99999;
 
-animation:glitter .65s ease-out forwards;
+animation:glitter .55s ease-out forwards;
 
 }
 
 @keyframes glitter{
 
 0%{
-
 opacity:1;
-
-transform:
-translate(0,0)
-scale(1);
-
+transform:scale(1.3) translate(0,0);
 }
 
 100%{
-
 opacity:0;
-
-transform:
-translate(var(--tx),var(--ty))
-scale(0);
-
+transform:scale(0)
+translate(var(--tx),var(--ty));
 }
 
 }
-
 
 /* ---------- TOOLBARS ---------- */
 
@@ -1130,29 +1114,27 @@ document.getElementById("topControls").classList.toggle("show");
 
 //================ CURSOR =================
 
-const follower=document.getElementById("follower");
+cconst follower = document.getElementById("follower");
 
-document.addEventListener("mousemove",(e)=>{
+document.addEventListener("mousemove", function(e){
 
-follower.style.left=e.clientX+"px";
-follower.style.top=e.clientY+"px";
+    follower.style.left = e.clientX + "px";
+    follower.style.top = e.clientY + "px";
 
-sparkle(e.clientX,e.clientY);
+    sparkle(e.clientX,e.clientY);
 
 });
 
+document.addEventListener("touchmove", function(e){
 
-document.addEventListener("touchmove",(e)=>{
+    const touch = e.touches[0];
 
-const touch=e.touches[0];
+    follower.style.left = touch.clientX + "px";
+    follower.style.top = touch.clientY + "px";
 
-follower.style.left=touch.clientX+"px";
-follower.style.top=touch.clientY+"px";
-
-sparkle(touch.clientX,touch.clientY);
+    sparkle(touch.clientX,touch.clientY);
 
 },{passive:true});
-
 
 
 //================ CURSOR CHANGE =================
@@ -1172,56 +1154,42 @@ follower.src=src;
 
 //================ GLITTER =================
 
-let glitterColor="white";
-
-function setGlitterColor(color){
-
-glitterColor=color;
-
-}
-
-
+let glitterColor = "white";
 
 function sparkle(x,y){
 
-for(let i=0;i<3;i++){
+    for(let i=0;i<3;i++){
 
-const s=document.createElement("div");
+        const s=document.createElement("div");
 
-s.className="glitter";
+        s.className="glitter";
 
-const size=2+Math.random()*5;
+        const size=2+Math.random()*4;
 
-s.style.width=size+"px";
+        s.style.width=size+"px";
+        s.style.height=size+"px";
 
-s.style.height=size+"px";
+        s.style.left=(x+(Math.random()*20-10))+"px";
+        s.style.top=(y+(Math.random()*20-10))+"px";
 
-s.style.borderRadius="50%";
+        s.style.borderRadius="50%";
 
-s.style.background=glitterColor;
+        s.style.background=glitterColor;
 
-s.style.boxShadow=
-`0 0 4px ${glitterColor},
-0 0 8px ${glitterColor},
-0 0 14px white`;
+        s.style.boxShadow=
+        `0 0 5px ${glitterColor},
+         0 0 12px white`;
 
-s.style.left=(x+(Math.random()*18-9))+"px";
+        s.style.setProperty("--tx",(Math.random()*20-10)+"px");
+        s.style.setProperty("--ty",(Math.random()*20-10)+"px");
 
-s.style.top=(y+(Math.random()*18-9))+"px";
+        document.body.appendChild(s);
 
-s.style.setProperty("--tx",(Math.random()*26-13)+"px");
+        setTimeout(()=>{
+            s.remove();
+        },550);
 
-s.style.setProperty("--ty",(Math.random()*26-13)+"px");
-
-document.body.appendChild(s);
-
-setTimeout(()=>{
-
-s.remove();
-
-},650);
-
-}
+    }
 
 }
 
