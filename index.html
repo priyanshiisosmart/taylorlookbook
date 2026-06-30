@@ -20,7 +20,17 @@ family=Special+Elite&
 family=Playfair+Display:ital@1&
 family=Pinyon+Script&
 family=Abril+Fatface&
-family=Press+Start+2P&
+family=Courier+Prime:wght@700&
+family=Oswald:wght@600&
+family=Caveat:wght@700&
+family=Cormorant+Garamond:ital@1&
+family=EB+Garamond:ital@1&
+family=Satisfy&
+family=UnifrakturCook:wght@700&
+family=Permanent+Marker&
+family=Anton&
+family=Work+Sans:wght@600&
+family=Yellowtail&
 display=swap"
 rel="stylesheet">
 
@@ -34,7 +44,7 @@ rel="stylesheet">
     padding: 0;
 }
 
-{
+*{
 margin:0;
 padding:0;
 box-sizing:border-box;
@@ -47,7 +57,6 @@ background:white;
 overflow-x:hidden;
 cursor:none;
 }
-
 /* -----------------------------
    CUSTOM CURSOR
 ------------------------------*/
@@ -205,23 +214,33 @@ cursor:none;
 .album-label{
 display:none;
 position:absolute;
-top:50%;
+top:14px;
 left:50%;
-transform:translate(-50%, -140%);
-padding:6px 16px;
-background:rgba(0,0,0,.60);
-backdrop-filter:blur(6px);
-border-radius:10px;
+transform:translateX(-20%);
+padding:0;
 text-align:center;
 white-space:nowrap;
-font-size:20px;
+font-size:28px;
+font-weight:600;
+letter-spacing:.5px;
+text-shadow:
+  0 0 6px rgba(255,255,255,.5),
+  1px 1px 2px rgba(0,0,0,.18);
 pointer-events:none;
 animation:labelPop .25s;
 z-index:100;
 }
 
-/* Desktop: show on hover */
-.era-img-wrap:hover .album-label{
+.album-label.two-line{
+white-space:pre-line;
+line-height:1.15;
+width:max-content;
+max-width:none;
+left:50%;
+transform:translateX(-50%);
+}
+
+.album-label.show{
 display:block;
 }
 
@@ -231,52 +250,8 @@ display:block;
 }
 
 @keyframes labelPop{
-from{ opacity:0; transform:translate(-50%,-160%) scale(0.85); }
-to{ opacity:1; transform:translate(-50%,-140%) scale(1); }
-}
-
-/* -----------------------------
-   POPUP
-------------------------------*/
-.overlay{
-display:none;
-position:fixed;
-left:0; top:0;
-width:100%; height:100%;
-z-index:99990;
-}
-
-.overlay.active{
-display:block;
-}
-
-.floating-title{
-position:fixed;
-transform:translate(-50%,-120%);
-font-size:30px;
-pointer-events:none;
-text-shadow:
-  0 0 18px rgba(255,255,255,.9),
-  0 0 8px rgba(0,0,0,.5);
-animation:titlePop .25s ease;
-z-index:99995;
-}
-
-@keyframes titlePop{
-from{ opacity:0; transform:translate(-50%,-100%) scale(.8); }
-to{ opacity:1; transform:translate(-50%,-120%) scale(1); }
-}
-
-.close-hint{
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-font-size:12px;
-color:mediumvioletred;
-opacity:.6;
-pointer-events:none;
-z-index:99995;
+from{ opacity:0; transform:translateX(-20%) scale(0.85); }
+to{ opacity:1; transform:translateX(-20%) scale(1); }
 }
 
 h1{
@@ -379,10 +354,6 @@ margin:18px 0;
     height:180px;
   }
 
-  /* album-label shows via hover/touch-active, no blanket hide needed */
-
-  .floating-title{ font-size:22px; }
-
   marquee{ margin-top:10px; }
 }
 
@@ -479,84 +450,67 @@ margin:18px 0;
 
 </div>
 
-<!-- Popup -->
-<div class="overlay" id="overlay" onclick="closePopup()">
-  <div class="floating-title" id="floating-title"></div>
-</div>
-
 <!-- ========= FIRST MARQUEE ========= -->
 <marquee behavior="scroll" direction="left" scrollamount="10">
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"
-onclick="openPopup(event,'TLOAS','Cinzel','#a8c0ff')">
-<span class="album-label" style="font-family:Cinzel;color:#a8c0ff;">TLOAS</span>
+<img class="era-img" src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg">
+<span class="album-label two-line" style="font-family:Cinzel;color:#a8c0ff;font-size:18px;">The Life of a|Showgirl</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"
-onclick="openPopup(event,'TTPD','Special Elite','#cccccc')">
-<span class="album-label" style="font-family:'Special Elite';color:#cccccc;">TTPD</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10">
+<span class="album-label two-line" style="font-family:'Special Elite';color:#cccccc;font-size:18px;">The Tortured|Poets Department</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"
-onclick="openPopup(event,'Midnights','Space Mono','#818cf8')">
-<span class="album-label" style="font-family:'Space Mono';color:#818cf8;font-size:15px;">Midnights</span>
+<img class="era-img" src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png">
+<span class="album-label" style="font-family:'Work Sans';font-weight:600;color:#cdbf9c;font-size:24px;">Midnights</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"
-onclick="openPopup(event,'Evermore','Libre Baskerville','#d4a574')">
-<span class="album-label" style="font-family:'Libre Baskerville';color:#d4a574;">Evermore</span>
+<img class="era-img" src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg">
+<span class="album-label" style="font-family:'Libre Baskerville';color:#d4a574;text-transform:lowercase;font-size:24px;">Evermore</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg"
-onclick="openPopup(event,'Folklore','Playfair Display','#d1d5db')">
-<span class="album-label" style="font-family:'Playfair Display';color:#d1d5db;">Folklore</span>
+<img class="era-img" src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg">
+<span class="album-label" style="font-family:'EB Garamond';font-style:italic;color:#d1d5db;text-transform:lowercase;font-size:32px;">Folklore</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"
-onclick="openPopup(event,'Lover','Pacifico','#ff6eb4')">
-<span class="album-label" style="font-family:Pacifico;color:#ff6eb4;">Lover</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10">
+<span class="album-label" style="font-family:Satisfy;color:#ff6eb4;font-size:40px;">Lover</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"
-onclick="openPopup(event,'Reputation','UnifrakturMaguntia','#eeeeee')">
-<span class="album-label" style="font-family:UnifrakturMaguntia;color:#eeeeee;">Reputation</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10">
+<span class="album-label" style="font-family:'UnifrakturCook';font-weight:700;color:#111111;font-size:30px;">Reputation</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"
-onclick="openPopup(event,'1989','Press Start 2P','#a8d8ea')">
-<span class="album-label" style="font-family:'Press Start 2P';font-size:14px;color:#a8d8ea;">1989</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10">
+<span class="album-label" style="font-family:'Permanent Marker';color:#a8d8ea;font-size:40px;left:78%;">1989</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10"
-onclick="openPopup(event,'Red','Abril Fatface','#ff6b6b')">
-<span class="album-label" style="font-family:'Abril Fatface';color:#ff6b6b;">Red</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10">
+<span class="album-label" style="font-family:Oswald;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#c41e3a;font-size:34px;left:78%;">Red</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10"
-onclick="openPopup(event,'Speak Now','Pinyon Script','#c084fc')">
-<span class="album-label" style="font-family:'Pinyon Script';font-size:26px;color:#c084fc;">Speak Now</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10">
+<span class="album-label" style="font-family:'Pinyon Script';font-size:32px;color:#c084fc;">Speak Now</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"
-onclick="openPopup(event,'Fearless','Dancing Script','#fcd34d')">
-<span class="album-label" style="font-family:'Dancing Script';font-size:26px;color:#fcd34d;">Fearless</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10">
+<span class="album-label" style="font-family:'Dancing Script';font-size:32px;color:#fcd34d;left:65%;">Fearless</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100"
-onclick="openPopup(event,'Taylor Swift','Pacifico','#6ee7b7')">
-<span class="album-label" style="font-family:Pacifico;color:#6ee7b7;">Taylor Swift</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100">
+<span class="album-label" style="font-family:Pacifico;color:#6ee7b7;font-size:32px;">Taylor Swift</span>
 </span>
 
 </marquee>
@@ -566,75 +520,63 @@ onclick="openPopup(event,'Taylor Swift','Pacifico','#6ee7b7')">
 <marquee behavior="scroll" direction="right" scrollamount="10">
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"
-onclick="openPopup(event,'TLOAS','Cinzel','#a8c0ff')">
-<span class="album-label" style="font-family:Cinzel;color:#a8c0ff;">TLOAS</span>
+<img class="era-img" src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg">
+<span class="album-label two-line" style="font-family:Cinzel;color:#a8c0ff;font-size:18px;">The Life of a|Showgirl</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"
-onclick="openPopup(event,'TTPD','Special Elite','#cccccc')">
-<span class="album-label" style="font-family:'Special Elite';color:#cccccc;">TTPD</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10">
+<span class="album-label two-line" style="font-family:'Special Elite';color:#cccccc;font-size:18px;">The Tortured|Poets Department</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"
-onclick="openPopup(event,'Midnights','Space Mono','#818cf8')">
-<span class="album-label" style="font-family:'Space Mono';color:#818cf8;font-size:15px;">Midnights</span>
+<img class="era-img" src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png">
+<span class="album-label" style="font-family:'Work Sans';font-weight:600;color:#cdbf9c;font-size:24px;">Midnights</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"
-onclick="openPopup(event,'Evermore','Libre Baskerville','#d4a574')">
-<span class="album-label" style="font-family:'Libre Baskerville';color:#d4a574;">Evermore</span>
+<img class="era-img" src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg">
+<span class="album-label" style="font-family:'Libre Baskerville';color:#d4a574;text-transform:lowercase;font-size:24px;">Evermore</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg"
-onclick="openPopup(event,'Folklore','Playfair Display','#d1d5db')">
-<span class="album-label" style="font-family:'Playfair Display';color:#d1d5db;">Folklore</span>
+<img class="era-img" src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg">
+<span class="album-label" style="font-family:'EB Garamond';font-style:italic;color:#d1d5db;text-transform:lowercase;font-size:32px;">Folklore</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"
-onclick="openPopup(event,'Lover','Pacifico','#ff6eb4')">
-<span class="album-label" style="font-family:Pacifico;color:#ff6eb4;">Lover</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10">
+<span class="album-label" style="font-family:Satisfy;color:#ff6eb4;font-size:40px;">Lover</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"
-onclick="openPopup(event,'Reputation','UnifrakturMaguntia','#eeeeee')">
-<span class="album-label" style="font-family:UnifrakturMaguntia;color:#eeeeee;">Reputation</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10">
+<span class="album-label" style="font-family:'UnifrakturCook';font-weight:700;color:#111111;font-size:30px;">Reputation</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"
-onclick="openPopup(event,'1989','Press Start 2P','#a8d8ea')">
-<span class="album-label" style="font-family:'Press Start 2P';font-size:14px;color:#a8d8ea;">1989</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10">
+<span class="album-label" style="font-family:'Permanent Marker';color:#a8d8ea;font-size:40px;left:78%;">1989</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10"
-onclick="openPopup(event,'Red','Abril Fatface','#ff6b6b')">
-<span class="album-label" style="font-family:'Abril Fatface';color:#ff6b6b;">Red</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10">
+<span class="album-label" style="font-family:Oswald;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#c41e3a;font-size:34px;left:78%;">Red</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10"
-onclick="openPopup(event,'Speak Now','Pinyon Script','#c084fc')">
-<span class="album-label" style="font-family:'Pinyon Script';font-size:26px;color:#c084fc;">Speak Now</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10">
+<span class="album-label" style="font-family:'Pinyon Script';font-size:32px;color:#c084fc;">Speak Now</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"
-onclick="openPopup(event,'Fearless','Dancing Script','#fcd34d')">
-<span class="album-label" style="font-family:'Dancing Script';font-size:26px;color:#fcd34d;">Fearless</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10">
+<span class="album-label" style="font-family:'Dancing Script';font-size:32px;color:#fcd34d;left:65%;">Fearless</span>
 </span>
 
 <span class="era-img-wrap">
-<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100"
-onclick="openPopup(event,'Taylor Swift','Pacifico','#6ee7b7')">
-<span class="album-label" style="font-family:Pacifico;color:#6ee7b7;">Taylor Swift</span>
+<img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100">
+<span class="album-label" style="font-family:Pacifico;color:#6ee7b7;font-size:32px;">Taylor Swift</span>
 </span>
 
 </marquee>
@@ -688,33 +630,6 @@ function setCursor(img, src){
   img.classList.add("selected");
   follower.src      = src;
   touchFollower.src = src;   // sync touch cursor too!
-}
-
-// =====================
-// POPUP
-// =====================
-let popupOpen = false;
-
-function openPopup(e, title, font, color){
-  e.stopPropagation();
-  if(popupOpen){ closePopup(); return; }
-
-  const box = e.target.getBoundingClientRect();
-  const t   = document.getElementById("floating-title");
-
-  t.innerHTML        = title;
-  t.style.fontFamily = font+",sans-serif";
-  t.style.color      = color;
-  t.style.left       = (box.left+box.width/2)+"px";
-  t.style.top        = box.top+"px";
-
-  document.getElementById("overlay").classList.add("active");
-  popupOpen = true;
-}
-
-function closePopup(){
-  document.getElementById("overlay").classList.remove("active");
-  popupOpen = false;
 }
 
 // =====================
@@ -777,6 +692,56 @@ function spawnTouchGlitter(x, y){
 }
 
 // =====================
+// TYPEWRITER EFFECT FOR ALBUM LABELS
+// =====================
+document.querySelectorAll('.album-label').forEach(function(label){
+  label.dataset.fullText = label.textContent.replace(/\|/g, '\n');
+  label.textContent = '';
+});
+
+function typeLabel(label){
+  if(!label) return;
+  clearInterval(label._typeInterval);
+  clearTimeout(label._resetTimeout);
+  const text = label.dataset.fullText || '';
+  let i = 0;
+  label.textContent = '';
+  // Scale speed so the whole word/phrase always finishes typing in ~450ms,
+  // regardless of length — keeps long titles from getting cut off mid-type.
+  const speed = Math.max(12, Math.min(40, 450 / Math.max(text.length, 1)));
+  label._typeInterval = setInterval(function(){
+    label.textContent += text.charAt(i);
+    i++;
+    if(i >= text.length){
+      clearInterval(label._typeInterval);
+    }
+  }, speed);
+}
+
+function resetLabel(label){
+  if(!label) return;
+  // Small grace delay so a brief hover flicker (e.g. from the scrolling
+  // marquee) doesn't instantly wipe out text that's mid-type.
+  clearTimeout(label._resetTimeout);
+  label._resetTimeout = setTimeout(function(){
+    clearInterval(label._typeInterval);
+    label.textContent = '';
+  }, 180);
+}
+
+document.querySelectorAll('.era-img-wrap').forEach(function(wrap){
+  const label = wrap.querySelector('.album-label');
+  wrap.addEventListener('mouseenter', function(){
+    label.classList.add('show');
+    typeLabel(label);
+  });
+  wrap.addEventListener('mouseleave', function(){
+    label.classList.remove('show');
+    resetLabel(label);
+  });
+});
+
+// =====================
 // TOUCH: ALBUM LABEL ON FINGER-HOVER
 // =====================
 let lastTouchedWrap = null;
@@ -787,8 +752,14 @@ document.addEventListener("touchmove", function(e){
   const wrap = el ? el.closest(".era-img-wrap") : null;
 
   if(wrap !== lastTouchedWrap){
-    if(lastTouchedWrap) lastTouchedWrap.classList.remove("touch-active");
-    if(wrap) wrap.classList.add("touch-active");
+    if(lastTouchedWrap){
+      lastTouchedWrap.classList.remove("touch-active");
+      resetLabel(lastTouchedWrap.querySelector('.album-label'));
+    }
+    if(wrap){
+      wrap.classList.add("touch-active");
+      typeLabel(wrap.querySelector('.album-label'));
+    }
     lastTouchedWrap = wrap;
   }
 }, {passive:true});
@@ -797,7 +768,10 @@ document.addEventListener("touchend", function(){
   if(lastTouchedWrap){
     // keep label visible briefly after lifting finger, then fade
     const el = lastTouchedWrap;
-    setTimeout(()=>{ el.classList.remove("touch-active"); }, 900);
+    setTimeout(function(){
+      el.classList.remove("touch-active");
+      resetLabel(el.querySelector('.album-label'));
+    }, 900);
     lastTouchedWrap = null;
   }
 }, {passive:true});
