@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&family=Cinzel&family=UnifrakturMaguntia&family=Space+Mono&family=Libre+Baskerville:ital@1&family=Pacifico&family=Dancing+Script:wght@700&family=Special+Elite&family=Playfair+Display:ital@1&family=Pinyon+Script&family=Abril+Fatface&family=Courier+Prime:wght@700&family=Oswald:wght@600&family=Caveat:wght@700&family=Cormorant+Garamond:ital@1&family=EB+Garamond:ital@1&family=Satisfy&family=UnifrakturCook:wght@700&family=Permanent+Marker&family=Anton&family=Work+Sans:wght@600&family=Yellowtail&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   BASE RESET
+============================================================ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: "Kirang Haerang", sans-serif;
+  font-size: 25px;
+  background: #12001f;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.page-bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 1;
+  filter: saturate(1.2) contrast(1.05) brightness(1);
+  will-change: transform, opacity;
+}
+
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 20% 15%, rgba(255,255,255,0.14), transparent 18%),
+              radial-gradient(circle at 80% 10%, rgba(255,192,203,0.18), transparent 20%),
+              radial-gradient(circle at 50% 80%, rgba(255,255,255,0.09), transparent 24%);
+  pointer-events: none;
+}
+
+.heart-particle,
+.sparkle-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0;
+  transform-origin: center;
+}
+
+.heart-particle {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, #ff5ec4 0%, #ff9be4 45%, #ffffff 100%);
+  clip-path: path('M26 4c-6.6 0-12 5.4-12 12 0 7.5 12 18 12 18s12-10.5 12-18c0-6.6-5.4-12-12-12z');
+  filter: drop-shadow(0 0 18px rgba(255,123,198,0.55));
+}
+
+.sparkle-particle {
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, rgba(255,255,255,0.98) 0%, rgba(255,218,248,0.9) 60%, transparent 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(255,255,255,0.9);
+}
+
+@keyframes heartRise {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+  20%  { opacity: 1; transform: translate(-50%, -70%) scale(1.05); }
+  100% { opacity: 0; transform: translate(-50%, -250%) scale(1.15); }
+}
+
+@keyframes sparklePop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  40%  { opacity: 1; transform: translate(-50%, -70%) scale(1.1); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.2); }
+}
+
+/* ============================================================
+   PAGE TITLE
+============================================================ */
+.page-title {
+  color: mediumvioletred;
+  font-family: "Kirang Haerang", sans-serif;
+  font-size: 55px;
+  text-align: left;
+  margin: 20px 0 20px 25px;
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+.cursor-pic {
+  position: fixed;
+  width: 80px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+}
+
+.cursor-touch {
+  position: fixed;
+  width: 80px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  display: none;
+}
+
+/* ============================================================
+   BUTTERFLIES
+============================================================ */
+.butterfly {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 8000;
+}
+.butterfly img {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  animation: flap .35s infinite alternate ease-in-out;
+  transform-origin: center;
+}
+@keyframes flap {
+  from { transform: scale(.92); }
+  to   { transform: scale(1.08); }
+}
+
+/* ============================================================
+   GLITTER
+============================================================ */
+.glitter {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  animation: glitter .55s forwards ease-out;
+}
+@keyframes glitter {
+  0%   { opacity:1; transform:scale(1.5); }
+  100% { opacity:0; transform:translate(var(--tx),var(--ty)) scale(0) rotate(180deg); }
+}
+.glitter-touch {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  animation: glitter-touch 0.7s forwards ease-out;
+}
+@keyframes glitter-touch {
+  0%   { opacity:1; transform:scale(1.8); }
+  100% { opacity:0; transform:translate(var(--tx),var(--ty)) scale(0) rotate(200deg); }
+}
+
+/* ============================================================
+   TOOLBAR
+============================================================ */
+.top-toolbar {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  z-index: 1000;
+}
+.toolbar-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff0f8;
+  padding: 8px 12px;
+  border-radius: 25px;
+  border: 2px dashed mediumvioletred;
+}
+.toolbar-title {
+  font-size: 12px;
+  color: mediumvioletred;
+  font-weight: bold;
+  font-family: "Kirang Haerang";
+}
+.bracelet-option img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: none;
+  transition: .25s;
+}
+.bracelet-option img:hover  { transform: scale(1.2); }
+.bracelet-option img.selected {
+  border: 2px solid mediumvioletred;
+  box-shadow: 0 0 8px hotpink;
+}
+.glitter-option {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 6px rgba(0,0,0,.2);
+  transition: .25s;
+}
+.glitter-option:hover { transform: scale(1.2); }
+
+/* ============================================================
+   ERA IMAGES
+============================================================ */
+.era-img-wrap {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.era-img {
+  width: 300px;
+  height: 300px;
+  display: block;
+  cursor: none;
+}
+.album-label {
+  display: none;
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-20%);
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  pointer-events: none;
+  animation: labelPop .25s;
+  z-index: 100;
+}
+.album-label.two-line {
+  white-space: pre-line;
+  line-height: 1.15;
+  width: max-content;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.album-label.show { display: block; }
+.era-img-wrap.touch-active .album-label { display: block; }
+@keyframes labelPop {
+  from { opacity:0; transform:translateX(-20%) scale(0.85); }
+  to   { opacity:1; transform:translateX(-20%) scale(1); }
+}
+
+/* ============================================================
+   MARQUEE  — pure CSS animation approach
+   
+   HOW THE GAP WORKS:
+   Each .marquee-track holds ONE set of images.
+   We place TWO .marquee-track elements side by side inside
+   .marquee-belt (a flex row, no gap).
+   
+   Row 1 (scrolls left):
+     [set A][set A]  both animated with marquee-left
+     Animation moves from translateX(0) to translateX(-100%)
+     at 100% it jumps back to 0 — seamless because set A = set A
+   
+   GAP: We add padding-right to each .marquee-track equal to
+   the gap we want. This padding is PART of the 100% width,
+   so when the loop resets the gap is always visible.
+   No JS. No measurement. No can fail.
+============================================================ */
+
+.marquee-viewport {
+  overflow: hidden;
+  width: 100%;
+  margin: 60px 0;
+  padding: 20px 0;
+}
+
+/* belt holds two identical copies side by side */
+.marquee-belt {
+  display: flex;
+  width: max-content;
+}
+
+/* one set of all 12 era images */
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+  /* right padding = the cycle gap (plain whitespace before loop repeats) */
+  padding-right: 600px;
+  flex-shrink: 0;
+  /* TEMP DIAGNOSTIC: bright red so the gap zone is unmissable.
+     Delete this background line once you've confirmed it's visible. */
+  background: linear-gradient(to right, transparent calc(100% - 600px), red calc(100% - 600px));
+}
+
+/* LEFT-scrolling row */
+.scroll-left .marquee-belt {
+  animation: scroll-left var(--dur, 40s) linear infinite;
+}
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* RIGHT-scrolling row */
+.scroll-right .marquee-belt {
+  animation: scroll-right var(--dur, 40s) linear infinite;
+}
+@keyframes scroll-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* slow down on hover (hover on the viewport slows the whole row) */
+.marquee-viewport:hover .marquee-belt {
+  animation-play-state: running;
+}
+.marquee-track .era-img-wrap:hover ~ * { /* JS handles per-image slowdown */ }
+
+/* ============================================================
+   MOBILE
+============================================================ */
+#mobileSettingsBtn { display: none; }
+
+@media (max-width: 768px) {
+  .cursor-pic  { display: none !important; }
+  .cursor-touch { display: block; }
+  body { cursor: auto; }
+
+  #mobileSettingsBtn {
+    display: flex;
+    position: fixed;
+    top: 15px; right: 15px;
+    width: 52px; height: 52px;
+    border: none; border-radius: 50%;
+    background: #fff0f8;
+    box-shadow: 0 4px 12px rgba(0,0,0,.18);
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    z-index: 9999;
+  }
+
+  .top-toolbar {
+    position: fixed;
+    top: 75px; right: 15px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background: white;
+    padding: 12px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.2);
+    max-width: 250px;
+    z-index: 9998;
+  }
+  .top-toolbar.show { display: flex; }
+  .toolbar-section  { justify-content: center; flex-wrap: wrap; }
+
+  .page-title { font-size: 28px; margin: 15px; }
+  .cursor-touch { width: 60px; }
+  .butterfly    { width: 45px; }
+
+  .bracelet-option img {
+    width: 42px; height: 42px;
+    object-fit: cover; object-position: center;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: 0.25s;
+  }
+  .bracelet-option img.selected {
+    border: 2px solid mediumvioletred;
+    box-shadow: 0 0 8px hotpink;
+  }
+  .bracelet-option { width:46px; height:46px; display:flex; justify-content:center; align-items:center; }
+
+  .era-img { width: 180px; height: 180px; }
+  .marquee-track { gap: 18px; padding-right: 360px; }
+  .marquee-viewport { margin: 30px 0; padding: 12px 0; }
+}
+
+@media (max-width: 480px) {
+  .page-title  { font-size: 25px; }
+  .era-img     { width: 140px; height: 140px; }
+  .cursor-touch { width: 40px; }
+  .butterfly   { width: 35px; }
+  .marquee-track { padding-right: 280px; }
+}
+</style>
+</head>
+
+<body>
+
+<video class="page-bg-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+  <source src="MyAnimation2 - LOOP - Videobolt.net.mp4" type="video/mp4">
+  Your browser does not support HTML video.
+</video>
+<div class="video-overlay"></div>
+
+<h1 class="page-title">Taylor Swift Era's Lookbook</h1>
+
+<img class="cursor-pic" id="follower"
+  src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg"
+  draggable="false">
+
+<img class="cursor-touch" id="touchFollower"
+  src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg"
+  draggable="false">
+
+<button id="mobileSettingsBtn">🌟</button>
+
+<div class="top-toolbar">
+  <div class="toolbar-section">
+    <span class="toolbar-title">Bracelet</span>
+    <div class="bracelet-option">
+      <img src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg" onclick="setCursor(this,this.src)" class="selected">
+    </div>
+    <div class="bracelet-option">
+      <img src="https://www.image2url.com/r2/default/images/1782497503545-0fafd8e5-0b51-4636-8ece-cc0fd430553b.webp" style="transform:scale(1.2);" onclick="setCursor(this,this.src)">
+    </div>
+    <div class="bracelet-option">
+      <img src="https://www.image2url.com/r2/default/images/1782497654755-3cc60952-d67b-4911-b5d2-cc9835614a56.webp" onclick="setCursor(this,this.src)">
+    </div>
+    <div class="bracelet-option">
+      <img src="https://www.image2url.com/r2/default/images/1782497796607-6272093f-234c-4793-a102-de06d3e20589.webp" onclick="setCursor(this,this.src)">
+    </div>
+  </div>
+
+  <div class="toolbar-section">
+    <span class="toolbar-title">Glitter</span>
+    <div class="glitter-option" style="background:white;"   onclick="setGlitter(['#ffffff','#f8f8f8','#e6e6fa'])"></div>
+    <div class="glitter-option" style="background:#ff69b4;" onclick="setGlitter(['#ff69b4','#ffc0cb','#ffd6f5'])"></div>
+    <div class="glitter-option" style="background:#c084fc;" onclick="setGlitter(['#c084fc','#f3e8ff','#e9d5ff'])"></div>
+    <div class="glitter-option" style="background:#60a5fa;" onclick="setGlitter(['#60a5fa','#bfdbfe','#dbeafe'])"></div>
+    <div class="glitter-option" style="background:#ffd700;" onclick="setGlitter(['#ffd700','#fff8b5','#fff59d'])"></div>
+    <div class="glitter-option" style="background:linear-gradient(45deg,red,orange,yellow,green,blue,purple);" onclick="setGlitter(['rainbow'])"></div>
+  </div>
+</div>
+
+<!-- ===================== ROW 1 — scrolls LEFT ===================== -->
+<div class="marquee-viewport scroll-left" style="--dur:45s">
+  <div class="marquee-belt" id="belt1">
+
+    <!-- COPY A -->
+    <div class="marquee-track">
+      <a class="era-img-wrap" href="showgirl.html"><img class="era-img" src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"><span class="album-label two-line" style="font-family:Cinzel;color:#3a4a8a;font-size:18px;">The Life of a|Showgirl</span></a>
+      <a class="era-img-wrap" href="ttpd.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"><span class="album-label two-line" style="font-family:'Special Elite';color:#555555;font-size:18px;">The Tortured|Poets Department</span></a>
+      <a class="era-img-wrap" href="midnights.html"><img class="era-img" src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"><span class="album-label" style="font-family:'Work Sans';font-weight:600;color:#6b5a3e;font-size:24px;">Midnights</span></a>
+      <a class="era-img-wrap" href="evermore.html"><img class="era-img" src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"><span class="album-label" style="font-family:'Libre Baskerville';color:#7a4f20;text-transform:lowercase;font-size:24px;">Evermore</span></a>
+      <a class="era-img-wrap" href="folklore.html"><img class="era-img" src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg"><span class="album-label" style="font-family:'EB Garamond';font-style:italic;color:#4a4a4a;text-transform:lowercase;font-size:32px;">Folklore</span></a>
+      <a class="era-img-wrap" href="lover.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"><span class="album-label" style="font-family:Satisfy;color:#c4005a;font-size:40px;">Lover</span></a>
+      <a class="era-img-wrap" href="reputation.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"><span class="album-label" style="font-family:'UnifrakturCook';font-weight:700;color:#111111;font-size:30px;">Reputation</span></a>
+      <a class="era-img-wrap" href="1989.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"><span class="album-label" style="font-family:'Permanent Marker';color:#1a5a7a;font-size:40px;left:78%;">1989</span></a>
+      <a class="era-img-wrap" href="red.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10"><span class="album-label" style="font-family:Oswald;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7a0f1e;font-size:34px;left:78%;">Red</span></a>
+      <a class="era-img-wrap" href="speaknow.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10"><span class="album-label" style="font-family:'Pinyon Script';font-size:32px;color:#5a2a8a;">Speak Now</span></a>
+      <a class="era-img-wrap" href="fearless.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"><span class="album-label" style="font-family:'Dancing Script';font-size:32px;color:#9a7a00;left:65%;">Fearless</span></a>
+      <a class="era-img-wrap" href="taylorswift.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100"><span class="album-label" style="font-family:Pacifico;color:#1a7a5a;font-size:32px;">Taylor Swift</span></a>
+    </div>
+
+    <!-- COPY B (identical — CSS animates belt from 0 to -50%, creating seamless loop) -->
+    <div class="marquee-track">
+      <a class="era-img-wrap" href="showgirl.html"><img class="era-img" src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"><span class="album-label two-line" style="font-family:Cinzel;color:#3a4a8a;font-size:18px;">The Life of a|Showgirl</span></a>
+      <a class="era-img-wrap" href="ttpd.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"><span class="album-label two-line" style="font-family:'Special Elite';color:#555555;font-size:18px;">The Tortured|Poets Department</span></a>
+      <a class="era-img-wrap" href="midnights.html"><img class="era-img" src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"><span class="album-label" style="font-family:'Work Sans';font-weight:600;color:#6b5a3e;font-size:24px;">Midnights</span></a>
+      <a class="era-img-wrap" href="evermore.html"><img class="era-img" src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"><span class="album-label" style="font-family:'Libre Baskerville';color:#7a4f20;text-transform:lowercase;font-size:24px;">Evermore</span></a>
+      <a class="era-img-wrap" href="folklore.html"><img class="era-img" src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg"><span class="album-label" style="font-family:'EB Garamond';font-style:italic;color:#4a4a4a;text-transform:lowercase;font-size:32px;">Folklore</span></a>
+      <a class="era-img-wrap" href="lover.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"><span class="album-label" style="font-family:Satisfy;color:#c4005a;font-size:40px;">Lover</span></a>
+      <a class="era-img-wrap" href="reputation.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"><span class="album-label" style="font-family:'UnifrakturCook';font-weight:700;color:#111111;font-size:30px;">Reputation</span></a>
+      <a class="era-img-wrap" href="1989.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"><span class="album-label" style="font-family:'Permanent Marker';color:#1a5a7a;font-size:40px;left:78%;">1989</span></a>
+      <a class="era-img-wrap" href="red.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10"><span class="album-label" style="font-family:Oswald;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7a0f1e;font-size:34px;left:78%;">Red</span></a>
+      <a class="era-img-wrap" href="speaknow.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10"><span class="album-label" style="font-family:'Pinyon Script';font-size:32px;color:#5a2a8a;">Speak Now</span></a>
+      <a class="era-img-wrap" href="fearless.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"><span class="album-label" style="font-family:'Dancing Script';font-size:32px;color:#9a7a00;left:65%;">Fearless</span></a>
+      <a class="era-img-wrap" href="taylorswift.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100"><span class="album-label" style="font-family:Pacifico;color:#1a7a5a;font-size:32px;">Taylor Swift</span></a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ===================== ROW 2 — scrolls RIGHT ===================== -->
+<div class="marquee-viewport scroll-right" style="--dur:45s">
+  <div class="marquee-belt" id="belt2">
+
+    <!-- COPY A -->
+    <div class="marquee-track">
+      <a class="era-img-wrap" href="showgirl.html"><img class="era-img" src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"><span class="album-label two-line" style="font-family:Cinzel;color:#3a4a8a;font-size:18px;">The Life of a|Showgirl</span></a>
+      <a class="era-img-wrap" href="ttpd.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"><span class="album-label two-line" style="font-family:'Special Elite';color:#555555;font-size:18px;">The Tortured|Poets Department</span></a>
+      <a class="era-img-wrap" href="midnights.html"><img class="era-img" src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"><span class="album-label" style="font-family:'Work Sans';font-weight:600;color:#6b5a3e;font-size:24px;">Midnights</span></a>
+      <a class="era-img-wrap" href="evermore.html"><img class="era-img" src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"><span class="album-label" style="font-family:'Libre Baskerville';color:#7a4f20;text-transform:lowercase;font-size:24px;">Evermore</span></a>
+      <a class="era-img-wrap" href="folklore.html"><img class="era-img" src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg"><span class="album-label" style="font-family:'EB Garamond';font-style:italic;color:#4a4a4a;text-transform:lowercase;font-size:32px;">Folklore</span></a>
+      <a class="era-img-wrap" href="lover.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"><span class="album-label" style="font-family:Satisfy;color:#c4005a;font-size:40px;">Lover</span></a>
+      <a class="era-img-wrap" href="reputation.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"><span class="album-label" style="font-family:'UnifrakturCook';font-weight:700;color:#111111;font-size:30px;">Reputation</span></a>
+      <a class="era-img-wrap" href="1989.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"><span class="album-label" style="font-family:'Permanent Marker';color:#1a5a7a;font-size:40px;left:78%;">1989</span></a>
+      <a class="era-img-wrap" href="red.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10"><span class="album-label" style="font-family:Oswald;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7a0f1e;font-size:34px;left:78%;">Red</span></a>
+      <a class="era-img-wrap" href="speaknow.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10"><span class="album-label" style="font-family:'Pinyon Script';font-size:32px;color:#5a2a8a;">Speak Now</span></a>
+      <a class="era-img-wrap" href="fearless.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"><span class="album-label" style="font-family:'Dancing Script';font-size:32px;color:#9a7a00;left:65%;">Fearless</span></a>
+      <a class="era-img-wrap" href="taylorswift.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100"><span class="album-label" style="font-family:Pacifico;color:#1a7a5a;font-size:32px;">Taylor Swift</span></a>
+    </div>
+
+    <!-- COPY B -->
+    <div class="marquee-track">
+      <a class="era-img-wrap" href="showgirl.html"><img class="era-img" src="https://i.cdn.newsbytesapp.com/images/l56420251104124224.jpeg"><span class="album-label two-line" style="font-family:Cinzel;color:#3a4a8a;font-size:18px;">The Life of a|Showgirl</span></a>
+      <a class="era-img-wrap" href="ttpd.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX658oMOfpDhV2WOPQnfw2zqU6iH7vVnRZMrnRWfBRIXnDLBc3p8LNXhI&s=10"><span class="album-label two-line" style="font-family:'Special Elite';color:#555555;font-size:18px;">The Tortured|Poets Department</span></a>
+      <a class="era-img-wrap" href="midnights.html"><img class="era-img" src="https://images.squarespace-cdn.com/content/v1/56f4179737013bbfb02fd393/1668451248063-UNMHIR3ANK4K0P0XVVYT/Screen+Shot+2022-11-14+at+12.39.03+PM.png"><span class="album-label" style="font-family:'Work Sans';font-weight:600;color:#6b5a3e;font-size:24px;">Midnights</span></a>
+      <a class="era-img-wrap" href="evermore.html"><img class="era-img" src="https://i.pinimg.com/736x/9b/6f/75/9b6f759a2370d92315fadbb04839fa4d.jpg"><span class="album-label" style="font-family:'Libre Baskerville';color:#7a4f20;text-transform:lowercase;font-size:24px;">Evermore</span></a>
+      <a class="era-img-wrap" href="folklore.html"><img class="era-img" src="https://media.newyorker.com/photos/5f1b0fe8d4b98d588c5cd28d/master/w_1600,c_limit/Petrusich-TaylorSwift.jpg"><span class="album-label" style="font-family:'EB Garamond';font-style:italic;color:#4a4a4a;text-transform:lowercase;font-size:32px;">Folklore</span></a>
+      <a class="era-img-wrap" href="lover.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd14r06CP--JJCwzxZ4klGFICaLH6Tyh6iGh06HrI9Q&s=10"><span class="album-label" style="font-family:Satisfy;color:#c4005a;font-size:40px;">Lover</span></a>
+      <a class="era-img-wrap" href="reputation.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrY3XAzhAsDw3BgsUslh_coHvaaCcNaJwyeztRFiTLuA&s=10"><span class="album-label" style="font-family:'UnifrakturCook';font-weight:700;color:#111111;font-size:30px;">Reputation</span></a>
+      <a class="era-img-wrap" href="1989.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNU5kHu34nW1-ZKxqjHKU-XXR9ybFvsAW3SOXXD3avvQ&s=10"><span class="album-label" style="font-family:'Permanent Marker';color:#1a5a7a;font-size:40px;left:78%;">1989</span></a>
+      <a class="era-img-wrap" href="red.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10"><span class="album-label" style="font-family:Oswald;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7a0f1e;font-size:34px;left:78%;">Red</span></a>
+      <a class="era-img-wrap" href="speaknow.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10"><span class="album-label" style="font-family:'Pinyon Script';font-size:32px;color:#5a2a8a;">Speak Now</span></a>
+      <a class="era-img-wrap" href="fearless.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"><span class="album-label" style="font-family:'Dancing Script';font-size:32px;color:#9a7a00;left:65%;">Fearless</span></a>
+      <a class="era-img-wrap" href="taylorswift.html"><img class="era-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100"><span class="album-label" style="font-family:Pacifico;color:#1a7a5a;font-size:32px;">Taylor Swift</span></a>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+/* ============================================================
+   CURSOR — mouse
+============================================================ */
+const follower      = document.getElementById("follower");
+const touchFollower = document.getElementById("touchFollower");
+
+document.addEventListener("mousemove", e => {
+  follower.style.left = e.clientX + "px";
+  follower.style.top  = e.clientY + "px";
+});
+
+/* ============================================================
+   CURSOR — touch
+============================================================ */
+let touchX = -200, touchY = -200;
+(function tickTouch(){
+  touchFollower.style.left = touchX + "px";
+  touchFollower.style.top  = touchY + "px";
+  requestAnimationFrame(tickTouch);
+})();
+
+document.addEventListener("touchstart", onTouch, {passive:true});
+document.addEventListener("touchmove",  onTouch, {passive:true});
+function onTouch(e){
+  const t = e.touches[0];
+  touchX = t.clientX;
+  touchY = t.clientY;
+  spawnTouchGlitter(t.clientX, t.clientY);
+}
+
+/* ============================================================
+   PREVENT NAV ON DRAG
+============================================================ */
+let pointerStartX = 0;
+document.addEventListener("mousedown", e => { pointerStartX = e.clientX; });
+document.addEventListener("click", e => {
+  if(Math.abs(e.clientX - pointerStartX) > 8) e.preventDefault();
+}, true);
+
+/* ============================================================
+   SET CURSOR IMAGE
+============================================================ */
+function setCursor(img, src){
+  document.querySelectorAll(".bracelet-option img").forEach(i => i.classList.remove("selected"));
+  img.classList.add("selected");
+  follower.src      = src;
+  touchFollower.src = src;
+}
+
+/* ============================================================
+   GLITTER
+============================================================ */
+let glitterColors = ["#ffffff","#f8f8f8","#e6e6fa"];
+
+function setGlitter(colors){
+  glitterColors = colors[0] === "rainbow"
+    ? ["#ff4d4d","#ffb84d","#ffee58","#81ff81","#5ec8ff","#9b7bff","#ff7ce5"]
+    : colors;
+}
+
+function makeGlitter(x, y, isTouch){
+  const g = document.createElement("div");
+  g.className = isTouch ? "glitter-touch" : "glitter";
+  const size   = Math.random() * (isTouch ? 10 : 7) + (isTouch ? 4 : 3);
+  const spread = isTouch ? 32 : 24;
+  g.style.width  = size + "px";
+  g.style.height = size + "px";
+  g.style.left   = (x + (Math.random()-.5)*spread) + "px";
+  g.style.top    = (y + (Math.random()-.5)*spread) + "px";
+  const col = glitterColors[Math.floor(Math.random()*glitterColors.length)];
+  g.style.background = col;
+  g.style.clipPath   = "polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%)";
+  g.style.boxShadow  = `0 0 5px ${col},0 0 10px ${col},0 0 18px white`;
+  const fly = isTouch ? 50 : 35;
+  g.style.setProperty("--tx", (Math.random()-.5)*fly + "px");
+  g.style.setProperty("--ty", (Math.random()-.5)*fly + "px");
+  document.body.appendChild(g);
+  setTimeout(() => g.remove(), isTouch ? 800 : 700);
+}
+
+function makeHeart(x, y){
+  const h = document.createElement("div");
+  h.className = "heart-particle";
+  h.style.left = x + "px";
+  h.style.top  = y + "px";
+  h.style.animation = `heartRise ${1.8 + Math.random()*0.5}s ease-out forwards`;
+  h.style.transform = "translate(-50%, -50%) scale(0.9)";
+  document.body.appendChild(h);
+  spawnHeartSparkles(x, y);
+  setTimeout(() => h.remove(), 2200);
+}
+
+function spawnHeartSparkles(x, y){
+  const count = 6 + Math.floor(Math.random()*5);
+  for(let i=0;i<count;i++){
+    const s = document.createElement("div");
+    s.className = "sparkle-particle";
+    const tx = (Math.random()-.5) * 120;
+    const ty = (Math.random()-.75) * 120;
+    s.style.left = x + "px";
+    s.style.top  = y + "px";
+    s.style.setProperty("--tx", `${tx}px`);
+    s.style.setProperty("--ty", `${ty}px`);
+    s.style.animation = `sparklePop ${0.95 + Math.random()*0.35}s ease-out forwards`;
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 1200);
+  }
+}
+
+document.addEventListener("mousemove", e => {
+  for(let i=0;i<8;i++) makeGlitter(e.clientX, e.clientY, false);
+  if(Math.random() < 0.18) makeHeart(e.clientX + (Math.random()-0.5)*60, e.clientY + (Math.random()-0.5)*60);
+});
+
+document.addEventListener("click", e => {
+  makeHeart(e.clientX, e.clientY);
+  makeHeart(e.clientX + 26, e.clientY - 18);
+});
+
+function spawnFloatingHeart(){
+  const x = Math.random() * window.innerWidth;
+  const y = window.innerHeight + 40;
+  makeHeart(x, y);
+  if(Math.random() < 0.45){
+    makeHeart(x + (Math.random()-.5) * 140, y - 18);
+  }
+}
+
+setInterval(spawnFloatingHeart, 520);
+
+const bgVideo = document.querySelector(".page-bg-video");
+if(bgVideo){
+  bgVideo.addEventListener("ended", () => bgVideo.play());
+  bgVideo.addEventListener("loadeddata", () => { bgVideo.style.opacity = "1"; });
+}
+
+let lastTouchGlitter = 0;
+function spawnTouchGlitter(x, y){
+  const now = Date.now();
+  if(now - lastTouchGlitter < 30) return;
+  lastTouchGlitter = now;
+  for(let i=0;i<9;i++) makeGlitter(x, y, true);
+}
+
+/* ============================================================
+   TYPEWRITER LABELS
+============================================================ */
+document.querySelectorAll(".album-label").forEach(lbl => {
+  lbl.dataset.full = lbl.textContent.replace(/\|/g, "\n");
+  lbl.textContent  = "";
+});
+
+function typeLabel(lbl){
+  if(!lbl) return;
+  clearInterval(lbl._ti); clearTimeout(lbl._rt);
+  const text = lbl.dataset.full || "";
+  let i = 0;
+  lbl.textContent = "";
+  const spd = Math.max(12, Math.min(40, 450 / Math.max(text.length,1)));
+  lbl._ti = setInterval(() => {
+    lbl.textContent += text[i++];
+    if(i >= text.length) clearInterval(lbl._ti);
+  }, spd);
+}
+
+function resetLabel(lbl){
+  if(!lbl) return;
+  lbl._rt = setTimeout(() => {
+    clearInterval(lbl._ti);
+    lbl.textContent = "";
+  }, 180);
+}
+
+document.querySelectorAll(".era-img-wrap").forEach(wrap => {
+  const lbl = wrap.querySelector(".album-label");
+  if(!lbl) return;
+  wrap.addEventListener("mouseenter", () => { lbl.classList.add("show"); typeLabel(lbl); });
+  wrap.addEventListener("mouseleave", () => { lbl.classList.remove("show"); resetLabel(lbl); });
+});
+
+/* touch label */
+let lastTouchWrap = null;
+document.addEventListener("touchmove", e => {
+  const el   = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+  const wrap = el ? el.closest(".era-img-wrap") : null;
+  if(wrap === lastTouchWrap) return;
+  if(lastTouchWrap){ lastTouchWrap.classList.remove("touch-active"); resetLabel(lastTouchWrap.querySelector(".album-label")); }
+  if(wrap){ wrap.classList.add("touch-active"); typeLabel(wrap.querySelector(".album-label")); }
+  lastTouchWrap = wrap;
+}, {passive:true});
+
+document.addEventListener("touchend", () => {
+  if(lastTouchWrap){
+    const el = lastTouchWrap;
+    setTimeout(() => { el.classList.remove("touch-active"); resetLabel(el.querySelector(".album-label")); }, 900);
+    lastTouchWrap = null;
+  }
+}, {passive:true});
+
+/* ============================================================
+   SPEED CONTROL via CSS custom property on the belt
+   Moving cursor right = faster; hovering an image = slower
+   We update the animation-duration on the belt element.
+   Shorter duration = faster.
+============================================================ */
+const belt1 = document.getElementById("belt1");
+const belt2 = document.getElementById("belt2");
+
+const BASE_DUR = 45;  // seconds for one full cycle at cursor-left
+const MIN_DUR  = 18;  // fastest (cursor at right edge)
+const HOVER_DUR = 90; // slowest (hovering an image)
+
+function setDur(belt, dur){
+  // Changing animation-duration mid-play resets from 0 in older browsers,
+  // so we use animation-delay trick: pause + recalculate remaining progress.
+  // Simpler approach that works everywhere: just set it; modern browsers
+  // maintain proportional progress when duration changes.
+  belt.style.animationDuration = dur + "s";
+}
+
+document.addEventListener("mousemove", e => {
+  const ratio = Math.min(Math.max(e.clientX / window.innerWidth, 0), 1);
+  const dur   = BASE_DUR - ratio * (BASE_DUR - MIN_DUR);
+  if(!belt1._hovering) setDur(belt1, dur);
+  if(!belt2._hovering) setDur(belt2, dur);
+});
+
+document.querySelectorAll("#belt1 .era-img-wrap").forEach(w => {
+  w.addEventListener("mouseenter", () => { belt1._hovering = true;  setDur(belt1, HOVER_DUR); });
+  w.addEventListener("mouseleave", () => { belt1._hovering = false; });
+});
+document.querySelectorAll("#belt2 .era-img-wrap").forEach(w => {
+  w.addEventListener("mouseenter", () => { belt2._hovering = true;  setDur(belt2, HOVER_DUR); });
+  w.addEventListener("mouseleave", () => { belt2._hovering = false; });
+});
+
+/* ============================================================
+   BUTTERFLIES
+============================================================ */
+const bImgs = [
+  "https://www.image2url.com/r2/default/images/1782471017304-4bdf7140-c1d3-4047-a91c-e9be0ce13167.jpg",
+  "https://www.image2url.com/r2/default/images/1782471475997-1d011609-acf4-4342-977a-5a41b3a664f8.jpg"
+];
+[[.15,.2],[.75,.25],[.25,.75],[.8,.7]].forEach((s,i) => {
+  const b = document.createElement("div");
+  b.className = "butterfly";
+  b.innerHTML = `<img src="${bImgs[i%2]}" draggable="false">`;
+  document.body.appendChild(b);
+  flyButterfly(b, s[0]*innerWidth, s[1]*innerHeight, 1+Math.random()*.4);
+});
+
+function flyButterfly(el, x, y, m){
+  let angle = Math.random()*Math.PI*2, timer=0, zig=0;
+  const spd = (1+Math.random())*m;
+  (function step(){
+    timer++; zig+=.08;
+    angle += (Math.random()-.5)*.03;
+    if(timer>100){ angle+=(Math.random()-.5)*2.6; timer=0; }
+    const dx = Math.cos(angle)*spd - Math.sin(angle)*Math.sin(zig)*3;
+    const dy = Math.sin(angle)*spd + Math.cos(angle)*Math.sin(zig)*3;
+    x+=dx; y+=dy;
+    if(x<0){x=0;angle=Math.PI-angle;} if(x>innerWidth-50){x=innerWidth-50;angle=Math.PI-angle;}
+    if(y<0){y=0;angle=-angle;} if(y>innerHeight-50){y=innerHeight-50;angle=-angle;}
+    el.style.left      = x+"px";
+    el.style.top       = y+"px";
+    el.style.transform = dx<0?"scaleX(-1)":"scaleX(1)";
+    requestAnimationFrame(step);
+  })();
+}
+
+/* ============================================================
+   MOBILE SETTINGS TOGGLE
+============================================================ */
+const mobileBtn = document.getElementById("mobileSettingsBtn");
+const toolbar   = document.querySelector(".top-toolbar");
+mobileBtn.addEventListener("click", () => toolbar.classList.toggle("show"));
+document.addEventListener("click", e => {
+  if(innerWidth > 768) return;
+  if(!toolbar.contains(e.target) && e.target !== mobileBtn) toolbar.classList.remove("show");
+});
+</script>
+</body>
+</html>
