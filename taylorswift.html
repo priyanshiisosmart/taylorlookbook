@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taylor Swift (Debut) â€” Lookbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffdf7;--accent:#1a7a5a;--text:#163a2f}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);font-family:'Playfair Display',serif;color:var(--text);overflow-x:hidden}
+.era-nav{display:flex;justify-content:space-between;align-items:center;padding:18px 30px}
+.nav-btn{padding:8px 18px;border-radius:24px;border:2px solid var(--accent);text-decoration:none;color:var(--accent);font-weight:700}
+.hero{display:flex;gap:30px;padding:40px;align-items:center}
+.hero-cover{width:260px;height:260px;object-fit:cover;border-radius:6px}
+.era-title{font-size:56px;color:var(--accent);font-weight:700}
+.section{padding:28px}
+</style>
+</head>
+<body>
+<nav class="era-nav"><a class="nav-btn" href="appp.html">âœ¦ Back to Lookbook âœ¦</a></nav>
+<nav class="era-nav"><a class="nav-btn" href="appp.html">âœ¦ Back to Lookbook âœ¦</a></nav>
+<section class="hero">
+  <img class="hero-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvV3kjWW0NpeARcQkdh1aBDX46QmOxOoy5_7QMnAy5IRJypSWnA4q9MjVY&s=100" alt="Taylor Swift debut cover">
+  <div>
+    <h1 class="era-title">Taylor Swift (Debut)</h1>
+    <p class="era-desc">Country-tinged singer-songwriter beginnings and youthful storytelling.</p>
+  </div>
+</section>
+<section class="section"><h2>Overview</h2><p>Scaffolded copy of Fearless page to keep site consistent.</p></section>
+<section class="tracklist-section">
+  <h2 class="section-heading">Tracklist</h2>
+  <table class="track-table">
+    <tbody>
+      <tr data-track="Tim McGraw" data-lyrics=""><td class="track-num">1</td><td class="track-title">Tim McGraw</td><td class="track-note"></td></tr>
+      <tr data-track="Picture to Burn" data-lyrics=""><td class="track-num">2</td><td class="track-title">Picture to Burn</td><td class="track-note"></td></tr>
+      <tr data-track="Teardrops on My Guitar" data-lyrics=""><td class="track-num">3</td><td class="track-title">Teardrops on My Guitar</td><td class="track-note"></td></tr>
+      <tr data-track="A Place in This World" data-lyrics=""><td class="track-num">4</td><td class="track-title">A Place in This World</td><td class="track-note"></td></tr>
+      <tr data-track="Cold as You" data-lyrics=""><td class="track-num">5</td><td class="track-title">Cold as You</td><td class="track-note"></td></tr>
+      <tr data-track="The Outside" data-lyrics=""><td class="track-num">6</td><td class="track-title">The Outside</td><td class="track-note"></td></tr>
+      <tr data-track="Tied Together with a Smile" data-lyrics=""><td class="track-num">7</td><td class="track-title">Tied Together with a Smile</td><td class="track-note"></td></tr>
+      <tr data-track="Stay Beautiful" data-lyrics=""><td class="track-num">8</td><td class="track-title">Stay Beautiful</td><td class="track-note"></td></tr>
+      <tr data-track="Should've Said No" data-lyrics=""><td class="track-num">9</td><td class="track-title">Should've Said No</td><td class="track-note"></td></tr>
+      <tr data-track="Mary's Song (Oh My My My)" data-lyrics=""><td class="track-num">10</td><td class="track-title">Mary's Song (Oh My My My)</td><td class="track-note"></td></tr>
+      <tr data-track="Our Song" data-lyrics=""><td class="track-num">11</td><td class="track-title">Our Song</td><td class="track-note"></td></tr>
+    </tbody>
+  </table>
+</section>
+<nav class="bottom-nav"><a class="nav-btn" href="appp.html">Back to Lookbook</a></nav>
+</body>
+</html>
+
+<!-- Lyrics modal injected by assistant -->
+<style>
+  .lyrics-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100000;visibility:hidden;opacity:0;transition:opacity .18s ease}
+  .lyrics-modal.open{visibility:visible;opacity:1}
+  .lyrics-modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+  .lyrics-modal__panel{position:relative;max-width:820px;width:92%;max-height:84vh;overflow:auto;padding:22px 20px;background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.35);z-index:100001}
+  .lyrics-modal__close{position:absolute;right:12px;top:8px;background:transparent;border:0;font-size:20px;cursor:pointer}
+  .lyrics-modal__title{font-weight:700;margin:0 0 8px 0}
+  .lyrics-modal__content pre{white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:15px;line-height:1.6}
+  .lyrics-modal__content .no-lyrics{color:#666;font-style:italic}
+</style>
+<div id="lyrics-modal" class="lyrics-modal" aria-hidden="true">
+  <div class="lyrics-modal__backdrop" role="presentation"></div>
+  <div class="lyrics-modal__panel" role="dialog" aria-modal="true">
+    <button class="lyrics-modal__close" aria-label="Close">✕</button>
+    <h3 class="lyrics-modal__title"></h3>
+    <div class="lyrics-modal__content"></div>
+  </div>
+</div>
+<script>
+(function(){
+  function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function showModal(title,lyrics){
+    const modal=document.getElementById('lyrics-modal');
+    modal.querySelector('.lyrics-modal__title').textContent = title || 'Track';
+    modal.querySelector('.lyrics-modal__content').innerHTML = lyrics ? '<pre>'+escapeHtml(lyrics)+'</pre>' : '<p class="no-lyrics">No lyrics pasted. Paste full lyrics into the track row\'s `data-lyrics` attribute to enable this.</p>';
+    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+  }
+  function hideModal(){ const modal=document.getElementById('lyrics-modal'); modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+
+  document.addEventListener('click', function(e){
+    if(e.target.closest && e.target.closest('.lyrics-modal__close')) return hideModal();
+    if(e.target.closest && e.target.closest('.lyrics-modal__backdrop')) return hideModal();
+    const tr = e.target.closest && e.target.closest('tr[data-track]');
+    if(!tr) return;
+    const title = tr.dataset.track || (tr.querySelector && (tr.querySelector('.track-title')||{}).textContent) || 'Track';
+    const lyrics = tr.dataset.lyrics || '';
+    showModal(title, lyrics);
+  });
+
+  document.querySelectorAll('table.track-table tbody tr').forEach((tr, idx)=>{
+    if(!tr.dataset.track){
+      const tcell = tr.querySelector && (tr.querySelector('.track-title') || tr.cells[1]);
+      tr.dataset-track = tcell ? (tcell.textContent||'').trim() : 'Track '+(idx+1);
+    }
+    if(!('lyrics' in tr.dataset)) tr.dataset.lyrics = '';
+    tr.style.cursor = 'pointer';
+  });
+})();
+</script>
+<!-- Butterflies initializer (injected) -->
+<script>
+(function(){
+  if(window._butterfliesInited) return; window._butterfliesInited = true;
+  const css = document.createElement('style'); css.textContent = `
+  .butterfly{position:fixed;width:50px;height:50px;pointer-events:none;z-index:8000}
+  .butterfly img{width:100%;height:100%;user-select:none;animation:flap .35s infinite alternate ease-in-out;transform-origin:center}
+  @keyframes flap{from{transform:scale(.92)}to{transform:scale(1.08)}}`;
+  document.head.appendChild(css);
+  const bImgs=["https://www.image2url.com/r2/default/images/1782471017304-4bdf7140-c1d3-4047-a91c-e9be0ce13167.jpg","https://www.image2url.com/r2/default/images/1782471475997-1d011609-acf4-4342-977a-5a41b3a664f8.jpg"];
+  const starts=[[0.15,0.2],[0.75,0.25],[0.25,0.75],[0.8,0.7]];
+  function flyButterfly(el,x,y,m){let angle=Math.random()*Math.PI*2,timer=0,zig=0;const speed=(1+Math.random())*m;(function anim(){timer++;zig+=0.08;angle+=(Math.random()-0.5)*0.03;if(timer>100){angle+=(Math.random()-0.5)*2.6;timer=0;}const dx=Math.cos(angle)*speed-Math.sin(angle)*Math.sin(zig)*3;const dy=Math.sin(angle)*speed+Math.cos(angle)*Math.sin(zig)*3;x+=dx;y+=dy;if(x<0){x=0;angle=Math.PI-angle;}if(x>window.innerWidth-50){x=window.innerWidth-50;angle=Math.PI-angle;}if(y<0){y=0;angle=-angle;}if(y>window.innerHeight-50){y=window.innerHeight-50;angle=-angle;}el.style.left=x+'px';el.style.top=y+'px';el.style.transform=dx<0?'scaleX(-1)':'scaleX(1)';requestAnimationFrame(anim)})();}
+  for(let i=0;i<4;i++){const b=document.createElement('div');b.className='butterfly';b.innerHTML=`<img src="${bImgs[i%2]}" draggable="false">`;document.body.appendChild(b);flyButterfly(b,starts[i][0]*window.innerWidth,starts[i][1]*window.innerHeight,1+Math.random()*0.4);} 
+})();
+</script>
+<!-- Full cursor + glitter initializer (matches appp.html) -->
+<script>
+(function(){
+  if(document.getElementById('follower')) return;
+  const f=document.createElement('img'); f.id='follower'; f.className='cursor-pic'; f.draggable=false; f.src='https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg'; document.body.appendChild(f);
+  const t=document.createElement('img'); t.id='touchFollower'; t.className='cursor-touch'; t.draggable=false; t.src=f.src; document.body.appendChild(t);
+
+  // cursor follow
+  document.addEventListener('mousemove', e=>{ f.style.left=e.clientX+'px'; f.style.top=e.clientY+'px'; for(let i=0;i<6;i++) makeGlitterParticle(e.clientX,e.clientY,false); });
+
+  // touch follower
+  let tx=-200,ty=-200; function raf(){ t.style.left=tx+'px'; t.style.top=ty+'px'; requestAnimationFrame(raf);} requestAnimationFrame(raf);
+
+  document.addEventListener('touchstart', ev=>{ tx=ev.touches[0].clientX; ty=ev.touches[0].clientY; spawnTouchGlitter(tx,ty); },{passive:true});
+  document.addEventListener('touchmove', ev=>{ tx=ev.touches[0].clientX; ty=ev.touches[0].clientY; spawnTouchGlitter(tx,ty); },{passive:true});
+
+  // bracelet cursor setter
+  window.setCursor = function(img, src){ try{ document.querySelectorAll('.bracelet-option img').forEach(i=>i.classList.remove('selected')); if(img) img.classList.add('selected'); f.src = src; t.src = src; }catch(e){}
+  }
+
+  // glitter palette
+  window.glitterColors = ["#ffffff","#f8f8f8","#e6e6fa"];
+  window.setGlitter = function(colors){ if(colors && colors[0]==="rainbow"){ window.glitterColors = ["#ff4d4d","#ffb84d","#ffee58","#81ff81","#5ec8ff","#9b7bff","#ff7ce5"]; } else if(colors && colors.length){ window.glitterColors = colors.slice(); } };
+
+  function makeGlitterParticle(x,y,isTouch){
+    const g = document.createElement('div');
+    g.className = isTouch ? 'glitter-touch' : 'glitter';
+    const sizeBase = isTouch ? 10 : 7;
+    const spread = isTouch ? 32 : 24;
+    const size = Math.random()*sizeBase + (isTouch?4:3);
+    g.style.width = size+'px'; g.style.height = size+'px';
+    g.style.left = (x + (Math.random()-0.5)*spread) + 'px';
+    g.style.top  = (y + (Math.random()-0.5)*spread) + 'px';
+    const colour = window.glitterColors[Math.floor(Math.random()*window.glitterColors.length)];
+    g.style.background = colour; g.style.clipPath = 'polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%)';
+    g.style.boxShadow = `0 0 5px ${colour}, 0 0 10px ${colour}`;
+    const flyDist = isTouch ? 50 : 35;
+    g.style.setProperty('--tx',(Math.random()-0.5)*flyDist+'px');
+    g.style.setProperty('--ty',(Math.random()-0.5)*flyDist+'px');
+    document.body.appendChild(g);
+    setTimeout(()=>g.remove(), isTouch?800:700);
+  }
+
+  let lastTG = 0;
+  function spawnTouchGlitter(x,y){ const now = Date.now(); if(now - lastTG < 30) return; lastTG = now; for(let i=0;i<9;i++) makeGlitterParticle(x,y,true); }
+
+})();
+</script>
+
+

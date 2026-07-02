@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fearless Era — Taylor Swift Lookbook</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Kirang+Haerang&family=Libre+Baskerville:ital@1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{ cursor:none; }
+
+/* =====================
+  CUSTOM CURSOR (bracelet)
+===================== */
+.cursor-pic{
+  position:fixed;
+  width:70px;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:99999;
+}
+.cursor-touch{
+  position:fixed;
+  width:60px;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:99999;
+  display:none;
+}
+
+/* =====================
+   GLITTER
+===================== */
+.glitter{
+  position:fixed;
+  pointer-events:none;
+  z-index:9998;
+  animation:glitter .55s forwards ease-out;
+}
+@keyframes glitter{
+  0%{ opacity:1; transform:scale(1.5); }
+  100%{ opacity:0; transform:translate(var(--tx),var(--ty)) scale(0) rotate(180deg); }
+}
+
+/* =====================
+   BUTTERFLIES
+===================== */
+.butterfly{
+  position:fixed;
+  width:45px;
+  height:45px;
+  pointer-events:none;
+  z-index:8000;
+}
+.butterfly img{
+  width:100%; height:100%;
+  user-select:none;
+  animation:flap .35s infinite alternate ease-in-out;
+}
+@keyframes flap{
+  from{ transform:scale(.92); }
+  to{   transform:scale(1.08); }
+}
+
+/* =====================
+   NAV BAR
+===================== */
+.era-nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  background: var(--nav-bg);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+}
+
+.nav-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: 2px solid var(--accent1);
+  border-radius: 30px;
+  background: transparent;
+  color: var(--accent3);
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+  cursor: none;
+}
+.nav-btn:hover{
+  background: var(--accent1);
+  color: #fff;
+}
+.nav-btn.home{
+  border-color: var(--accent3);
+  font-size: 17px;
+}
+
+/* =====================
+   HERO
+===================== */
+.hero{
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding: 60px 60px 40px;
+  background: linear-gradient(135deg, var(--bg) 60%, var(--bg2));
+  border-bottom: 2px dashed var(--border);
+  flex-wrap: wrap;
+}
+
+.hero-cover{
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 6px 8px 30px rgba(139,105,20,.3);
+  flex-shrink: 0;
+}
+
+.hero-text{
+  flex: 1;
+  min-width: 240px;
+}
+
+.era-title{
+  font-family: 'Dancing Script', cursive;
+  font-size: 80px;
+  color: var(--accent1);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.era-year{
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-soft);
+  margin-bottom: 18px;
+}
+
+.era-desc{
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+  max-width: 500px;
+}
+
+/* =====================
+   PALETTE STRIP
+===================== */
+.palette-section{
+  padding: 30px 60px;
+  background: var(--bg2);
+  border-bottom: 2px dashed var(--border);
+}
+
+.section-heading{
+  font-family: 'Dancing Script', cursive;
+  font-size: 36px;
+  color: var(--accent3);
+  margin-bottom: 18px;
+}
+
+.palette-strip{
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.palette-swatch{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatch-circle{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.5);
+  box-shadow: 0 4px 14px rgba(0,0,0,.15);
+}
+
+.swatch-name{
+  font-size: 11px;
+  color: var(--text-soft);
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
+/* =====================
+   OUTFIT GALLERY
+===================== */
+.outfits-section{
+  padding: 40px 60px;
+  border-bottom: 2px dashed var(--border);
+}
+
+.outfit-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.outfit-card{
+  background: var(--bg2);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+  position: relative;
+}
+.outfit-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(139,105,20,.2);
+}
+
+.outfit-card img{
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+.outfit-caption{
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text-soft);
+  font-style: italic;
+  text-align: center;
+}
+
+/* =====================
+   EASTER EGGS
+===================== */
+.eggs-section{
+  padding: 40px 60px;
+  background: var(--bg2);
+  border-bottom: 2px dashed var(--border);
+}
+
+.egg-list{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.egg-list li{
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.egg-list li::before{
+  content: "✦";
+  color: var(--accent1);
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* =====================
+   TRACKLIST
+===================== */
+.tracklist-section{
+  padding: 40px 60px;
+  border-bottom: 2px dashed var(--border);
+}
+
+.track-table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.track-table th{
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  color: var(--accent3);
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.track-table td{
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--bg2);
+  vertical-align: top;
+}
+
+.track-table tr:hover td{
+  background: var(--bg2);
+}
+
+.track-num{
+  color: var(--text-soft);
+  font-style: italic;
+  width: 36px;
+}
+
+.track-title{ font-weight: 600; }
+.track-note{ color: var(--text-soft); font-size: 13px; font-style: italic; }
+.vault{ color: var(--accent1); font-size: 12px; margin-left: 8px; }
+
+/* =====================
+   LYRICS SPOTLIGHT
+===================== */
+.lyrics-section{
+  padding: 40px 60px;
+  background: var(--bg2);
+  border-bottom: 2px dashed var(--border);
+}
+
+.lyric-card{
+  background: var(--bg);
+  border-left: 5px solid var(--accent1);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px;
+  margin-bottom: 18px;
+  max-width: 620px;
+}
+
+.lyric-text{
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.lyric-song{
+  font-size: 13px;
+  color: var(--text-soft);
+  font-family: 'Playfair Display', serif;
+}
+
+/* =====================
+   BOTTOM NAV
+===================== */
+.bottom-nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 60px;
+  background: var(--nav-bg);
+  border-top: 2px solid var(--border);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* =====================
+   SPARKLE TAPE ACCENTS
+===================== */
+.tape{
+  display: inline-block;
+  background: rgba(201,168,76,.25);
+  border: 1px solid var(--accent2);
+  border-radius: 3px;
+  padding: 3px 18px;
+  transform: rotate(-2deg);
+  font-size: 13px;
+  color: var(--accent3);
+  font-style: italic;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media(max-width:768px){
+  .cursor-pic{ display:none !important; }
+  .cursor-touch{ display:block; }
+  body{ cursor:auto; }
+
+  .hero{ padding: 30px 20px; gap: 24px; }
+  .hero-cover{ width: 200px; height: 200px; }
+  .era-title{ font-size: 54px; }
+  .palette-section,
+  .outfits-section,
+  .eggs-section,
+  .tracklist-section,
+  .lyrics-section{ padding: 30px 20px; }
+  .era-nav,
+  .bottom-nav{ padding: 16px 20px; }
+  .outfit-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Cursors -->
+<img class="cursor-pic" id="follower"
+  src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg"
+  draggable="false">
+<img class="cursor-touch" id="touchFollower"
+  src="https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg"
+  draggable="false">
+
+<!-- =====================
+     TOP NAVIGATION
+===================== -->
+<nav class="era-nav">
+  <a class="nav-btn" href="taylorswift.html">← Taylor Swift</a>
+  <a class="nav-btn home" href="appp.html">✦ Back to Lookbook ✦</a>
+  <a class="nav-btn" href="speaknow.html">Speak Now →</a>
+</nav>
+
+<!-- =====================
+     HERO
+===================== -->
+<section class="hero">
+  <img class="hero-cover"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8aD2c-gpVI2qe-AiA_IRiZPqRj3HrOjcFhJZvwoVMv0a2KH62XP_yP8&s=10"
+    alt="Fearless album cover">
+
+  <div class="hero-text">
+    <div class="tape">2008 · 2009 · 2021 (TV)</div>
+    <h1 class="era-title">Fearless</h1>
+    <p class="era-year">November 11, 2008 &nbsp;·&nbsp; Big Machine Records &nbsp;·&nbsp; Re-recorded 2021</p>
+    <p class="era-desc">
+      Fairytale romance, golden light, and a fearless heart. The Fearless era wrapped Taylor in
+      sparkly ball gowns, cowboy boots, and the kind of curls that catch sunlight. It was cinematic
+      and warm — every outfit a princess, every song a love story told under stadium lights.
+    </p>
+  </div>
+</section>
+
+<!-- =====================
+     COLOR PALETTE
+===================== -->
+<section class="palette-section">
+  <h2 class="section-heading">Era Palette</h2>
+  <div class="palette-strip">
+    <div class="palette-swatch">
+      <div class="swatch-circle" style="background:#c9a84c;"></div>
+      <span class="swatch-name">Stadium Gold</span>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-circle" style="background:#e8c97a;"></div>
+      <span class="swatch-name">Champagne</span>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-circle" style="background:#fdf6e3;"></div>
+      <span class="swatch-name">Warm Cream</span>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-circle" style="background:#d4aa5a;"></div>
+      <span class="swatch-name">Honey</span>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-circle" style="background:#f5e9c8;"></div>
+      <span class="swatch-name">Parchment</span>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-circle" style="background:#8b6914;"></div>
+      <span class="swatch-name">Deep Amber</span>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-circle" style="background:#fff8e1;"></div>
+      <span class="swatch-name">Stardust</span>
+    </div>
+  </div>
+</section>
+
+<!-- =====================
+     OUTFIT GALLERY
+===================== -->
+<section class="outfits-section">
+  <h2 class="section-heading">Outfit Gallery</h2>
+  <div class="outfit-grid">
+
+    <div class="outfit-card">
+      <img src="https://i.pinimg.com/736x/1d/ae/4b/1dae4b3c5a7de6a7e38a6e94bb32bbcd.jpg"
+        alt="Gold sequin dress" onerror="this.style.background='#f5e9c8';this.style.height='260px'">
+      <p class="outfit-caption">Gold sequin gown · Grammy performance 2010</p>
+    </div>
+
+    <div class="outfit-card">
+      <img src="https://i.pinimg.com/736x/c5/9e/24/c59e24a98a1b6db6c9fd3157f8f1f4b6.jpg"
+        alt="Curls and cowboy boots" onerror="this.style.background='#f5e9c8';this.style.height='260px'">
+      <p class="outfit-caption">Curls + cowboy boots · Fearless Tour staple</p>
+    </div>
+
+    <div class="outfit-card">
+      <img src="https://i.pinimg.com/736x/b8/f4/e5/b8f4e5d0a6a9e7c0f1a6d8f2e3c4b5a6.jpg"
+        alt="Sparkly ball gown" onerror="this.style.background='#f5e9c8';this.style.height='260px'">
+      <p class="outfit-caption">Champagne ball gown · AMA Awards 2008</p>
+    </div>
+
+    <div class="outfit-card">
+      <img src="https://i.pinimg.com/736x/a2/d3/f1/a2d3f1e4c5b6d7e8f9a0b1c2d3e4f5a6.jpg"
+        alt="Music video looks" onerror="this.style.background='#f5e9c8';this.style.height='260px'">
+      <p class="outfit-caption">Princess dress · You Belong With Me MV</p>
+    </div>
+
+    <div class="outfit-card">
+      <img src="https://i.pinimg.com/736x/f1/e2/d3/f1e2d3c4b5a6970809a0b1c2d3e4f5a6.jpg"
+        alt="Love Story MV" onerror="this.style.background='#f5e9c8';this.style.height='260px'">
+      <p class="outfit-caption">Renaissance gown · Love Story music video</p>
+    </div>
+
+    <div class="outfit-card">
+      <img src="https://i.pinimg.com/736x/09/a8/b7/09a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4.jpg"
+        alt="Tour rehearsal" onerror="this.style.background='#f5e9c8';this.style.height='260px'">
+      <p class="outfit-caption">Glittery mini · Fearless Tour 2009</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================
+     HIDDEN DETAILS & EASTER EGGS
+===================== -->
+<section class="eggs-section">
+  <h2 class="section-heading">Hidden Details & Easter Eggs</h2>
+  <ul class="egg-list">
+    <li>The original Fearless liner notes contained hidden capital letters spelling out secret messages — a tradition Taylor has continued across every album since.</li>
+    <li>"Love Story" was written in 20 minutes in her bedroom after sneaking out to see a boy her parents didn't approve of. Romeo & Juliet — but with a happy ending.</li>
+    <li>The album title "Fearless" came from Taylor's belief that being fearless doesn't mean having no fears — it means jumping anyway.</li>
+    <li>The music video for "You Belong With Me" features Taylor playing both the nerdy girl and the popular girl — a nod to the duality she's always felt about herself.</li>
+    <li>Fearless (Taylor's Version) includes 6 "From the Vault" tracks — songs written during the era but left off the original. Each one sounds like it belongs.</li>
+    <li>The golden confetti that rained during the Fearless Tour was shaped like stars — the same stars on her guitar strap.</li>
+    <li>"Fifteen" was written for her best friend Abigail, who is still one of her closest friends. Abigail appears in the music video.</li>
+  </ul>
+</section>
+
+<!-- =====================
+     TRACKLIST
+===================== -->
+<section class="tracklist-section">
+  <h2 class="section-heading">Tracklist</h2>
+  <table class="track-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Song</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-track="Fearless" data-lyrics=""><td class="track-num">1</td><td class="track-title">Fearless</td><td class="track-note">Title track · opens with rain</td></tr>
+      <tr data-track="Fifteen" data-lyrics=""><td class="track-num">2</td><td class="track-title">Fifteen</td><td class="track-note">Written for Abigail Anderson</td></tr>
+      <tr data-track="Love Story" data-lyrics=""><td class="track-num">3</td><td class="track-title">Love Story</td><td class="track-note">Romeo & Juliet rewrite · #1 hit</td></tr>
+      <tr data-track="Hey Stephen" data-lyrics=""><td class="track-num">4</td><td class="track-title">Hey Stephen</td><td class="track-note">Written about a crew member</td></tr>
+      <tr data-track="White Horse" data-lyrics=""><td class="track-num">5</td><td class="track-title">White Horse</td><td class="track-note">Grammy winner · heartbreak</td></tr>
+      <tr data-track="You Belong With Me" data-lyrics=""><td class="track-num">6</td><td class="track-title">You Belong With Me</td><td class="track-note">Iconic MV · co-written with Liz Rose</td></tr>
+      <tr data-track="Breathe" data-lyrics=""><td class="track-num">7</td><td class="track-title">Breathe</td><td class="track-note">Features Colbie Caillat</td></tr>
+      <tr data-track="Tell Me Why" data-lyrics=""><td class="track-num">8</td><td class="track-title">Tell Me Why</td><td class="track-note">Country-pop energy</td></tr>
+      <tr data-track="You're Not Sorry" data-lyrics=""><td class="track-num">9</td><td class="track-title">You're Not Sorry</td><td class="track-note">A warning she gave</td></tr>
+      <tr data-track="The Way I Loved You" data-lyrics=""><td class="track-num">10</td><td class="track-title">The Way I Loved You</td><td class="track-note">About choosing the wrong person</td></tr>
+      <tr data-track="Forever & Always" data-lyrics=""><td class="track-num">11</td><td class="track-title">Forever & Always</td><td class="track-note">Written in 30 minutes after a breakup</td></tr>
+      <tr data-track="The Best Day" data-lyrics=""><td class="track-num">12</td><td class="track-title">The Best Day</td><td class="track-note">Written in secret for her mom</td></tr>
+      <tr data-track="Change" data-lyrics=""><td class="track-num">13</td><td class="track-title">Change</td><td class="track-note">About making it as an artist</td></tr>
+      <tr data-track="Mr. Perfectly Fine" data-lyrics=""><td class="track-num" style="color:var(--accent1);">★</td><td class="track-title">Mr. Perfectly Fine <span class="vault">VAULT</span></td><td class="track-note">About Joe Jonas · fan favourite</td></tr>
+      <tr data-track="You All Over Me" data-lyrics=""><td class="track-num" style="color:var(--accent1);">★</td><td class="track-title">You All Over Me <span class="vault">VAULT</span></td><td class="track-note">feat. Maren Morris</td></tr>
+      <tr data-track="We Were Happy" data-lyrics=""><td class="track-num" style="color:var(--accent1);">★</td><td class="track-title">We Were Happy <span class="vault">VAULT</span></td><td class="track-note">Quiet and devastating</td></tr>
+      <tr data-track="That's When" data-lyrics=""><td class="track-num" style="color:var(--accent1);">★</td><td class="track-title">That's When <span class="vault">VAULT</span></td><td class="track-note">feat. Keith Urban</td></tr>
+      <tr data-track="Don't You" data-lyrics=""><td class="track-num" style="color:var(--accent1);">★</td><td class="track-title">Don't You <span class="vault">VAULT</span></td><td class="track-note">Soft and sad</td></tr>
+      <tr data-track="Bye Bye Baby" data-lyrics=""><td class="track-num" style="color:var(--accent1);">★</td><td class="track-title">Bye Bye Baby <span class="vault">VAULT</span></td><td class="track-note">Classic country goodbye</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =====================
+     LYRICS SPOTLIGHT
+===================== -->
+<section class="lyrics-section">
+  <h2 class="section-heading">Lyrics Spotlight</h2>
+
+  <div class="lyric-card">
+    <p class="lyric-text">
+      "And I don't know how it gets better than this,<br>
+      you take my hand and drag me head first, fearless."
+    </p>
+    <p class="lyric-song">— Fearless</p>
+  </div>
+
+  <div class="lyric-card">
+    <p class="lyric-text">
+      "I had the best day with you today."
+    </p>
+    <p class="lyric-song">— The Best Day</p>
+  </div>
+
+  <div class="lyric-card">
+    <p class="lyric-text">
+      "I was reminiscing just the other day,<br>
+      while having coffee all alone and Lord it took me away."
+    </p>
+    <p class="lyric-song">— You All Over Me (From the Vault)</p>
+  </div>
+
+  <div class="lyric-card">
+    <p class="lyric-text">
+      "Mr. Perfectly Fine, how do you do?<br>
+      I haven't seen you in a minute — wow, look at you."
+    </p>
+    <p class="lyric-song">— Mr. Perfectly Fine (From the Vault)</p>
+  </div>
+</section>
+
+<!-- =====================
+     BOTTOM NAVIGATION
+===================== -->
+<nav class="bottom-nav">
+  <a class="nav-btn" href="taylorswift.html">← Taylor Swift</a>
+  <a class="nav-btn home" href="appp.html">✦ Back to Lookbook ✦</a>
+  <a class="nav-btn" href="speaknow.html">Speak Now →</a>
+</nav>
+
+<!-- =====================
+     BUTTERFLIES
+===================== -->
+<script>
+// Cursor
+const follower      = document.getElementById("follower");
+const touchFollower = document.getElementById("touchFollower");
+
+document.addEventListener("mousemove", e=>{
+  follower.style.left = e.clientX+"px";
+  follower.style.top  = e.clientY+"px";
+});
+
+let touchX=-200, touchY=-200;
+function rafTouch(){ touchFollower.style.left=touchX+"px"; touchFollower.style.top=touchY+"px"; requestAnimationFrame(rafTouch); }
+requestAnimationFrame(rafTouch);
+document.addEventListener("touchstart", t=>{ touchX=t.touches[0].clientX; touchY=t.touches[0].clientY; spawnTouchGlitter(touchX,touchY); },{passive:true});
+document.addEventListener("touchmove",  t=>{ touchX=t.touches[0].clientX; touchY=t.touches[0].clientY; spawnTouchGlitter(touchX,touchY); },{passive:true});
+
+// Glitter — golden palette for Fearless
+let glitterColors = ["#c9a84c","#e8c97a","#fdf6e3","#ffd700","#fff8e1"];
+function makeGlitterParticle(x,y,isTouch){
+  const g = document.createElement("div");
+  g.className = "glitter";
+  const size = Math.random()*7+3;
+  g.style.cssText = `width:${size}px;height:${size}px;left:${x+(Math.random()-.5)*24}px;top:${y+(Math.random()-.5)*24}px;`;
+  const c = glitterColors[Math.floor(Math.random()*glitterColors.length)];
+  g.style.background = c;
+  g.style.clipPath = "polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%)";
+  g.style.boxShadow = `0 0 5px ${c},0 0 10px ${c}`;
+  g.style.setProperty("--tx",(Math.random()-.5)*35+"px");
+  g.style.setProperty("--ty",(Math.random()-.5)*35+"px");
+  document.body.appendChild(g);
+  setTimeout(()=>g.remove(),700);
+}
+document.addEventListener("mousemove",e=>{ for(let i=0;i<6;i++) makeGlitterParticle(e.clientX,e.clientY,false); });
+let lastTG=0;
+function spawnTouchGlitter(x,y){ const n=Date.now(); if(n-lastTG<30)return; lastTG=n; for(let i=0;i<9;i++) makeGlitterParticle(x,y,true); }
+
+// Butterflies
+const bImgs=["https://www.image2url.com/r2/default/images/1782471017304-4bdf7140-c1d3-4047-a91c-e9be0ce13167.jpg","https://www.image2url.com/r2/default/images/1782471475997-1d011609-acf4-4342-977a-5a41b3a664f8.jpg"];
+[[.15,.2],[.8,.3],[.3,.75]].forEach((s,i)=>{
+  const b=document.createElement("div"); b.className="butterfly";
+  b.innerHTML=`<img src="${bImgs[i%2]}" draggable="false">`;
+  document.body.appendChild(b);
+  let x=s[0]*window.innerWidth, y=s[1]*window.innerHeight, angle=Math.random()*Math.PI*2, timer=0, zig=0;
+  const sp=1+Math.random()*.8;
+  (function anim(){ timer++; zig+=.08; angle+=(Math.random()-.5)*.03;
+    if(timer>100){angle+=(Math.random()-.5)*2.6;timer=0;}
+    const dx=Math.cos(angle)*sp-Math.sin(angle)*Math.sin(zig)*3;
+    const dy=Math.sin(angle)*sp+Math.cos(angle)*Math.sin(zig)*3;
+    x+=dx; y+=dy;
+    if(x<0){x=0;angle=Math.PI-angle;} if(x>window.innerWidth-50){x=window.innerWidth-50;angle=Math.PI-angle;}
+    if(y<0){y=0;angle=-angle;} if(y>window.innerHeight-50){y=window.innerHeight-50;angle=-angle;}
+    b.style.left=x+"px"; b.style.top=y+"px"; b.style.transform=dx<0?"scaleX(-1)":"scaleX(1)";
+    requestAnimationFrame(anim);
+  })();
+});
+</script>
+<!-- Lyrics modal injected by assistant -->
+<style>
+  .lyrics-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100000;visibility:hidden;opacity:0;transition:opacity .18s ease}
+  .lyrics-modal.open{visibility:visible;opacity:1}
+  .lyrics-modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+  .lyrics-modal__panel{position:relative;max-width:820px;width:92%;max-height:84vh;overflow:auto;padding:22px 20px;background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.35);z-index:100001}
+  .lyrics-modal__close{position:absolute;right:12px;top:8px;background:transparent;border:0;font-size:20px;cursor:pointer}
+  .lyrics-modal__title{font-weight:700;margin:0 0 8px 0}
+  .lyrics-modal__content pre{white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:15px;line-height:1.6}
+  .lyrics-modal__content .no-lyrics{color:#666;font-style:italic}
+</style>
+<div id="lyrics-modal" class="lyrics-modal" aria-hidden="true">
+  <div class="lyrics-modal__backdrop" role="presentation"></div>
+  <div class="lyrics-modal__panel" role="dialog" aria-modal="true">
+    <button class="lyrics-modal__close" aria-label="Close">✕</button>
+    <h3 class="lyrics-modal__title"></h3>
+    <div class="lyrics-modal__content"></div>
+  </div>
+</div>
+<script>
+(function(){
+  function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function showModal(title,lyrics){
+    const modal=document.getElementById('lyrics-modal');
+    modal.querySelector('.lyrics-modal__title').textContent = title || 'Track';
+    modal.querySelector('.lyrics-modal__content').innerHTML = lyrics ? '<pre>'+escapeHtml(lyrics)+'</pre>' : '<p class="no-lyrics">No lyrics pasted. Paste full lyrics into the track row\'s `data-lyrics` attribute to enable this.</p>';
+    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+  }
+  function hideModal(){ const modal=document.getElementById('lyrics-modal'); modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+
+  document.addEventListener('click', function(e){
+    if(e.target.closest && e.target.closest('.lyrics-modal__close')) return hideModal();
+    if(e.target.closest && e.target.closest('.lyrics-modal__backdrop')) return hideModal();
+    const tr = e.target.closest && e.target.closest('tr[data-track]');
+    if(!tr) return;
+    const title = tr.dataset.track || (tr.querySelector && (tr.querySelector('.track-title')||{}).textContent) || 'Track';
+    const lyrics = tr.dataset.lyrics || '';
+    showModal(title, lyrics);
+  });
+
+  document.querySelectorAll('table.track-table tbody tr').forEach((tr, idx)=>{
+    if(!tr.dataset.track){
+      const tcell = tr.querySelector && (tr.querySelector('.track-title') || tr.cells[1]);
+      tr.dataset.track = tcell ? (tcell.textContent||'').trim() : 'Track '+(idx+1);
+    }
+    if(!('lyrics' in tr.dataset)) tr.dataset.lyrics = '';
+    tr.style.cursor = 'pointer';
+  });
+})();
+</script>
+</body>
+</html>
