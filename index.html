@@ -400,6 +400,25 @@ display:inline-flex;
 align-items:center;
 will-change:transform;
 }
+
+/* -----------------------------
+   HEARTS DIVIDER (between the two rows)
+------------------------------*/
+.hearts-divider{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:6px 0;
+  pointer-events:none;
+}
+
+.hearts-divider img{
+  width:min(600px, 70%);
+  height:auto;
+  opacity:.85;
+  filter:drop-shadow(0 2px 6px rgba(199,21,133,.25));
+}
  
 #mobileSettingsBtn{ display:none; }
  
@@ -483,14 +502,36 @@ will-change:transform;
     align-items:center;
   }
  
-  :root{ --era-size:180px; }
+  html, body{ height:100%; }
 
-  .marquee-viewport{ margin-top:10px; }
+  body{
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+
+  :root{ --era-size:180px; } /* fallback before JS runs */
+
+  .marquee-viewport{
+    flex:1;
+    margin:0;
+    display:flex;
+    align-items:center;
+    min-height:0;
+  }
+
+  .hearts-divider{
+    flex:none;
+    margin:2px 0;
+  }
+
+  .hearts-divider img{
+    width:80%;
+  }
 }
  
 @media screen and (max-width:480px){
   .page-title{ font-size:25px; }
-  .era-img{ width:140px; height:140px; }
   .cursor-touch{ width:40px; }
   .butterfly{ width:35px; }
 }
@@ -646,6 +687,11 @@ will-change:transform;
 <div class="marquee-gap"><img class="gap-cat-photo" src="https://people.com/thmb/plLRLMpEkuCtZmLI81zt_2YXnlk=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(814x387:816x389)/taylor-swift-cats-121123-154-011ed3e171214819b71d807c623ea6f0.jpg" alt="Taylor Swift cats"><span class="marquee-gap-text">TAYLOR<br>SWIFT<br>ERA'S</span><img class="gap-cat-photo" src="https://people.com/thmb/plLRLMpEkuCtZmLI81zt_2YXnlk=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(814x387:816x389)/taylor-swift-cats-121123-154-011ed3e171214819b71d807c623ea6f0.jpg" alt="Taylor Swift cats"></div>
 </div>
 </div>
+
+<!-- ========= HEARTS DIVIDER ========= -->
+<div class="hearts-divider">
+  <img src="https://static.vecteezy.com/system/resources/thumbnails/047/322/799/small/line-art-hearts-hand-drawn-hearts-in-single-continuous-line-drawing-style-for-logo-or-emblem-border-with-some-hearts-vector.jpg" alt="hearts divider">
+</div>
  
 <div class="marquee-viewport">
 <div class="marquee-track" id="track2">
@@ -729,6 +775,26 @@ const track1 = document.getElementById("track1"); // scrolls left
 const track2 = document.getElementById("track2"); // scrolls right
 track1.innerHTML += track1.innerHTML;
 track2.innerHTML += track2.innerHTML;
+
+// =====================
+// MOBILE: SIZE ERA IMAGES TO FILL FULL SCREEN
+// Splits the leftover vertical space (after the title and the
+// hearts divider) evenly between the two marquee rows, so the
+// thumbnails stretch to cover the whole screen with no gaps.
+// =====================
+function sizeMobileEras(){
+  if(window.innerWidth > 768) return;
+  const title = document.querySelector('.page-title');
+  const divider = document.querySelector('.hearts-divider');
+  const titleH = title ? title.offsetHeight : 0;
+  const dividerH = divider ? divider.offsetHeight : 0;
+  const availH = window.innerHeight - titleH - dividerH;
+  const rowH = Math.floor(availH / 2);
+  document.documentElement.style.setProperty('--era-size', rowH + 'px');
+}
+sizeMobileEras();
+window.addEventListener('resize', sizeMobileEras);
+window.addEventListener('orientationchange', sizeMobileEras);
 
 // =====================
 // SPARKLY ERA THUMBNAILS: scatter twinkling star
