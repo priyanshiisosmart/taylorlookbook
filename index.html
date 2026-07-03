@@ -221,6 +221,55 @@ width:var(--era-size,300px);
 height:var(--era-size,300px);
 display:block;
 cursor:none;
+position:relative;
+}
+
+/* -----------------------------
+   SPARKLY ERA THUMBNAILS
+------------------------------*/
+.era-img-wrap{
+overflow:visible;
+}
+
+.era-img-wrap::after{
+content:'';
+position:absolute;
+inset:0;
+width:var(--era-size,300px);
+height:var(--era-size,300px);
+pointer-events:none;
+background:linear-gradient(115deg,
+  transparent 30%,
+  rgba(255,255,255,0) 42%,
+  rgba(255,255,255,.85) 50%,
+  rgba(255,255,255,0) 58%,
+  transparent 70%);
+background-size:300% 300%;
+mix-blend-mode:overlay;
+animation:eraShine 3.2s ease-in-out infinite;
+}
+
+@keyframes eraShine{
+0%{ background-position:130% -30%; }
+55%{ background-position:-30% 130%; }
+100%{ background-position:-30% 130%; }
+}
+
+.era-sparkle{
+position:absolute;
+pointer-events:none;
+background:#ffffff;
+clip-path:polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%);
+opacity:0;
+z-index:50;
+animation-name:eraSparkleTwinkle;
+animation-timing-function:ease-in-out;
+animation-iteration-count:infinite;
+}
+
+@keyframes eraSparkleTwinkle{
+0%,100%{ opacity:0; transform:scale(.2) rotate(0deg); }
+50%{ opacity:1; transform:scale(1) rotate(180deg); }
 }
 
 .marquee-gap{
@@ -665,8 +714,8 @@ will-change:transform;
 </div>
 </div>
 
-<video class="page-bg-video" autoplay muted loop playsinline>
-  <source src="file:///c:/Users/Priyanshi/Downloads/2-Hour%204k%20Pink%20Neon%20Flying%20Hearts%20Background%20Valentine%27s%20Day%20Heart%20Wallpaper%20Motion%20Background%20-%20HypnoRimaVisuals%20(1080p)_compressed.mp4" type="video/mp4">
+<video class="page-bg-video" id="bgVideo" autoplay muted loop playsinline preload="auto">
+  <source src="https://www.image2url.com/r2/default/videos/1783088418087-70a46900-84f0-477f-811f-909891942355.mp4" type="video/mp4">
 </video>
  
 <script>
@@ -680,6 +729,67 @@ const track1 = document.getElementById("track1"); // scrolls left
 const track2 = document.getElementById("track2"); // scrolls right
 track1.innerHTML += track1.innerHTML;
 track2.innerHTML += track2.innerHTML;
+
+// =====================
+// SPARKLY ERA THUMBNAILS: scatter twinkling star
+// particles across every album cover (incl. duplicates)
+// =====================
+(function sparkleEras(){
+  const colours = ["#ffffff","#fff6d6","#ffe9ff","#e6f0ff"];
+  document.querySelectorAll('.era-img-wrap').forEach(function(wrap){
+    const count = 5 + Math.floor(Math.random()*3); // 5-7 sparkles per cover
+    for(let i=0;i<count;i++){
+      const s = document.createElement('span');
+      s.className = 'era-sparkle';
+      const size = 6 + Math.random()*8;
+      s.style.width  = size+'px';
+      s.style.height = size+'px';
+      s.style.left = (5 + Math.random()*90) + '%';
+      s.style.top  = (5 + Math.random()*90) + '%';
+      const colour = colours[Math.floor(Math.random()*colours.length)];
+      s.style.background = colour;
+      s.style.boxShadow = `0 0 6px ${colour}, 0 0 12px ${colour}, 0 0 20px rgba(255,255,255,.8)`;
+      s.style.animationDuration = (1.4 + Math.random()*1.8) + 's';
+      s.style.animationDelay = (Math.random()*3) + 's';
+      wrap.appendChild(s);
+    }
+  });
+})();
+
+// =====================
+// BACKGROUND VIDEO: FORCE ENDLESS LOOP
+// (belt-and-braces on top of the loop attribute — some browsers/
+// power-saving modes can pause playback, so we watch for that
+// and always restart from the top instead of ever stopping)
+// =====================
+const bgVideo = document.getElementById("bgVideo");
+if(bgVideo){
+  bgVideo.loop = true;
+
+  const keepPlaying = () => {
+    bgVideo.play().catch(() => {
+      // autoplay was blocked (e.g. before first user interaction) —
+      // try again on the next interaction
+      const resume = () => { bgVideo.play(); };
+      document.addEventListener("click", resume, {once:true});
+      document.addEventListener("touchstart", resume, {once:true});
+    });
+  };
+
+  bgVideo.addEventListener("ended", () => {
+    bgVideo.currentTime = 0;
+    keepPlaying();
+  });
+  bgVideo.addEventListener("pause", () => {
+    // if something paused it (tab visibility, buffering, etc.) restart it
+    keepPlaying();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if(!document.hidden) keepPlaying();
+  });
+
+  keepPlaying();
+}
 
 // =====================
 // DETECT TOUCH
