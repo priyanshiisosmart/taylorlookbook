@@ -40,7 +40,7 @@ rel="stylesheet">
     font-family: "Kirang Haerang", sans-serif;
     font-size: 55px;
     text-align: left;
-    margin: 20px 0 20px 25px;
+    margin: 10px 0 10px 25px;
     padding: 0;
 }
  
@@ -221,7 +221,6 @@ width:var(--era-size,300px);
 height:var(--era-size,300px);
 display:block;
 cursor:none;
-position:relative;
 }
 
 /* -----------------------------
@@ -391,7 +390,7 @@ font-size:60px;
 .marquee-viewport{
 overflow:hidden;
 width:100%;
-margin:18px 0;
+margin:8px 0;
 white-space:nowrap;
 }
 
@@ -409,15 +408,46 @@ will-change:transform;
   display:flex;
   justify-content:center;
   align-items:center;
-  margin:6px 0;
+  margin:2px 0;
   pointer-events:none;
+  height:26px; /* same footprint as before, so row 2 doesn't shift */
+  overflow:visible; /* full heart shapes spill above/below without being clipped */
+  position:relative;
+  z-index:60;
 }
 
 .hearts-divider img{
-  width:min(600px, 70%);
+  width:100%;
   height:auto;
-  opacity:.85;
-  filter:drop-shadow(0 2px 6px rgba(199,21,133,.25));
+  flex-shrink:0;
+  display:block;
+  transform:scale(1.35);
+  filter:
+    drop-shadow(0 0 2px #ff0000)
+    drop-shadow(0 0 6px #ff0000)
+    drop-shadow(0 0 14px rgba(255,0,0,.9))
+    drop-shadow(0 0 26px rgba(255,0,0,.7))
+    drop-shadow(0 0 40px rgba(220,0,0,.5));
+  animation: heartBorderGlitter 0.9s ease-in-out infinite;
+}
+
+@keyframes heartBorderGlitter{
+  0%, 100%{
+    filter:
+      drop-shadow(0 0 2px #ff0000)
+      drop-shadow(0 0 6px #ff0000)
+      drop-shadow(0 0 14px rgba(255,0,0,.9))
+      drop-shadow(0 0 26px rgba(255,0,0,.7))
+      drop-shadow(0 0 40px rgba(220,0,0,.5));
+  }
+  50%{
+    filter:
+      drop-shadow(0 0 3px #ff4444)
+      drop-shadow(0 0 10px #ff0000)
+      drop-shadow(0 0 22px rgba(255,0,0,1))
+      drop-shadow(0 0 38px rgba(255,0,0,.9))
+      drop-shadow(0 0 55px rgba(220,0,0,.7));
+  }
 }
  
 #mobileSettingsBtn{ display:none; }
@@ -522,11 +552,13 @@ will-change:transform;
 
   .hearts-divider{
     flex:none;
-    margin:2px 0;
+    margin:1px 0;
+    height:18px;
+    overflow:visible;
   }
 
   .hearts-divider img{
-    width:80%;
+    width:100%;
   }
 }
  
@@ -690,7 +722,7 @@ will-change:transform;
 
 <!-- ========= HEARTS DIVIDER ========= -->
 <div class="hearts-divider">
-  <img src="https://static.vecteezy.com/system/resources/thumbnails/047/322/799/small/line-art-hearts-hand-drawn-hearts-in-single-continuous-line-drawing-style-for-logo-or-emblem-border-with-some-hearts-vector.jpg" alt="hearts divider">
+  <img id="heartsImg" crossorigin="anonymous" src="https://static.vecteezy.com/system/resources/thumbnails/016/137/760/small/pink-hearts-pattern-border-separator-valentines-romantic-pastel-simple-flat-clipart-illustration-vector.jpg" alt="hearts divider">
 </div>
  
 <div class="marquee-viewport">
@@ -761,7 +793,7 @@ will-change:transform;
 </div>
 
 <video class="page-bg-video" id="bgVideo" autoplay muted loop playsinline preload="auto">
-  <source src="download.mp4" type="video/mp4">
+  <source src="https://www.image2url.com/r2/default/videos/1783088418087-70a46900-84f0-477f-811f-909891942355.mp4" type="video/mp4">
 </video>
  
 <script>
@@ -798,20 +830,21 @@ window.addEventListener('orientationchange', sizeMobileEras);
 
 // =====================
 // SPARKLY ERA THUMBNAILS: scatter twinkling star
-// particles across every album cover (incl. duplicates)
+// particles around every album cover (incl. duplicates)
 // =====================
 (function sparkleEras(){
   const colours = ["#ffffff","#fff6d6","#ffe9ff","#e6f0ff"];
   document.querySelectorAll('.era-img-wrap').forEach(function(wrap){
-    const count = 5 + Math.floor(Math.random()*3); // 5-7 sparkles per cover
+    const count = 4 + Math.floor(Math.random()*3); // 4-6 sparkles per cover
     for(let i=0;i<count;i++){
       const s = document.createElement('span');
       s.className = 'era-sparkle';
       const size = 6 + Math.random()*8;
       s.style.width  = size+'px';
       s.style.height = size+'px';
-      s.style.left = (5 + Math.random()*90) + '%';
-      s.style.top  = (5 + Math.random()*90) + '%';
+      // scatter both on the image and just outside its edges
+      s.style.left = (-12 + Math.random()*124) + '%';
+      s.style.top  = (-12 + Math.random()*124) + '%';
       const colour = colours[Math.floor(Math.random()*colours.length)];
       s.style.background = colour;
       s.style.boxShadow = `0 0 6px ${colour}, 0 0 12px ${colour}, 0 0 20px rgba(255,255,255,.8)`;
@@ -820,6 +853,81 @@ window.addEventListener('orientationchange', sizeMobileEras);
       wrap.appendChild(s);
     }
   });
+})();
+
+// =====================
+// HEARTS DIVIDER GLITTER: a light scatter of twinkling
+// sparkles along the hearts strip (cheap: pure CSS opacity/
+// transform animation, no per-frame JS work, so no added lag)
+// =====================
+(function heartsGlitter(){
+  const divider = document.querySelector('.hearts-divider');
+  if(!divider) return;
+  const colours = ["#ff0000","#ff3b3b","#ff6b6b","#ffffff","#ffd6d6"];
+  const count = 24;
+  for(let i=0;i<count;i++){
+    const s = document.createElement('span');
+    s.className = 'era-sparkle';
+    const size = 6 + Math.random()*9;
+    s.style.width  = size+'px';
+    s.style.height = size+'px';
+    s.style.left = (Math.random()*100) + '%';
+    s.style.top  = (-30 + Math.random()*160) + '%';
+    const colour = colours[Math.floor(Math.random()*colours.length)];
+    s.style.background = colour;
+    s.style.boxShadow = `0 0 8px ${colour}, 0 0 16px ${colour}, 0 0 26px rgba(255,0,0,.9)`;
+    s.style.animationDuration = (0.8 + Math.random()*1.2) + 's';
+    s.style.animationDelay = (Math.random()*2) + 's';
+    divider.appendChild(s);
+  }
+})();
+
+// =====================
+// HEARTS DIVIDER: strip the white background so only the
+// pastel hearts remain, visible over the dark video beneath.
+// (Blend modes like multiply darken pastel colors into the
+// background too, so instead we key out near-white/near-grey
+// pixels for real transparency via canvas.)
+// =====================
+(function stripHeartsBackground(){
+  const heartsImg = document.getElementById('heartsImg');
+  if(!heartsImg) return;
+
+  function process(){
+    try{
+      const canvas = document.createElement('canvas');
+      canvas.width = heartsImg.naturalWidth;
+      canvas.height = heartsImg.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(heartsImg, 0, 0);
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const d = imgData.data;
+      for(let i=0;i<d.length;i+=4){
+        const r=d[i], g=d[i+1], b=d[i+2];
+        const maxc = Math.max(r,g,b), minc = Math.min(r,g,b);
+        const sat = maxc - minc; // low = near-grey/white
+        if(minc > 232 && sat < 20){
+          d[i+3] = 0; // fully transparent: pure white/near-white
+        } else if(minc > 205 && sat < 28){
+          // soft edge fade so anti-aliased pixels don't leave a halo
+          const fade = (232 - minc) / (232 - 205);
+          d[i+3] = Math.round(d[i+3] * fade);
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      heartsImg.src = canvas.toDataURL('image/png');
+    }catch(err){
+      // CORS-tainted canvas or other failure — keep original image,
+      // it just won't have a transparent background.
+      console.warn('Could not strip hearts background:', err);
+    }
+  }
+
+  if(heartsImg.complete && heartsImg.naturalWidth){
+    process();
+  } else {
+    heartsImg.addEventListener('load', process, {once:true});
+  }
 })();
 
 // =====================
@@ -957,15 +1065,16 @@ function makeGlitterParticle(x, y, isTouch){
 }
  
 document.addEventListener("mousemove", function(e){
+  if(isTouchDevice()) return; // avoid double glitter + extra DOM churn on touch devices
   for(let i=0;i<6;i++) makeGlitterParticle(e.clientX, e.clientY, false);
 });
  
 let lastTouchGlitter = 0;
 function spawnTouchGlitter(x, y){
   const now = Date.now();
-  if(now - lastTouchGlitter < 30) return;
+  if(now - lastTouchGlitter < 55) return; // lighter throttle = less DOM churn on mobile
   lastTouchGlitter = now;
-  for(let i=0;i<9;i++) makeGlitterParticle(x, y, true);
+  for(let i=0;i<5;i++) makeGlitterParticle(x, y, true);
 }
  
 // =====================
