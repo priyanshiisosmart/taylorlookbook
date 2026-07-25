@@ -3,148 +3,941 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Red â€” Lookbook</title>
+<title>Red · Lookbook</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Sacramento&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=EB+Garamond:ital@0;1&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff7f7;--accent:#7a0f1e;--text:#3b1616}
+:root{
+  --bg:#fff7f7;
+  --curtain:#4a0e14;
+  --curtain-dark:#30080d;
+  --curtain-shadow:#1e0508;
+  --accent:#7a0f1e;
+  --accent-deep:#3b1616;
+  --gold:#c98a3d;
+  --gold-light:#e8bd82;
+  --text:#3b1616;
+  --blush:#f3d9d9;
+  --paper:#fffbfb;
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);font-family:'Playfair Display',serif;color:var(--text);overflow-x:hidden}
-.era-nav{display:flex;justify-content:space-between;align-items:center;padding:18px 30px}
-.nav-btn{padding:8px 18px;border-radius:24px;border:2px solid var(--accent);text-decoration:none;color:var(--accent);font-weight:700}
-.hero{display:flex;gap:30px;padding:40px;align-items:center}
-.hero-cover{width:260px;height:260px;object-fit:cover;border-radius:6px}
-.era-title{font-size:56px;color:var(--accent);font-weight:700}
-.section{padding:28px}
+
+body{
+  background:var(--bg);
+  font-family:'Playfair Display',serif;
+  color:var(--text);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+::selection{ background:var(--blush); color:var(--accent-deep); }
+
+/* ---------- CURTAIN ---------- */
+.sn-curtain{ position:fixed; inset:0; z-index:5000; display:flex; pointer-events:none; }
+.sn-curtain-half{
+  width:50%; height:100%;
+  background:
+    repeating-linear-gradient(90deg, rgba(0,0,0,0) 0px, rgba(0,0,0,.16) 18px, rgba(0,0,0,0) 36px),
+    linear-gradient(180deg, var(--curtain) 0%, var(--curtain-dark) 70%, var(--curtain-shadow) 100%);
+  box-shadow: inset 0 0 120px rgba(0,0,0,.55);
+  transition: transform 1.4s cubic-bezier(.77,0,.18,1);
+  position:relative;
+}
+.sn-curtain-half::after{ content:''; position:absolute; top:0; bottom:0; width:40px; background:linear-gradient(90deg, rgba(255,255,255,.12), transparent); }
+.sn-curtain-left::after{ right:0; }
+.sn-curtain-right::after{ left:0; transform:scaleX(-1); }
+.sn-curtain-label{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  color:var(--gold-light); font-family:'Sacramento',cursive; font-size:52px; letter-spacing:1px; text-align:center;
+  z-index:3; text-shadow:0 2px 12px rgba(0,0,0,.5);
+}
+body.sn-open .sn-curtain-left{ transform:translateX(-100%); }
+body.sn-open .sn-curtain-right{ transform:translateX(100%); }
+body.sn-open .sn-curtain{ pointer-events:none; }
+
+.sn-replay-curtain{
+  position:fixed; bottom:18px; left:18px; z-index:900;
+  background:var(--curtain-dark); color:var(--gold-light);
+  border:1px solid var(--gold); border-radius:20px; padding:8px 16px;
+  font-family:'Cormorant Garamond',serif; font-size:14px; letter-spacing:.5px; cursor:none; opacity:.85;
+}
+.sn-replay-curtain:hover{ opacity:1; }
+
+/* ---------- NAV ---------- */
+.era-nav, .bottom-nav{ display:flex; justify-content:center; padding:22px 30px; }
+.nav-btn{
+  padding:9px 22px; border-radius:24px; border:1.5px solid var(--accent);
+  text-decoration:none; color:var(--accent); font-weight:700; font-size:15px; letter-spacing:.5px;
+  transition:.25s; cursor:none;
+}
+.nav-btn:hover{ background:var(--accent); color:#fff; }
+
+/* ---------- HERO ---------- */
+.sn-hero-wrap{ position:relative; padding:34px 30px 60px; display:flex; justify-content:center; }
+.sn-hero-frame{
+  position:relative; max-width:900px; width:100%;
+  display:flex; gap:44px; align-items:center; justify-content:center; flex-wrap:wrap;
+  padding:30px 34px;
+  background:rgba(255,251,251,.82);
+  backdrop-filter:blur(6px) saturate(1.1);
+  -webkit-backdrop-filter:blur(6px) saturate(1.1);
+  border-radius:22px;
+  box-shadow:0 20px 50px rgba(59,22,22,.16);
+  border:1px solid rgba(255,255,255,.6);
+}
+.sn-cover-frame{
+  position:relative; padding:14px;
+  background:linear-gradient(145deg, var(--gold-light), var(--gold));
+  border-radius:10px; box-shadow:0 18px 40px rgba(59,22,22,.25); flex-shrink:0;
+}
+.hero-cover{ width:260px; height:260px; object-fit:cover; border-radius:4px; display:block; border:3px solid var(--paper); }
+.sn-hero-text{ max-width:420px; }
+.era-title{ font-size:58px; color:var(--accent-deep); font-weight:700; line-height:1; margin-bottom:10px; }
+.sn-hero-sub{ font-family:'Sacramento',cursive; font-size:30px; color:var(--accent); margin-bottom:14px; }
+.era-desc{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; line-height:1.5; color:var(--text); }
+
+/* ---------- PLAYBILL ---------- */
+.sn-program{
+  max-width:760px; margin:0 auto 60px; padding:30px 24px 40px;
+  background:rgba(255,251,251,.82);
+  backdrop-filter:blur(6px) saturate(1.1);
+  -webkit-backdrop-filter:blur(6px) saturate(1.1);
+  border-radius:24px;
+  box-shadow:0 20px 50px rgba(59,22,22,.16);
+  border:1px solid rgba(255,255,255,.6);
+}
+.sn-program-title{ text-align:center; font-size:30px; color:var(--accent-deep); margin-bottom:6px; }
+.sn-program-sub{ text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--accent); margin-bottom:30px; }
+.sn-tabs{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:30px; }
+.sn-tab{
+  padding:9px 20px; border-radius:20px; border:1.5px solid var(--accent); background:transparent; color:var(--accent);
+  font-family:'Playfair Display',serif; font-weight:600; font-size:14px; cursor:none; transition:.2s;
+}
+.sn-tab.active, .sn-tab:hover{ background:var(--accent); color:#fff; }
+.sn-act{ display:none; }
+.sn-act.active{ display:block; }
+.sn-act-heading{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19px; color:var(--accent);
+  text-align:center; margin-bottom:18px; padding-bottom:10px; border-bottom:1px solid var(--blush);
+}
+.sn-track{
+  display:flex; align-items:center; gap:16px; padding:14px 18px; border-radius:10px; cursor:none;
+  transition:.2s; background:var(--paper); margin-bottom:8px; box-shadow:0 2px 8px rgba(59,22,22,.08);
+}
+.sn-track:hover{ background:var(--blush); transform:translateX(4px); }
+.sn-track-num{ font-family:'Cormorant Garamond',serif; color:var(--gold); font-size:20px; width:28px; text-align:center; flex-shrink:0; }
+.sn-track-info{ flex:1; min-width:0; }
+.sn-track-title{ font-size:19px; color:var(--accent-deep); }
+.sn-track-feature{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--accent); }
+.sn-track-note{ flex-shrink:0; font-size:18px; color:var(--gold); }
+.sn-track-synced{ flex-shrink:0; font-size:12px; color:var(--accent); font-family:'Cormorant Garamond',serif; font-style:italic; margin-right:4px; }
+
+/* ---------- LYRICS MODAL ---------- */
+.sn-modal-backdrop{
+  position:fixed; inset:0; background:rgba(30,5,8,.6); backdrop-filter:blur(2px); z-index:6000;
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+.sn-modal-backdrop.show{ display:flex; }
+.sn-modal{
+  position:relative; z-index:1; background:rgba(255,251,251,.92);
+  backdrop-filter:blur(10px) saturate(1.15); -webkit-backdrop-filter:blur(10px) saturate(1.15);
+  max-width:520px; width:100%; max-height:85vh; border-radius:14px; box-shadow:0 30px 70px rgba(0,0,0,.4);
+  display:flex; flex-direction:column; overflow:hidden; border:1px solid var(--gold-light);
+}
+.sn-modal-header{
+  padding:22px 26px 14px; border-bottom:1px solid var(--blush); position:sticky; top:0; z-index:3;
+  background:rgba(255,251,251,.92); overflow:hidden; flex-shrink:0;
+}
+.sn-modal-particles{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.sn-particle{ position:absolute; bottom:-10px; color:var(--gold); opacity:0; animation:snParticleFloat linear forwards; }
+@keyframes snParticleFloat{
+  0%{ opacity:0; transform:translateY(0) rotate(0deg); }
+  12%{ opacity:.85; } 85%{ opacity:.5; }
+  100%{ opacity:0; transform:translateY(-160px) rotate(50deg); }
+}
+@media (prefers-reduced-motion: reduce){ .sn-particle{ display:none; } }
+.sn-modal-close{ position:absolute; top:16px; right:18px; background:none; border:none; font-size:22px; color:var(--accent); cursor:none; line-height:1; z-index:2; }
+.sn-modal-title{ font-size:26px; color:var(--accent-deep); padding-right:30px; position:relative; z-index:2; }
+.sn-modal-feature{ font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--accent); font-size:15px; margin-top:4px; position:relative; z-index:2; }
+.sn-modal-body-wrap{ position:relative; flex:1; min-height:0; overflow:hidden; display:flex; }
+.sn-modal-body{
+  position:relative; z-index:1; padding:20px 26px; overflow-y:auto; overscroll-behavior:contain;
+  font-family:'EB Garamond',serif; font-size:17px; line-height:1.9; color:var(--text); flex:1; scroll-behavior:smooth;
+}
+.sn-lyrics-line{
+  opacity:.4; transform:translateY(10px);
+  transition:opacity .45s ease, transform .45s ease, color .35s ease, text-shadow .35s ease;
+  animation: snLineIn .55s ease both; will-change:opacity, transform; contain:layout style;
+}
+.sn-lyrics-line.spacer{ height:14px; animation:none; }
+.sn-lyrics-line.past{ opacity:.5; transform:translateY(0); }
+.sn-lyrics-line.active{
+  opacity:1; color:var(--accent-deep); font-weight:600; transform:translateY(0) scale(1.05);
+  text-shadow:0 0 14px rgba(201,138,61,.35); animation: snLinePop .5s ease; font-size:22px;
+}
+@keyframes snLineIn{ from{ opacity:0; transform:translateY(16px); } to{ opacity:.4; transform:translateY(0); } }
+@keyframes snLinePop{ 0%{ transform:translateY(0) scale(.96); } 55%{ transform:translateY(0) scale(1.08); } 100%{ transform:translateY(0) scale(1.05); } }
+@media (prefers-reduced-motion: reduce){ .sn-lyrics-line{ animation:none !important; transition:none !important; } }
+.sn-ch{
+  display:inline-block; opacity:0; font-family:'Caveat', cursive; font-weight:600;
+  animation:snCharStamp .42s cubic-bezier(.25,1.4,.4,1) forwards; transition:font-family .5s ease, color .5s ease, font-size .5s ease;
+}
+@keyframes snCharStamp{
+  0%{ opacity:0; transform:scale(1.8) rotate(-10deg) translateY(-6px); filter:blur(1.5px); }
+  55%{ opacity:1; transform:scale(.92) rotate(3deg) translateY(1px); filter:blur(0); }
+  75%{ transform:scale(1.05) rotate(-1deg); }
+  100%{ opacity:1; transform:scale(1) rotate(0deg) translateY(0); }
+}
+.sn-lyrics-line.past .sn-ch{ font-family:'EB Garamond', serif; font-weight:400; font-size:17px; }
+.sn-cursor-blink{ display:inline-block; margin-left:2px; font-family:'Caveat', cursive; color:var(--gold); animation:snCursorBlink .8s steps(2) infinite; }
+@keyframes snCursorBlink{ 0%,100%{ opacity:1; } 50%{ opacity:0; } }
+@media (prefers-reduced-motion: reduce){ .sn-ch{ animation:none !important; opacity:1 !important; font-family:'EB Garamond', serif !important; } }
+
+.sn-modal-player{ padding:16px 26px 22px; border-top:1px solid var(--blush); background:rgba(255,251,251,.92); }
+.sn-modal-visualizer{ display:flex; align-items:flex-end; justify-content:center; gap:4px; height:46px; margin-bottom:12px; padding:0 4px; }
+.sn-viz-bar{
+  width:5px; height:14%; min-height:4px; border-radius:3px;
+  background:linear-gradient(180deg, var(--gold-light), var(--accent));
+  transform-origin:bottom; animation:snIdleBob 1.6s ease-in-out infinite;
+}
+@keyframes snIdleBob{ 0%,100%{ height:10%; opacity:.55; } 50%{ height:32%; opacity:.85; } }
+@media (prefers-reduced-motion: reduce){ .sn-viz-bar{ animation:none !important; height:20% !important; } }
+.sn-modal-player audio{ width:100%; }
+.sn-audio-fallback{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--accent); text-align:center; display:none; }
+
+.sn-sync-row{ display:flex; align-items:center; gap:10px; margin-top:12px; flex-wrap:wrap; }
+.sn-sync-btn{
+  font-family:'Cormorant Garamond',serif; font-size:14px; background:none; border:1px solid var(--accent); color:var(--accent);
+  border-radius:16px; padding:6px 16px; cursor:none; transition:.2s;
+}
+.sn-sync-btn:hover{ background:var(--accent); color:#fff; }
+.sn-sync-btn.primary{ background:var(--accent); color:#fff; }
+.sn-sync-btn.primary:hover{ background:var(--accent-deep); }
+.sn-sync-hint{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--accent); width:100%; }
+.sn-sync-status{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--gold); width:100%; }
+.sn-sync-export{
+  width:100%; margin-top:8px; font-family:monospace; font-size:11px; color:var(--text); background:var(--bg);
+  border:1px solid var(--blush); border-radius:8px; padding:8px; max-height:100px; overflow-y:auto;
+  white-space:pre-wrap; word-break:break-all; display:none;
+}
+
+/* ---------- CUSTOM CURSOR ---------- */
+.sn-cursor-pic{ position:fixed; width:44px; pointer-events:none; transform:translate(-18%,-72%); z-index:99999; will-change:left,top; }
+.sn-cursor-touch{ position:fixed; width:42px; pointer-events:none; transform:translate(-18%,-72%); z-index:99999; display:none; will-change:left,top; }
+.sn-glitter{ position:fixed; pointer-events:none; z-index:9998; animation:snGlitterPop .6s forwards ease-out; will-change:transform,opacity; }
+@keyframes snGlitterPop{ 0%{ opacity:1; transform:scale(1.4); } 100%{ opacity:0; transform:translate(var(--tx),var(--ty)) scale(0) rotate(160deg); } }
+.sn-glitter-touch{ position:fixed; pointer-events:none; z-index:9998; animation:snGlitterPopTouch .75s forwards ease-out; will-change:transform,opacity; }
+@keyframes snGlitterPopTouch{ 0%{ opacity:1; transform:scale(1.7); } 100%{ opacity:0; transform:translate(var(--tx),var(--ty)) scale(0) rotate(200deg); } }
+@media (max-width:768px){
+  .sn-cursor-pic{ display:none !important; }
+  .sn-cursor-touch{ display:block; }
+  body{ cursor:auto; }
+  .nav-btn, .sn-tab, .sn-track, .sn-modal-close, .sn-sync-btn, .sn-replay-curtain{ cursor:pointer; }
+}
+.sn-cursor-toolbar{
+  position:fixed; top:20px; right:25px; z-index:9500; display:flex; align-items:center; gap:8px;
+  background:#fff0ee; padding:8px 12px; border-radius:25px; border:2px dashed var(--accent);
+}
+.sn-cursor-toolbar-title{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; color:var(--accent); font-weight:600; margin-right:2px; white-space:nowrap; }
+.sn-cursor-option{
+  width:34px; height:34px; border-radius:50%; border:2px solid transparent; background:var(--paper);
+  display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.2s; padding:5px;
+}
+.sn-cursor-option img{ width:100%; height:100%; pointer-events:none; }
+.sn-cursor-option:hover{ transform:scale(1.15); }
+.sn-cursor-option.selected{ border-color:var(--accent); box-shadow:0 0 8px var(--gold); }
+#snMobileCursorBtn{
+  display:none; position:fixed; top:15px; right:15px; width:46px; height:46px; border:none; border-radius:50%;
+  background:#fff0ee; border:2px solid var(--accent); box-shadow:0 4px 12px rgba(59,22,22,.18);
+  justify-content:center; align-items:center; font-size:20px; z-index:9999; cursor:pointer;
+}
+@media (max-width:768px){
+  #snMobileCursorBtn{ display:flex; }
+  .sn-cursor-toolbar{ top:70px; right:15px; display:none; flex-wrap:wrap; max-width:210px; }
+  .sn-cursor-toolbar.show{ display:flex; }
+}
+
+/* ---------- PHOTO GRID BACKGROUND ---------- */
+.sn-photo-grid-bg{
+  position:fixed; inset:0; z-index:1; display:grid;
+  grid-template-columns:repeat(6,1fr); grid-template-rows:repeat(4,1fr);
+  gap:5px; padding:5px; background:var(--bg); overflow:hidden;
+}
+.sn-photo-grid-cell{
+  overflow:hidden; background:var(--blush); display:flex; align-items:center; justify-content:center;
+  border-radius:6px; box-shadow:0 2px 10px rgba(59,22,22,.14);
+}
+.sn-photo-grid-cell:nth-child(3n+2){ background:var(--gold-light); }
+.sn-photo-grid-cell:nth-child(3n+3){ background:#f6c9c9; }
+.sn-photo-grid-cell img{
+  width:100%; height:100%; object-fit:contain; object-position:center; display:block;
+  filter:sepia(.14) saturate(1.05) brightness(1.02);
+}
+.sn-photo-grid-overlay{
+  position:fixed; inset:0; z-index:2; pointer-events:none;
+  background:
+    radial-gradient(ellipse at center, rgba(255,247,247,.12) 0%, rgba(255,247,247,.22) 55%, rgba(255,247,247,.34) 100%),
+    linear-gradient(180deg, rgba(30,5,8,.04), rgba(30,5,8,.06));
+}
+#snPageContent{ position:relative; z-index:3; }
+
+@media (max-width:768px){
+  .sn-photo-grid-bg{ grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(7,1fr); gap:4px; padding:4px; }
+  .sn-hero-frame, .sn-program{ border-radius:16px; padding:22px 18px; }
+  .era-title{ font-size:42px; }
+  .hero-cover{ width:190px; height:190px; }
+  .sn-hero-frame{ gap:24px; }
+  .sn-curtain-label{ font-size:36px; }
+}
+@media (prefers-reduced-motion: reduce){ .sn-photo-grid-cell img{ filter:none; } }
 </style>
 </head>
 <body>
-<nav class="era-nav"><a class="nav-btn" href="appp.html">âœ¦ Back to Lookbook âœ¦</a></nav>
-<section class="hero">
-  <img class="hero-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10" alt="Red cover">
-  <div>
-    <h1 class="era-title">Red</h1>
-    <p class="era-desc">Emotional storytelling, cinematic imagery, and saturated red tones.</p>
-  </div>
-</section>
-<section class="section"><h2>Outfits</h2><p>Scaffolded.</p></section>
-<nav class="bottom-nav"><a class="nav-btn" href="appp.html">Back to Lookbook</a></nav>
-</body>
-</html>
 
-<!-- Lyrics modal injected by assistant -->
-<style>
-  .lyrics-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100000;visibility:hidden;opacity:0;transition:opacity .18s ease}
-  .lyrics-modal.open{visibility:visible;opacity:1}
-  .lyrics-modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45)}
-  .lyrics-modal__panel{position:relative;max-width:820px;width:92%;max-height:84vh;overflow:auto;padding:22px 20px;background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.35);z-index:100001}
-  .lyrics-modal__close{position:absolute;right:12px;top:8px;background:transparent;border:0;font-size:20px;cursor:pointer}
-  .lyrics-modal__title{font-weight:700;margin:0 0 8px 0}
-  .lyrics-modal__content pre{white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:15px;line-height:1.6}
-  .lyrics-modal__content .no-lyrics{color:#666;font-style:italic}
-</style>
-<div id="lyrics-modal" class="lyrics-modal" aria-hidden="true">
-  <div class="lyrics-modal__backdrop" role="presentation"></div>
-  <div class="lyrics-modal__panel" role="dialog" aria-modal="true">
-    <button class="lyrics-modal__close" aria-label="Close">✕</button>
-    <h3 class="lyrics-modal__title"></h3>
-    <div class="lyrics-modal__content"></div>
+<!-- Fixed photo-grid background mosaic. Drop your own Red-era image URLs
+     into the empty src="" attributes below — one per slot, 14+ recommended.
+     Duplicates are fine but keep them spread apart in the grid. -->
+<div class="sn-photo-grid-bg" aria-hidden="true">
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="1"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="2"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="3"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="4"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="5"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="6"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="7"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="8"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="9"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="10"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="11"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="12"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="13"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="14"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="15"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="16"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="17"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="18"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="19"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="20"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="21"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="22"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="23"></div>
+  <div class="sn-photo-grid-cell"><img src="" alt="" data-slot="24"></div>
+</div>
+<div class="sn-photo-grid-overlay" aria-hidden="true"></div>
+
+<div id="snPageContent">
+
+<!-- custom cursor -->
+<img class="sn-cursor-pic" id="snFollower" src="" draggable="false" alt="">
+<img class="sn-cursor-touch" id="snTouchFollower" src="" draggable="false" alt="">
+<button id="snMobileCursorBtn" title="Choose your cursor">✦</button>
+<div class="sn-cursor-toolbar" id="snCursorToolbar">
+  <span class="sn-cursor-toolbar-title">Cursor</span>
+  <div class="sn-cursor-option selected" data-cursor="leaf" title="Maple leaf">
+    <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 6 L38 22 L54 16 L44 30 L58 34 L42 38 L48 54 L32 44 L16 54 L22 38 L6 34 L20 30 L10 16 L26 22 Z' fill='%237a0f1e' opacity='0.88' stroke='%233b1616' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cline x1='32' y1='38' x2='32' y2='58' stroke='%233b1616' stroke-width='1.6'/%3E%3C/svg%3E" alt="Maple leaf cursor">
+  </div>
+  <div class="sn-cursor-option" data-cursor="scarf" title="Scarf">
+    <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 22 Q32 8 56 22 Q32 30 8 22 Z' fill='none' stroke='%237a0f1e' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M30 26 Q26 40 20 56 Q26 58 32 54 Q28 40 34 27' fill='none' stroke='%237a0f1e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='22' y1='46' x2='30' y2='48' stroke='%23c98a3d' stroke-width='1.6'/%3E%3C/svg%3E" alt="Scarf cursor">
+  </div>
+  <div class="sn-cursor-option" data-cursor="typewriter" title="Typewriter key">
+    <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='30' r='16' fill='%23fffbfb' stroke='%237a0f1e' stroke-width='2.4'/%3E%3Ctext x='32' y='36' text-anchor='middle' font-size='16' font-family='Georgia,serif' fill='%233b1616'%3EA%3C/text%3E%3Cline x1='32' y1='46' x2='32' y2='54' stroke='%237a0f1e' stroke-width='2.4'/%3E%3C/svg%3E" alt="Typewriter key cursor">
+  </div>
+  <div class="sn-cursor-option" data-cursor="umbrella" title="Umbrella">
+    <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 30 Q32 6 56 30 Z' fill='%237a0f1e' opacity='0.85' stroke='%233b1616' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cline x1='32' y1='30' x2='32' y2='54' stroke='%233b1616' stroke-width='2'/%3E%3Cpath d='M32 54 Q32 60 38 58' fill='none' stroke='%233b1616' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" alt="Umbrella cursor">
+  </div>
+  <div class="sn-cursor-option" data-cursor="heart" title="Heart">
+    <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 52 C18 40 8 30 8 19 C8 10 15 5 22 5 C27 5 31 8 32 13 C33 8 37 5 42 5 C49 5 56 10 56 19 C56 30 46 40 32 52 Z' fill='%237a0f1e' opacity='0.85' stroke='%233b1616' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E" alt="Heart cursor">
   </div>
 </div>
+
+<!-- curtain -->
+<div class="sn-curtain" id="snCurtain">
+  <div class="sn-curtain-half sn-curtain-left"></div>
+  <div class="sn-curtain-half sn-curtain-right"></div>
+  <div class="sn-curtain-label">Red</div>
+</div>
+<button class="sn-replay-curtain" id="snReplayCurtain" title="Raise the curtain again">✦ Raise Curtain ✦</button>
+
+<nav class="era-nav"><a class="nav-btn" href="appp.html">✦ Back to Lookbook ✦</a></nav>
+
+<section class="sn-hero-wrap">
+  <div class="sn-hero-frame">
+    <div class="sn-cover-frame">
+      <img class="hero-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStP7nR--NkdBTMFxW08HuPkMOPgFiGwCY69D232rWBew&s=10" alt="Red cover">
+    </div>
+    <div class="sn-hero-text">
+      <h1 class="era-title">Red</h1>
+      <p class="sn-hero-sub">loving him was red</p>
+      <p class="era-desc">Emotional storytelling, cinematic imagery, and saturated red tones — a heartbreak diary told in every shade of the color.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sn-program">
+  <h2 class="sn-program-title">The Playbill</h2>
+  <p class="sn-program-sub">tap a song to read the speech and press play</p>
+  <div class="sn-tabs">
+    <button class="sn-tab active" data-act="standard">Standard</button>
+    <button class="sn-tab" data-act="deluxe">Deluxe Edition</button>
+    <button class="sn-tab" data-act="vault">From the Vault (TV)</button>
+  </div>
+  <div class="sn-act active" id="act-standard">
+    <p class="sn-act-heading">Act I · Red (2012)</p>
+    <div id="list-standard"></div>
+  </div>
+  <div class="sn-act" id="act-deluxe">
+    <p class="sn-act-heading">Act II · Deluxe Edition Bonus Tracks</p>
+    <div id="list-deluxe"></div>
+  </div>
+  <div class="sn-act" id="act-vault">
+    <p class="sn-act-heading">Act III · Red (Taylor's Version): From the Vault</p>
+    <div id="list-vault"></div>
+  </div>
+</section>
+
+<div class="sn-modal-backdrop" id="snModalBackdrop">
+  <div class="sn-modal">
+    <div class="sn-modal-header">
+      <div class="sn-modal-particles" id="snParticles"></div>
+      <button class="sn-modal-close" id="snModalClose">✕</button>
+      <h3 class="sn-modal-title" id="snModalTitle"></h3>
+      <p class="sn-modal-feature" id="snModalFeature"></p>
+    </div>
+    <div class="sn-modal-body-wrap">
+      <div class="sn-modal-body" id="snModalLyrics"></div>
+    </div>
+    <div class="sn-modal-player">
+      <div class="sn-modal-visualizer" id="snVisualizer"></div>
+      <audio id="snModalAudio" controls></audio>
+      <p class="sn-audio-fallback" id="snAudioFallback">🎵 add this track's audio file to hear it play</p>
+      <div class="sn-sync-row">
+        <button class="sn-sync-btn" id="snSyncStart">⏱ Sync lyrics timing</button>
+        <button class="sn-sync-btn primary" id="snSyncMark" style="display:none;">Mark line (Space)</button>
+        <button class="sn-sync-btn" id="snSyncUndo" style="display:none;">Undo last</button>
+        <button class="sn-sync-btn" id="snSyncFinish" style="display:none;">Finish (Enter)</button>
+        <button class="sn-sync-btn" id="snSyncClear" style="display:none;">Clear saved sync</button>
+        <p class="sn-sync-hint" id="snSyncHint" style="display:none;"></p>
+        <p class="sn-sync-status" id="snSyncStatus" style="display:none;"></p>
+        <textarea class="sn-sync-export" id="snSyncExport" readonly></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav"><a class="nav-btn" href="appp.html">Back to Lookbook</a></nav>
+
+</div><!-- /snPageContent -->
+
 <script>
 (function(){
-  function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function showModal(title,lyrics){
-    const modal=document.getElementById('lyrics-modal');
-    modal.querySelector('.lyrics-modal__title').textContent = title || 'Track';
-    modal.querySelector('.lyrics-modal__content').innerHTML = lyrics ? '<pre>'+escapeHtml(lyrics)+'</pre>' : '<p class="no-lyrics">No lyrics pasted. Paste full lyrics into the track row\'s `data-lyrics` attribute to enable this.</p>';
-    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
-  }
-  function hideModal(){ const modal=document.getElementById('lyrics-modal'); modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+"use strict";
 
-  document.addEventListener('click', function(e){
-    if(e.target.closest && e.target.closest('.lyrics-modal__close')) return hideModal();
-    if(e.target.closest && e.target.closest('.lyrics-modal__backdrop')) return hideModal();
-    const tr = e.target.closest && e.target.closest('tr[data-track]');
-    if(!tr) return;
-    const title = tr.dataset.track || (tr.querySelector && (tr.querySelector('.track-title')||{}).textContent) || 'Track';
-    const lyrics = tr.dataset.lyrics || '';
-    showModal(title, lyrics);
+/* =========================================================================
+   TRACK DATA
+   -------------------------------------------------------------------------
+   Fill in `audio` with a path to your own audio file for each track, and
+   fill in `lyrics` with an array of line strings (use "" for a blank/spacer
+   line between verses). Leave lyrics empty and the modal will just show a
+   placeholder message instead of breaking.
+   ========================================================================= */
+var trackData = {
+  standard: [
+    { title:"State of Grace", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Red", feature:"", note:"♥", audio:"", lyrics:[] },
+    { title:"Treacherous", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"I Knew You Were Trouble", feature:"", note:"⚡", audio:"", lyrics:[] },
+    { title:"All Too Well", feature:"", note:"🧣", audio:"", lyrics:[] },
+    { title:"22", feature:"", note:"✦", audio:"", lyrics:[] },
+    { title:"I Almost Do", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"We Are Never Ever Getting Back Together", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Stay Stay Stay", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"The Last Time", feature:"feat. Gary Lightbody", note:"♪", audio:"", lyrics:[] },
+    { title:"Holy Ground", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Sad Beautiful Tragic", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"The Lucky One", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Everything Has Changed", feature:"feat. Ed Sheeran", note:"♪", audio:"", lyrics:[] },
+    { title:"Starlight", feature:"", note:"✦", audio:"", lyrics:[] },
+    { title:"Begin Again", feature:"", note:"♪", audio:"", lyrics:[] }
+  ],
+  deluxe: [
+    { title:"The Moment I Knew", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Come Back... Be Here", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Girl at Home", feature:"", note:"♪", audio:"", lyrics:[] }
+  ],
+  vault: [
+    { title:"Better Man", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Nothing New", feature:"feat. Phoebe Bridgers", note:"♪", audio:"", lyrics:[] },
+    { title:"Babe", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Message In A Bottle", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"I Bet You Think About Me", feature:"feat. Chris Stapleton", note:"♪", audio:"", lyrics:[] },
+    { title:"Forever Winter", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"Run", feature:"feat. Ed Sheeran", note:"♪", audio:"", lyrics:[] },
+    { title:"The Very First Night", feature:"", note:"♪", audio:"", lyrics:[] },
+    { title:"All Too Well (10 Minute Version)", feature:"", note:"🧣", audio:"", lyrics:[] }
+  ]
+};
+
+/* Namespaced localStorage keys for saved sync timings */
+function syncKey(act, idx){ return "sn_red_sync_" + act + "_" + idx; }
+
+/* =========================================================================
+   CURTAIN
+   ========================================================================= */
+var body = document.body;
+var replayBtn = document.getElementById("snReplayCurtain");
+
+function openCurtain(){
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      body.classList.add("sn-open");
+    });
   });
+}
 
-  document.querySelectorAll('table.track-table tbody tr').forEach((tr, idx)=>{
-    if(!tr.dataset.track){
-      const tcell = tr.querySelector && (tr.querySelector('.track-title') || tr.cells[1]);
-      tr.dataset-track = tcell ? (tcell.textContent||'').trim() : 'Track '+(idx+1);
+// Rise on load
+window.addEventListener("load", function(){
+  setTimeout(openCurtain, 500);
+});
+// Fallback in case 'load' already fired
+if (document.readyState === "complete") {
+  setTimeout(openCurtain, 500);
+}
+
+if (replayBtn) {
+  replayBtn.addEventListener("click", function(){
+    body.classList.remove("sn-open");
+    // force reflow so the transition replays from the closed state
+    void document.getElementById("snCurtain").offsetWidth;
+    setTimeout(openCurtain, 350);
+  });
+}
+
+/* =========================================================================
+   TABS / ACTS
+   ========================================================================= */
+var tabs = document.querySelectorAll(".sn-tab");
+var acts = document.querySelectorAll(".sn-act");
+
+tabs.forEach(function(tab){
+  tab.addEventListener("click", function(){
+    var target = tab.getAttribute("data-act");
+    tabs.forEach(function(t){ t.classList.toggle("active", t === tab); });
+    acts.forEach(function(a){ a.classList.toggle("active", a.id === "act-" + target); });
+  });
+});
+
+/* =========================================================================
+   RENDER TRACK LISTS
+   ========================================================================= */
+function renderList(act){
+  var container = document.getElementById("list-" + act);
+  if (!container) return;
+  var tracks = trackData[act] || [];
+  var html = "";
+  tracks.forEach(function(t, i){
+    var hasSync = !!localStorage.getItem(syncKey(act, i));
+    html += '' +
+      '<div class="sn-track" data-act="' + act + '" data-idx="' + i + '">' +
+        '<div class="sn-track-num">' + (i + 1) + '</div>' +
+        '<div class="sn-track-info">' +
+          '<div class="sn-track-title">' + escapeHtml(t.title) + '</div>' +
+          (t.feature ? '<div class="sn-track-feature">' + escapeHtml(t.feature) + '</div>' : '') +
+        '</div>' +
+        (hasSync ? '<div class="sn-track-synced">synced</div>' : '') +
+        '<div class="sn-track-note">' + t.note + '</div>' +
+      '</div>';
+  });
+  container.innerHTML = html;
+
+  container.querySelectorAll(".sn-track").forEach(function(el){
+    el.addEventListener("click", function(){
+      var a = el.getAttribute("data-act");
+      var idx = parseInt(el.getAttribute("data-idx"), 10);
+      openModal(a, idx);
+    });
+  });
+}
+
+function escapeHtml(str){
+  var d = document.createElement("div");
+  d.textContent = str || "";
+  return d.innerHTML;
+}
+
+renderList("standard");
+renderList("deluxe");
+renderList("vault");
+
+/* =========================================================================
+   MODAL / LYRICS / SYNC
+   ========================================================================= */
+var modalBackdrop = document.getElementById("snModalBackdrop");
+var modalTitle = document.getElementById("snModalTitle");
+var modalFeature = document.getElementById("snModalFeature");
+var modalLyrics = document.getElementById("snModalLyrics");
+var modalClose = document.getElementById("snModalClose");
+var modalAudio = document.getElementById("snModalAudio");
+var audioFallback = document.getElementById("snAudioFallback");
+var particlesWrap = document.getElementById("snParticles");
+var visualizer = document.getElementById("snVisualizer");
+
+var syncStartBtn = document.getElementById("snSyncStart");
+var syncMarkBtn = document.getElementById("snSyncMark");
+var syncUndoBtn = document.getElementById("snSyncUndo");
+var syncFinishBtn = document.getElementById("snSyncFinish");
+var syncClearBtn = document.getElementById("snSyncClear");
+var syncHint = document.getElementById("snSyncHint");
+var syncStatus = document.getElementById("snSyncStatus");
+var syncExport = document.getElementById("snSyncExport");
+
+var current = { act:null, idx:null, lines:[], timings:null };
+var syncing = false;
+var syncMarks = [];
+var lineEls = [];
+
+// Build ~14 visualizer bars once
+(function buildBars(){
+  var n = 28;
+  var frag = document.createDocumentFragment();
+  for (var i=0;i<n;i++){
+    var bar = document.createElement("div");
+    bar.className = "sn-viz-bar";
+    bar.style.animationDelay = (Math.random()*1.4).toFixed(2) + "s";
+    frag.appendChild(bar);
+  }
+  visualizer.appendChild(frag);
+})();
+
+function openModal(act, idx){
+  var track = trackData[act][idx];
+  current.act = act; current.idx = idx;
+  modalTitle.textContent = track.title;
+  modalFeature.textContent = track.feature || "";
+
+  // audio
+  modalAudio.pause();
+  if (track.audio) {
+    modalAudio.src = track.audio;
+    modalAudio.style.display = "";
+    audioFallback.style.display = "none";
+  } else {
+    modalAudio.removeAttribute("src");
+    modalAudio.style.display = "none";
+    audioFallback.style.display = "";
+  }
+
+  // saved timings
+  var saved = localStorage.getItem(syncKey(act, idx));
+  current.timings = saved ? JSON.parse(saved) : null;
+
+  renderLyrics(track.lyrics || []);
+  resetSyncUI();
+  spawnParticles();
+
+  modalBackdrop.classList.add("show");
+}
+
+function closeModal(){
+  modalBackdrop.classList.remove("show");
+  modalAudio.pause();
+  stopSyncing(true);
+}
+
+modalClose.addEventListener("click", closeModal);
+modalBackdrop.addEventListener("click", function(e){
+  if (e.target === modalBackdrop) closeModal();
+});
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape" && modalBackdrop.classList.contains("show")) closeModal();
+});
+
+function renderLyrics(lines){
+  lineEls = [];
+  if (!lines || !lines.length) {
+    modalLyrics.innerHTML = '<p style="font-style:italic;opacity:.7;">No lyrics added for this track yet — drop lines into the <code>lyrics</code> array in the script to see them appear here, typewriter-style, as the song plays.</p>';
+    return;
+  }
+  var html = "";
+  lines.forEach(function(line, i){
+    if (line === "") {
+      html += '<div class="sn-lyrics-line spacer" data-i="' + i + '"></div>';
+      return;
     }
-    if(!('lyrics' in tr.dataset)) tr.dataset.lyrics = '';
-    tr.style.cursor = 'pointer';
+    var chars = "";
+    for (var c = 0; c < line.length; c++) {
+      var ch = line[c] === " " ? "&nbsp;" : escapeHtml(line[c]);
+      chars += '<span class="sn-ch" style="animation-delay:' + (c * 0.018).toFixed(3) + 's">' + ch + '</span>';
+    }
+    html += '<div class="sn-lyrics-line" data-i="' + i + '" style="animation-delay:' + (i * 0.02).toFixed(3) + 's">' + chars + '<span class="sn-cursor-blink">|</span></div>';
   });
-})();
-</script>
-<!-- Butterflies initializer (injected) -->
-<script>
-(function(){
-  if(window._butterfliesInited) return; window._butterfliesInited = true;
-  const css = document.createElement('style'); css.textContent = `
-  .butterfly{position:fixed;width:50px;height:50px;pointer-events:none;z-index:8000}
-  .butterfly img{width:100%;height:100%;user-select:none;animation:flap .35s infinite alternate ease-in-out;transform-origin:center}
-  @keyframes flap{from{transform:scale(.92)}to{transform:scale(1.08)}}`;
-  document.head.appendChild(css);
-  const bImgs=["https://www.image2url.com/r2/default/images/1782471017304-4bdf7140-c1d3-4047-a91c-e9be0ce13167.jpg","https://www.image2url.com/r2/default/images/1782471475997-1d011609-acf4-4342-977a-5a41b3a664f8.jpg"];
-  const starts=[[0.15,0.2],[0.75,0.25],[0.25,0.75],[0.8,0.7]];
-  function flyButterfly(el,x,y,m){let angle=Math.random()*Math.PI*2,timer=0,zig=0;const speed=(1+Math.random())*m;(function anim(){timer++;zig+=0.08;angle+=(Math.random()-0.5)*0.03;if(timer>100){angle+=(Math.random()-0.5)*2.6;timer=0;}const dx=Math.cos(angle)*speed-Math.sin(angle)*Math.sin(zig)*3;const dy=Math.sin(angle)*speed+Math.cos(angle)*Math.sin(zig)*3;x+=dx;y+=dy;if(x<0){x=0;angle=Math.PI-angle;}if(x>window.innerWidth-50){x=window.innerWidth-50;angle=Math.PI-angle;}if(y<0){y=0;angle=-angle;}if(y>window.innerHeight-50){y=window.innerHeight-50;angle=-angle;}el.style.left=x+'px';el.style.top=y+'px';el.style.transform=dx<0?'scaleX(-1)':'scaleX(1)';requestAnimationFrame(anim)})();}
-  for(let i=0;i<4;i++){const b=document.createElement('div');b.className='butterfly';b.innerHTML=`<img src="${bImgs[i%2]}" draggable="false">`;document.body.appendChild(b);flyButterfly(b,starts[i][0]*window.innerWidth,starts[i][1]*window.innerHeight,1+Math.random()*0.4);} 
-})();
-</script>
-<!-- Full cursor + glitter initializer (matches appp.html) -->
-<script>
-(function(){
-  if(document.getElementById('follower')) return;
-  const f=document.createElement('img'); f.id='follower'; f.className='cursor-pic'; f.draggable=false; f.src='https://www.image2url.com/r2/default/images/1782426567687-22f703eb-f25e-4b5c-80cc-0f25062558c4.jpg'; document.body.appendChild(f);
-  const t=document.createElement('img'); t.id='touchFollower'; t.className='cursor-touch'; t.draggable=false; t.src=f.src; document.body.appendChild(t);
+  modalLyrics.innerHTML = html;
+  lineEls = Array.prototype.slice.call(modalLyrics.querySelectorAll(".sn-lyrics-line"));
+}
 
-  // cursor follow
-  document.addEventListener('mousemove', e=>{ f.style.left=e.clientX+'px'; f.style.top=e.clientY+'px'; for(let i=0;i<6;i++) makeGlitterParticle(e.clientX,e.clientY,false); });
-
-  // touch follower
-  let tx=-200,ty=-200; function raf(){ t.style.left=tx+'px'; t.style.top=ty+'px'; requestAnimationFrame(raf);} requestAnimationFrame(raf);
-
-  document.addEventListener('touchstart', ev=>{ tx=ev.touches[0].clientX; ty=ev.touches[0].clientY; spawnTouchGlitter(tx,ty); },{passive:true});
-  document.addEventListener('touchmove', ev=>{ tx=ev.touches[0].clientX; ty=ev.touches[0].clientY; spawnTouchGlitter(tx,ty); },{passive:true});
-
-  // bracelet cursor setter
-  window.setCursor = function(img, src){ try{ document.querySelectorAll('.bracelet-option img').forEach(i=>i.classList.remove('selected')); if(img) img.classList.add('selected'); f.src = src; t.src = src; }catch(e){}
+function spawnParticles(){
+  particlesWrap.innerHTML = "";
+  var glyphs = ["♪","✦","♥","❦"];
+  for (var i=0;i<10;i++){
+    var p = document.createElement("span");
+    p.className = "sn-particle";
+    p.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
+    p.style.left = (Math.random()*95) + "%";
+    p.style.fontSize = (12 + Math.random()*10) + "px";
+    p.style.animationDuration = (2.5 + Math.random()*2) + "s";
+    p.style.animationDelay = (Math.random()*1.5) + "s";
+    particlesWrap.appendChild(p);
   }
+}
 
-  // glitter palette
-  window.glitterColors = ["#ffffff","#f8f8f8","#e6e6fa"];
-  window.setGlitter = function(colors){ if(colors && colors[0]==="rainbow"){ window.glitterColors = ["#ff4d4d","#ffb84d","#ffee58","#81ff81","#5ec8ff","#9b7bff","#ff7ce5"]; } else if(colors && colors.length){ window.glitterColors = colors.slice(); } };
-
-  function makeGlitterParticle(x,y,isTouch){
-    const g = document.createElement('div');
-    g.className = isTouch ? 'glitter-touch' : 'glitter';
-    const sizeBase = isTouch ? 10 : 7;
-    const spread = isTouch ? 32 : 24;
-    const size = Math.random()*sizeBase + (isTouch?4:3);
-    g.style.width = size+'px'; g.style.height = size+'px';
-    g.style.left = (x + (Math.random()-0.5)*spread) + 'px';
-    g.style.top  = (y + (Math.random()-0.5)*spread) + 'px';
-    const colour = window.glitterColors[Math.floor(Math.random()*window.glitterColors.length)];
-    g.style.background = colour; g.style.clipPath = 'polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%)';
-    g.style.boxShadow = `0 0 5px ${colour}, 0 0 10px ${colour}`;
-    const flyDist = isTouch ? 50 : 35;
-    g.style.setProperty('--tx',(Math.random()-0.5)*flyDist+'px');
-    g.style.setProperty('--ty',(Math.random()-0.5)*flyDist+'px');
-    document.body.appendChild(g);
-    setTimeout(()=>g.remove(), isTouch?800:700);
+/* --- Active-line highlighting during normal playback --- */
+modalAudio.addEventListener("timeupdate", function(){
+  if (syncing) return;
+  if (!current.timings || !current.timings.length || !lineEls.length) return;
+  var t = modalAudio.currentTime;
+  var activeIdx = -1;
+  for (var i=0;i<current.timings.length;i++){
+    if (t >= current.timings[i]) activeIdx = i; else break;
   }
+  lineEls.forEach(function(el, i){
+    el.classList.toggle("active", i === activeIdx);
+    el.classList.toggle("past", i < activeIdx);
+  });
+  if (activeIdx >= 0 && lineEls[activeIdx]) {
+    lineEls[activeIdx].scrollIntoView({ block:"center", behavior:"smooth" });
+  }
+});
 
-  let lastTG = 0;
-  function spawnTouchGlitter(x,y){ const now = Date.now(); if(now - lastTG < 30) return; lastTG = now; for(let i=0;i<9;i++) makeGlitterParticle(x,y,true); }
+/* Visualizer reacts a little while actually playing (randomized bars —
+   no Web Audio API needed, keeps this file dependency-free) */
+var vizTimer = null;
+modalAudio.addEventListener("play", function(){
+  var bars = visualizer.querySelectorAll(".sn-viz-bar");
+  clearInterval(vizTimer);
+  vizTimer = setInterval(function(){
+    bars.forEach(function(b){
+      b.style.height = (10 + Math.random()*70) + "%";
+    });
+  }, 180);
+});
+function stopViz(){
+  clearInterval(vizTimer);
+  visualizer.querySelectorAll(".sn-viz-bar").forEach(function(b){ b.style.height = ""; });
+}
+modalAudio.addEventListener("pause", stopViz);
+modalAudio.addEventListener("ended", stopViz);
+
+/* --- Lyric sync tool --- */
+function resetSyncUI(){
+  stopSyncing(true);
+  syncStartBtn.style.display = "";
+  syncMarkBtn.style.display = "none";
+  syncUndoBtn.style.display = "none";
+  syncFinishBtn.style.display = "none";
+  syncClearBtn.style.display = current.timings ? "" : "none";
+  syncHint.style.display = "none";
+  syncStatus.style.display = current.timings ? "" : "none";
+  syncStatus.textContent = current.timings ? "This track has saved lyric timing." : "";
+  syncExport.style.display = "none";
+}
+
+syncStartBtn.addEventListener("click", function(){
+  var track = trackData[current.act][current.idx];
+  if (!track.lyrics || !track.lyrics.length) {
+    syncStatus.style.display = "";
+    syncStatus.textContent = "Add lyrics for this track first, then you can sync timing.";
+    return;
+  }
+  if (!track.audio) {
+    syncStatus.style.display = "";
+    syncStatus.textContent = "Add an audio file for this track first, then you can sync timing.";
+    return;
+  }
+  startSyncing();
+});
+
+function startSyncing(){
+  syncing = true;
+  syncMarks = [];
+  modalAudio.currentTime = 0;
+  modalAudio.play();
+  syncStartBtn.style.display = "none";
+  syncMarkBtn.style.display = "";
+  syncUndoBtn.style.display = "";
+  syncFinishBtn.style.display = "";
+  syncClearBtn.style.display = "none";
+  syncHint.style.display = "";
+  syncHint.textContent = "Playing — press Space (or tap Mark line) right when line " + (syncMarks.length+1) + " of " + realLineCount() + " starts.";
+  syncStatus.style.display = "none";
+  syncExport.style.display = "none";
+  lineEls.forEach(function(el){ el.classList.remove("active","past"); });
+}
+
+function realLineCount(){
+  return lineEls.filter(function(el){ return !el.classList.contains("spacer"); }).length;
+}
+
+function markLine(){
+  if (!syncing) return;
+  var t = modalAudio.currentTime;
+  syncMarks.push(t);
+  var nonSpacer = lineEls.filter(function(el){ return !el.classList.contains("spacer"); });
+  var justMarked = nonSpacer[syncMarks.length - 1];
+  if (justMarked) {
+    lineEls.forEach(function(el){ el.classList.remove("active"); });
+    justMarked.classList.add("active");
+    justMarked.scrollIntoView({ block:"center", behavior:"smooth" });
+  }
+  if (syncMarks.length >= nonSpacer.length) {
+    syncHint.textContent = "All lines marked — press Enter / Finish to save.";
+  } else {
+    syncHint.textContent = "Line " + (syncMarks.length+1) + " of " + nonSpacer.length + " — press Space when it starts.";
+  }
+}
+
+function undoMark(){
+  if (!syncing || !syncMarks.length) return;
+  syncMarks.pop();
+  syncHint.textContent = "Line " + (syncMarks.length+1) + " of " + realLineCount() + " — press Space when it starts.";
+}
+
+function finishSyncing(){
+  if (!syncing) return;
+  var nonSpacerCount = realLineCount();
+  if (!syncMarks.length) { stopSyncing(true); return; }
+  // Map marks (only for non-spacer lines) back onto the full line index space
+  var timings = [];
+  var markPtr = 0;
+  for (var i=0;i<lineEls.length;i++){
+    if (lineEls[i].classList.contains("spacer")) {
+      timings.push(markPtr > 0 ? timings[timings.length-1] : 0);
+    } else {
+      timings.push(syncMarks[markPtr] !== undefined ? syncMarks[markPtr] : (timings[timings.length-1] || 0));
+      markPtr++;
+    }
+  }
+  current.timings = timings;
+  localStorage.setItem(syncKey(current.act, current.idx), JSON.stringify(timings));
+  modalAudio.pause();
+  stopSyncing(false);
+  syncStatus.style.display = "";
+  syncStatus.textContent = "Saved timing for " + syncMarks.length + " of " + nonSpacerCount + " lines.";
+  syncClearBtn.style.display = "";
+  syncExport.style.display = "";
+  syncExport.value = JSON.stringify(timings);
+  renderList(current.act); // refresh "synced" tag
+}
+
+function stopSyncing(cancelled){
+  syncing = false;
+  syncMarkBtn.style.display = "none";
+  syncUndoBtn.style.display = "none";
+  syncFinishBtn.style.display = "none";
+  syncHint.style.display = "none";
+  syncStartBtn.style.display = "";
+  if (cancelled) {
+    lineEls.forEach(function(el){ el.classList.remove("active","past"); });
+  }
+}
+
+syncMarkBtn.addEventListener("click", markLine);
+syncUndoBtn.addEventListener("click", undoMark);
+syncFinishBtn.addEventListener("click", finishSyncing);
+syncClearBtn.addEventListener("click", function(){
+  if (current.act == null) return;
+  localStorage.removeItem(syncKey(current.act, current.idx));
+  current.timings = null;
+  resetSyncUI();
+  renderList(current.act);
+});
+
+document.addEventListener("keydown", function(e){
+  if (!syncing) return;
+  if (e.code === "Space") { e.preventDefault(); markLine(); }
+  if (e.code === "Enter") { e.preventDefault(); finishSyncing(); }
+});
+
+/* =========================================================================
+   CUSTOM CURSOR
+   ========================================================================= */
+var follower = document.getElementById("snFollower");
+var cursorOptions = document.querySelectorAll(".sn-cursor-option");
+var cursorToolbar = document.getElementById("snCursorToolbar");
+var mobileCursorBtn = document.getElementById("snMobileCursorBtn");
+
+var cursorSVGs = {
+  leaf: "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 6 L38 22 L54 16 L44 30 L58 34 L42 38 L48 54 L32 44 L16 54 L22 38 L6 34 L20 30 L10 16 L26 22 Z' fill='%237a0f1e' opacity='0.88' stroke='%233b1616' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cline x1='32' y1='38' x2='32' y2='58' stroke='%233b1616' stroke-width='1.6'/%3E%3C/svg%3E",
+  scarf: "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 22 Q32 8 56 22 Q32 30 8 22 Z' fill='none' stroke='%237a0f1e' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M30 26 Q26 40 20 56 Q26 58 32 54 Q28 40 34 27' fill='none' stroke='%237a0f1e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='22' y1='46' x2='30' y2='48' stroke='%23c98a3d' stroke-width='1.6'/%3E%3C/svg%3E",
+  typewriter: "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='30' r='16' fill='%23fffbfb' stroke='%237a0f1e' stroke-width='2.4'/%3E%3Ctext x='32' y='36' text-anchor='middle' font-size='16' font-family='Georgia,serif' fill='%233b1616'%3EA%3C/text%3E%3Cline x1='32' y1='46' x2='32' y2='54' stroke='%237a0f1e' stroke-width='2.4'/%3E%3C/svg%3E",
+  umbrella: "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 30 Q32 6 56 30 Z' fill='%237a0f1e' opacity='0.85' stroke='%233b1616' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cline x1='32' y1='30' x2='32' y2='54' stroke='%233b1616' stroke-width='2'/%3E%3Cpath d='M32 54 Q32 60 38 58' fill='none' stroke='%233b1616' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E",
+  heart: "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 52 C18 40 8 30 8 19 C8 10 15 5 22 5 C27 5 31 8 32 13 C33 8 37 5 42 5 C49 5 56 10 56 19 C56 30 46 40 32 52 Z' fill='%237a0f1e' opacity='0.85' stroke='%233b1616' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E"
+};
+
+var currentCursor = "leaf";
+follower.src = cursorSVGs[currentCursor];
+
+var mouseX = -100, mouseY = -100, curX = -100, curY = -100;
+document.addEventListener("mousemove", function(e){
+  mouseX = e.clientX; mouseY = e.clientY;
+});
+(function raf(){
+  curX += (mouseX - curX) * 0.35;
+  curY += (mouseY - curY) * 0.35;
+  follower.style.left = curX + "px";
+  follower.style.top = curY + "px";
+  requestAnimationFrame(raf);
+})();
+
+function spawnGlitter(x, y, touch){
+  var g = document.createElement("div");
+  g.className = touch ? "sn-glitter-touch" : "sn-glitter";
+  g.textContent = ["✦","♪","❦"][Math.floor(Math.random()*3)];
+  g.style.left = x + "px";
+  g.style.top = y + "px";
+  g.style.color = "var(--gold)";
+  var angle = Math.random() * Math.PI * 2;
+  var dist = 30 + Math.random() * 40;
+  g.style.setProperty("--tx", (Math.cos(angle)*dist) + "px");
+  g.style.setProperty("--ty", (Math.sin(angle)*dist - 20) + "px");
+  document.body.appendChild(g);
+  setTimeout(function(){ g.remove(); }, 900);
+}
+
+document.addEventListener("click", function(e){
+  spawnGlitter(e.clientX, e.clientY, false);
+});
+
+cursorOptions.forEach(function(opt){
+  opt.addEventListener("click", function(){
+    currentCursor = opt.getAttribute("data-cursor");
+    follower.src = cursorSVGs[currentCursor];
+    document.getElementById("snTouchFollower").src = cursorSVGs[currentCursor];
+    cursorOptions.forEach(function(o){ o.classList.toggle("selected", o === opt); });
+  });
+});
+
+if (mobileCursorBtn) {
+  mobileCursorBtn.addEventListener("click", function(){
+    cursorToolbar.classList.toggle("show");
+  });
+}
+
+// Touch devices: let the touch-cursor image drift toward taps briefly
+var touchFollower = document.getElementById("snTouchFollower");
+document.addEventListener("touchstart", function(e){
+  if (!e.touches || !e.touches.length) return;
+  var t = e.touches[0];
+  touchFollower.style.left = t.clientX + "px";
+  touchFollower.style.top = t.clientY + "px";
+  touchFollower.style.display = "block";
+  spawnGlitter(t.clientX, t.clientY, true);
+  clearTimeout(touchFollower._hideTimer);
+  touchFollower._hideTimer = setTimeout(function(){ touchFollower.style.display = "none"; }, 500);
+}, { passive:true });
 
 })();
 </script>
 
-
+</body>
+</html>
