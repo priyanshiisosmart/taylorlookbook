@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#310f2c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Speak Now">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234a1942'/%3E%3Cpath d='M14 50 Q10 34 20 20 Q28 9 42 8 Q40 18 30 24 Q40 22 46 12 Q48 24 38 32 Q30 38 22 38 Q28 40 34 38' fill='none' stroke='%23e8cf8a' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <title>Speak Now · Lookbook</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,8 +100,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 
 .sn-replay-curtain{
   position:fixed;
-  bottom:18px;
-  left:18px;
+  bottom:max(18px, env(safe-area-inset-bottom) + 10px);
+  left:max(18px, env(safe-area-inset-left) + 10px);
   z-index:900;
   background:var(--curtain-dark);
   color:var(--gold-light);
@@ -420,6 +425,128 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 @media (prefers-reduced-motion: reduce){
   .sn-particle{ display:none; }
 }
+
+.sn-drag-handle{
+  display:none;
+  position:absolute;
+  top:8px; left:50%;
+  transform:translateX(-50%);
+  width:38px; height:4px;
+  border-radius:3px;
+  background:var(--gold);
+  opacity:.55;
+  z-index:4;
+}
+
+@media (max-width:768px){
+  .sn-drag-handle{ display:block; }
+}
+
+.sn-modal-backdrop.minimized{
+  opacity:0;
+  pointer-events:none;
+}
+
+.sn-mini-player{
+  position:fixed;
+  left:12px;
+  right:12px;
+  bottom:max(12px, env(safe-area-inset-bottom) + 8px);
+  z-index:6500;
+  display:none;
+  align-items:center;
+  gap:12px;
+  background:rgba(255,250,244,.96);
+  border:1px solid var(--gold-light);
+  border-radius:16px;
+  box-shadow:0 12px 30px rgba(34,9,31,.3);
+  padding:10px 12px;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.sn-mini-player.show{ display:flex; }
+
+.sn-mini-play{
+  flex-shrink:0;
+  width:38px; height:38px;
+  border-radius:50%;
+  border:1.5px solid var(--accent);
+  background:var(--paper);
+  color:var(--accent);
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.sn-mini-info{ flex:1; min-width:0; }
+.sn-mini-title{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;
+  font-size:15px;
+  color:var(--accent-deep);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.sn-mini-hint{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:11px;
+  color:var(--accent);
+  opacity:.7;
+}
+
+.sn-mini-close{
+  flex-shrink:0;
+  border:none;
+  background:none;
+  color:var(--accent);
+  font-size:16px;
+  opacity:.7;
+  cursor:pointer;
+  padding:6px;
+}
+.sn-mini-close:hover{ opacity:1; }
+
+.sn-toast{
+  position:fixed;
+  left:50%;
+  bottom:max(90px, env(safe-area-inset-bottom) + 80px);
+  transform:translateX(-50%) translateY(12px);
+  background:var(--accent-deep);
+  color:var(--paper);
+  font-family:'Cormorant Garamond',serif;
+  font-size:14px;
+  padding:9px 18px;
+  border-radius:20px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+  z-index:7000;
+}
+.sn-toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.sn-modal-share{
+  position:absolute;
+  top:16px; right:52px;
+  background:none;
+  border:none;
+  font-size:19px;
+  color:var(--accent);
+  cursor:pointer;
+  touch-action:manipulation;
+  line-height:1;
+  z-index:2;
+  opacity:.85;
+}
+.sn-modal-share:hover{ opacity:1; }
 
 .sn-modal-close{
   position:absolute;
@@ -849,6 +976,9 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   display:none;
 }
 
+@media (max-width:768px){
+  .era-title{ font-size:48px; }
+}
 @media (max-width:640px){
   .era-title{ font-size:42px; }
   .hero-cover{ width:190px; height:190px; }
@@ -856,6 +986,18 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   .sn-polaroid{ width:100px; }
   .sn-polaroid img{ height:100px; }
   .sn-curtain-label{ font-size:30px; }
+
+  /* Give the audio track/seek bar more room to breathe on phones by
+     tightening the padding around the modal and player on small screens. */
+  .sn-modal-backdrop{ padding:10px; }
+  .sn-modal-player{ padding:14px 14px 18px; }
+  .sn-modal-header{ padding:18px 16px 12px; }
+  .sn-modal-body{ padding:16px 16px; }
+}
+
+@media (max-width:420px){
+  .sn-modal-backdrop{ padding:6px; }
+  .sn-modal-player{ padding:12px 10px 16px; }
 }
 
 /* =========================================================
@@ -1034,6 +1176,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   .sn-cursor-touch{ display:block; }
   body{ cursor:auto; }
   .nav-btn, .sn-tab, .sn-track, .sn-modal-close, .sn-sync-btn, .sn-replay-curtain{ cursor:pointer; }
+  .nav-btn, .sn-tab, .sn-track, .sn-modal-close, .sn-sync-btn, .sn-replay-curtain,
+  .sn-polaroid, .sn-cursor-option, #snMobileCursorBtn, .sn-mini-player{ touch-action:manipulation; }
 }
 
 /* =========================================================
@@ -1041,8 +1185,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 ========================================================= */
 .sn-cursor-toolbar{
   position:fixed;
-  top:20px;
-  right:25px;
+  top:max(20px, env(safe-area-inset-top) + 12px);
+  right:max(25px, env(safe-area-inset-right) + 15px);
   z-index:9500;
   display:flex;
   align-items:center;
@@ -1081,8 +1225,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 #snMobileCursorBtn{
   display:none;
   position:fixed;
-  top:15px;
-  right:15px;
+  top:max(15px, env(safe-area-inset-top) + 8px);
+  right:max(15px, env(safe-area-inset-right) + 8px);
   width:46px;
   height:46px;
   border:none;
@@ -1100,8 +1244,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 @media (max-width:768px){
   #snMobileCursorBtn{ display:flex; }
   .sn-cursor-toolbar{
-    top:70px;
-    right:15px;
+    top:max(70px, env(safe-area-inset-top) + 62px);
+    right:max(15px, env(safe-area-inset-right) + 8px);
     display:none;
     flex-wrap:wrap;
     max-width:210px;
@@ -1328,8 +1472,10 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   <div class="sn-song-canvas" id="snSongCanvas"></div>
   <div class="sn-modal">
     <div class="sn-modal-header">
+      <div class="sn-drag-handle" id="snDragHandle" aria-hidden="true"></div>
       <div class="sn-modal-particles" id="snParticles"></div>
       <button class="sn-modal-close" id="snModalClose">✕</button>
+      <button class="sn-modal-share" id="snModalShare" title="Share this track" aria-label="Share this track">⤴</button>
       <h3 class="sn-modal-title" id="snModalTitle"></h3>
       <p class="sn-modal-feature" id="snModalFeature"></p>
     </div>
@@ -1353,6 +1499,15 @@ body.sn-open .sn-curtain{ pointer-events:none; }
     </div>
   </div>
   <div class="sn-bg-vow" id="snBgVow"><div class="sn-bg-vow-text" id="snBgVowText"></div></div>
+</div>
+
+<div class="sn-mini-player" id="snMiniPlayer">
+  <button class="sn-mini-play" id="snMiniPlayToggle" aria-label="Play or pause">▶</button>
+  <div class="sn-mini-info" id="snMiniInfo">
+    <p class="sn-mini-title" id="snMiniTitle"></p>
+    <p class="sn-mini-hint">tap to reopen</p>
+  </div>
+  <button class="sn-mini-close" id="snMiniClose" aria-label="Stop playback">✕</button>
 </div>
 
 <!-- Story animation panel (Speak Now) — centered, sits above everything -->
@@ -1739,14 +1894,50 @@ renderList('list-original', snTracks.original);
 renderList('list-platinum', snTracks.platinum);
 renderList('list-vault', snTracks.vault);
 
+var snTabOrder = ['original', 'platinum', 'vault'];
+function activateSnTab(act){
+  var tab = document.querySelector('.sn-tab[data-act="' + act + '"]');
+  if(!tab) return;
+  document.querySelectorAll('.sn-tab').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.sn-act').forEach(function(a){ a.classList.remove('active'); });
+  tab.classList.add('active');
+  document.getElementById('act-' + act).classList.add('active');
+}
+
 document.querySelectorAll('.sn-tab').forEach(function(tab){
-  tab.addEventListener('click', function(){
-    document.querySelectorAll('.sn-tab').forEach(function(b){ b.classList.remove('active'); });
-    document.querySelectorAll('.sn-act').forEach(function(a){ a.classList.remove('active'); });
-    tab.classList.add('active');
-    document.getElementById('act-' + tab.dataset.act).classList.add('active');
-  });
+  tab.addEventListener('click', function(){ activateSnTab(tab.dataset.act); });
 });
+
+/* Swipe left/right across the track-list area to move between
+   Original / Platinum / Vault tabs on mobile. */
+(function(){
+  var swipeZone = document.querySelector('.sn-tabs');
+  var listZone = document.querySelector('.sn-tabs') && document.querySelector('.sn-tabs').parentElement;
+  if(!listZone) return;
+  var sx = 0, sy = 0, tracking = false;
+
+  listZone.addEventListener('touchstart', function(e){
+    if(e.touches.length !== 1) return;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+    tracking = true;
+  }, {passive:true});
+
+  listZone.addEventListener('touchend', function(e){
+    if(!tracking) return;
+    tracking = false;
+    var dx = e.changedTouches[0].clientX - sx;
+    var dy = e.changedTouches[0].clientY - sy;
+    if(Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    var activeTab = document.querySelector('.sn-tab.active');
+    if(!activeTab) return;
+    var idx = snTabOrder.indexOf(activeTab.dataset.act);
+    var nextIdx = dx < 0 ? idx + 1 : idx - 1;
+    if(nextIdx < 0 || nextIdx >= snTabOrder.length) return;
+    snBuzz(8);
+    activateSnTab(snTabOrder[nextIdx]);
+  });
+})();
 
 const snModalBackdrop = document.getElementById('snModalBackdrop');
 const snModalTitle     = document.getElementById('snModalTitle');
@@ -1971,6 +2162,10 @@ document.addEventListener('click', function(e){
   var t = allTracksById[row.dataset.id];
   if(!t) return;
 
+  snBuzz(10);
+  snModalBackdrop.classList.remove('minimized');
+  snMiniPlayer.classList.remove('show');
+
   snCurrentId = t.id;
   snVowTriggered = false;
   snModalTitle.textContent = t.title;
@@ -2013,6 +2208,123 @@ function closeSnModal(){
 
 document.getElementById('snModalClose').addEventListener('click', closeSnModal);
 snModalBackdrop.addEventListener('click', function(e){ if(e.target === snModalBackdrop) closeSnModal(); });
+
+/* ---- Share current track ---- */
+document.getElementById('snModalShare').addEventListener('click', function(e){
+  e.stopPropagation();
+  var title = snModalTitle.textContent || 'Speak Now';
+  var shareData = { title: title, text: title + ' · Speak Now', url: location.href };
+  if(navigator.share){
+    navigator.share(shareData).catch(function(){});
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(location.href).then(function(){
+      snShowToast('Link copied ✦');
+    }).catch(function(){});
+  }
+});
+
+function snShowToast(msg){
+  var t = document.getElementById('snToast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'snToast';
+    t.className = 'sn-toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._hideTimer);
+  t._hideTimer = setTimeout(function(){ t.classList.remove('show'); }, 1800);
+}
+
+/* ---- Haptic feedback (mobile only; silently no-ops where unsupported) ---- */
+function snBuzz(ms){
+  if(navigator.vibrate) navigator.vibrate(ms || 10);
+}
+
+/* ---- Swipe-down-to-minimize + persistent mini-player ---- */
+var snMiniPlayer = document.getElementById('snMiniPlayer');
+var snMiniPlayToggle = document.getElementById('snMiniPlayToggle');
+var snMiniTitle = document.getElementById('snMiniTitle');
+var snMiniClose = document.getElementById('snMiniClose');
+var snMiniInfo = document.getElementById('snMiniInfo');
+
+function minimizeSnModal(){
+  if(!snModalBackdrop.classList.contains('show')) return;
+  snModalBackdrop.classList.add('minimized');
+  snMiniTitle.textContent = snModalTitle.textContent || 'Speak Now';
+  snMiniPlayer.classList.add('show');
+  updateMiniPlayIcon();
+  snBuzz(8);
+}
+
+function restoreSnModal(){
+  snModalBackdrop.classList.remove('minimized');
+  snMiniPlayer.classList.remove('show');
+}
+
+function updateMiniPlayIcon(){
+  snMiniPlayToggle.textContent = snModalAudio.paused ? '▶' : '❚❚';
+}
+
+snModalAudio.addEventListener('play', updateMiniPlayIcon);
+snModalAudio.addEventListener('pause', updateMiniPlayIcon);
+
+snMiniPlayToggle.addEventListener('click', function(e){
+  e.stopPropagation();
+  if(snModalAudio.paused) snModalAudio.play(); else snModalAudio.pause();
+  snBuzz(8);
+});
+snMiniInfo.addEventListener('click', function(){ restoreSnModal(); });
+snMiniClose.addEventListener('click', function(e){
+  e.stopPropagation();
+  restoreSnModal();
+  closeSnModal();
+});
+
+/* Any full close (X button or backdrop tap) should also clear mini-player state */
+var _origCloseSnModal = closeSnModal;
+closeSnModal = function(){
+  snMiniPlayer.classList.remove('show');
+  snModalBackdrop.classList.remove('minimized');
+  _origCloseSnModal();
+};
+document.getElementById('snModalClose').removeEventListener('click', _origCloseSnModal);
+document.getElementById('snModalClose').addEventListener('click', closeSnModal);
+
+/* Touch drag on the non-scrolling header/player chrome — swipe down far enough
+   to minimize into the mini-player, keeping the audio and scene running. */
+(function(){
+  var dragEls = [document.querySelector('.sn-modal-header'), document.querySelector('.sn-modal-player')];
+  var startY = 0, dragging = false, currentEl = null;
+
+  dragEls.forEach(function(el){
+    if(!el) return;
+    el.addEventListener('touchstart', function(e){
+      if(e.touches.length !== 1) return;
+      startY = e.touches[0].clientY;
+      dragging = true;
+      currentEl = document.querySelector('.sn-modal');
+      if(currentEl) currentEl.style.transition = 'none';
+    }, {passive:true});
+
+    el.addEventListener('touchmove', function(e){
+      if(!dragging || !currentEl) return;
+      var dy = e.touches[0].clientY - startY;
+      if(dy > 0) currentEl.style.transform = 'translateY(' + Math.min(dy, 200) + 'px)';
+    }, {passive:true});
+
+    el.addEventListener('touchend', function(e){
+      if(!dragging || !currentEl) return;
+      dragging = false;
+      var dy = (e.changedTouches[0].clientY - startY);
+      currentEl.style.transition = '';
+      currentEl.style.transform = '';
+      if(dy > 90) minimizeSnModal();
+      currentEl = null;
+    });
+  });
+})();
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape' && !snSyncMode) closeSnModal();
   if(snSyncMode && e.code === 'Space'){ e.preventDefault(); markSyncTap(); }
@@ -2108,6 +2420,7 @@ if(prefersReducedMotion){
   setTimeout(openCurtain, 2500);
 }
 document.getElementById('snReplayCurtain').addEventListener('click', function(){
+  snBuzz(10);
   var curtain = document.getElementById('snCurtain');
   var halves = curtain.querySelectorAll('.sn-curtain-half');
   // snap shut instantly (no transition) so there's no race with the
@@ -2148,7 +2461,7 @@ document.getElementById('snReplayCurtain').addEventListener('click', function(){
     try{ localStorage.setItem('snCursorChoice', name); }catch(e){}
   }
   cursorOptions.forEach(function(opt){
-    opt.addEventListener('click', function(){ applyCursor(opt.dataset.cursor); });
+    opt.addEventListener('click', function(){ snBuzz(8); applyCursor(opt.dataset.cursor); });
   });
   let savedCursor = 'quill';
   try{ savedCursor = localStorage.getItem('snCursorChoice') || 'quill'; }catch(e){}
