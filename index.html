@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Taylor Swift Era's Lookbook</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta name="description" content="A whimsical fan-made lookbook celebrating every Taylor Swift era — explore album aesthetics, play mini games, and customize your visit.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%9C%3C/text%3E%3C/svg%3E">
 
@@ -771,6 +772,466 @@ transform:scale(1.06);
 }
 
 /* -----------------------------
+   SIGN IN BUTTON + AUTH MODAL
+------------------------------*/
+#authBtn{
+position:fixed;
+bottom:20px;
+right:20px;
+height:46px;
+min-width:150px;
+padding:0 24px;
+border:2px dashed mediumvioletred;
+border-radius:25px;
+background:#fff0f8;
+box-shadow:0 4px 14px rgba(0,0,0,.22);
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+font-size:15px;
+letter-spacing:.5px;
+font-family:"Kirang Haerang",sans-serif;
+color:mediumvioletred;
+font-weight:bold;
+z-index:9999;
+cursor:pointer;
+transition:.25s;
+}
+#authBtn:hover{ transform:scale(1.06); }
+
+#userChip{
+position:fixed;
+bottom:20px;
+right:20px;
+height:46px;
+padding:0 10px 0 6px;
+border:2px solid mediumvioletred;
+border-radius:25px;
+background:#fff0f8;
+box-shadow:0 4px 14px rgba(0,0,0,.22);
+display:none;
+align-items:center;
+gap:8px;
+font-family:"Kirang Haerang",sans-serif;
+color:mediumvioletred;
+font-weight:bold;
+font-size:14px;
+z-index:9999;
+cursor:pointer;
+transition:.25s;
+}
+#userChip.show{ display:flex; }
+#userChip:hover{ transform:scale(1.04); }
+#userChipAvatar{
+width:32px;
+height:32px;
+border-radius:50%;
+object-fit:cover;
+background:#f3d9e4;
+border:1px solid mediumvioletred;
+}
+#userChipName{
+max-width:110px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+}
+
+#userMenu{
+position:fixed;
+bottom:72px;
+right:20px;
+z-index:9999;
+background:linear-gradient(160deg,#fff8fb 0%,#fff0f8 60%,#fdeaf5 100%);
+border:2px dashed mediumvioletred;
+border-radius:18px;
+box-shadow:0 14px 34px rgba(0,0,0,.3);
+padding:10px;
+display:none;
+flex-direction:column;
+gap:4px;
+min-width:170px;
+}
+#userMenu.show{ display:flex; }
+.user-menu-item{
+font-family:"Kirang Haerang",sans-serif;
+font-size:14px;
+color:#5a1a4a;
+background:none;
+border:none;
+text-align:left;
+padding:10px 12px;
+border-radius:12px;
+cursor:pointer;
+transition:.15s;
+width:100%;
+}
+.user-menu-item:hover{ background:#fdeaf5; }
+
+.setlist-modal{ max-width:440px; max-height:calc(100vh - 60px); overflow-y:auto; }
+.setlist-loading{
+font-family:'Kirang Haerang',sans-serif;
+color:#9a4a7a;
+padding:30px 0;
+}
+.setlist-era-group{ margin-bottom:18px; text-align:left; }
+.setlist-era-label{
+font-family:'Kirang Haerang',sans-serif;
+font-size:16px;
+color:mediumvioletred;
+border-bottom:2px dashed #f3d9e4;
+padding-bottom:4px;
+margin-bottom:8px;
+}
+.setlist-track{
+display:flex;
+align-items:center;
+gap:12px;
+padding:8px 6px;
+border-radius:14px;
+transition:.15s;
+}
+.setlist-track:hover{ background:#fdeaf5; }
+.setlist-track-art{
+width:42px;
+height:42px;
+border-radius:8px;
+flex:none;
+background:#f3d9e4;
+object-fit:cover;
+}
+.setlist-track-info{ min-width:0; flex:1; text-align:left; }
+.setlist-track-name{
+font-family:'Kirang Haerang',sans-serif;
+font-size:14px;
+color:#3d1230;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+.setlist-track-album{
+font-size:11px;
+color:#b586a8;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+.setlist-empty, .setlist-error{
+font-family:'Kirang Haerang',sans-serif;
+color:#9a4a7a;
+padding:20px 6px;
+line-height:1.6;
+}
+.setlist-connect-btn{
+margin-top:14px;
+background:#1DB954;
+color:#fff;
+border:none;
+border-radius:20px;
+padding:11px 20px;
+font:inherit;
+font-family:'Kirang Haerang',sans-serif;
+font-weight:bold;
+font-size:14px;
+cursor:pointer;
+transition:.2s;
+}
+.setlist-connect-btn:hover{ background:#1ed760; transform:translateY(-2px); }
+
+.auth-modal-overlay{
+position:fixed;
+inset:0;
+z-index:10050;
+display:none;
+align-items:center;
+justify-content:center;
+background:rgba(20,6,20,.55);
+backdrop-filter:blur(3px);
+padding:24px;
+cursor:auto;
+}
+.auth-modal-overlay.show{ display:flex; }
+
+.auth-modal{
+position:relative;
+width:100%;
+max-width:400px;
+background:linear-gradient(160deg,#fff8fb 0%,#fff0f8 60%,#fdeaf5 100%);
+border:3px dashed mediumvioletred;
+border-radius:28px;
+padding:34px 28px 30px;
+box-shadow:0 24px 60px rgba(0,0,0,.4);
+text-align:center;
+cursor:auto;
+animation:gamesModalPop .25s ease;
+}
+
+.auth-modal-close{
+position:absolute;
+top:14px;
+right:14px;
+width:34px;
+height:34px;
+border-radius:50%;
+border:2px solid mediumvioletred;
+background:#ffffff;
+color:mediumvioletred;
+font-size:16px;
+font-weight:bold;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.2s;
+}
+.auth-modal-close:hover{
+transform:scale(1.15);
+background:mediumvioletred;
+color:#fff;
+}
+
+.auth-modal-title{
+font-family:'Kirang Haerang',sans-serif;
+font-size:28px;
+line-height:1.2;
+background:linear-gradient(135deg,#9b59b6 0%,#ff69b4 45%,#ffd700 100%);
+background-size:200% 200%;
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+animation:purpleGlow 3.5s ease-in-out infinite;
+margin-bottom:6px;
+}
+.auth-modal-sub{
+font-family:'Kirang Haerang',sans-serif;
+font-size:13px;
+color:#9a4a7a;
+margin-bottom:22px;
+}
+
+.auth-remember-row{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+margin-bottom:20px;
+font-family:'Kirang Haerang',sans-serif;
+font-size:13px;
+color:#9a4a7a;
+cursor:pointer;
+user-select:none;
+}
+.auth-remember-row input{
+width:16px;
+height:16px;
+accent-color:mediumvioletred;
+cursor:pointer;
+}
+
+.auth-provider-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+width:100%;
+font:inherit;
+font-family:'Kirang Haerang',sans-serif;
+font-size:15px;
+font-weight:bold;
+border-radius:20px;
+padding:12px 18px;
+margin-bottom:12px;
+cursor:pointer;
+transition:.2s;
+border:2px solid #f3d9e4;
+background:#fff;
+color:#3d1230;
+}
+.auth-provider-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(164,39,107,.2);
+}
+.auth-provider-btn svg{ width:20px; height:20px; flex:none; }
+.auth-provider-btn.spotify{ background:#1DB954; color:#fff; border-color:#1DB954; }
+.auth-provider-btn.spotify:hover{ background:#1ed760; }
+
+.auth-divider{
+display:flex;
+align-items:center;
+gap:10px;
+margin:18px 0;
+color:#c9a3bd;
+font-family:'Kirang Haerang',sans-serif;
+font-size:13px;
+}
+.auth-divider::before, .auth-divider::after{
+content:'';
+flex:1;
+height:1px;
+background:#f3d9e4;
+}
+
+.auth-guest-form{ display:flex; flex-direction:column; gap:10px; }
+.auth-guest-form input{
+font:inherit;
+font-family:'Kirang Haerang',sans-serif;
+padding:11px 14px;
+border-radius:16px;
+border:2px solid #f3d9e4;
+background:#fff;
+color:#3d1230;
+font-size:14px;
+}
+.auth-guest-form input:focus{ outline:none; border-color:mediumvioletred; }
+.auth-guest-submit{
+background:mediumvioletred;
+color:#fff;
+border:none;
+border-radius:20px;
+padding:11px 18px;
+font:inherit;
+font-family:'Kirang Haerang',sans-serif;
+font-weight:bold;
+font-size:14px;
+cursor:pointer;
+transition:.2s;
+}
+.auth-guest-submit:hover{ transform:translateY(-2px); }
+
+.auth-modal-footnote{
+margin-top:18px;
+font-family:'Kirang Haerang',sans-serif;
+font-size:11px;
+color:#b586a8;
+line-height:1.5;
+}
+
+@media (max-width:768px){
+  #authBtn, #userChip{
+    bottom:calc(15px + env(safe-area-inset-bottom, 0px));
+    right:calc(15px + env(safe-area-inset-right, 0px));
+    touch-action:manipulation;
+  }
+  #authBtn{ height:44px; min-width:130px; font-size:13px; padding:0 16px; }
+  #userMenu{ bottom:calc(67px + env(safe-area-inset-bottom, 0px)); right:calc(15px + env(safe-area-inset-right, 0px)); }
+}
+
+.era-favorite-heart{
+position:absolute;
+top:8px;
+right:8px;
+width:34px;
+height:34px;
+border-radius:50%;
+border:none;
+background:rgba(255,255,255,.85);
+box-shadow:0 3px 10px rgba(0,0,0,.25);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:17px;
+cursor:pointer;
+z-index:5;
+transition:.2s;
+touch-action:manipulation;
+}
+.era-favorite-heart:hover{ transform:scale(1.15); }
+.era-favorite-heart.is-favorite{ background:#ffe1ee; }
+
+.ttl-toast{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%) translateY(-20px);
+z-index:20000;
+background:linear-gradient(135deg,#9b59b6 0%,#ff69b4 45%,#ffd700 100%);
+color:#fff;
+font-family:'Kirang Haerang',sans-serif;
+font-size:15px;
+font-weight:bold;
+padding:12px 24px;
+border-radius:22px;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+opacity:0;
+transition:opacity .4s ease, transform .4s ease;
+pointer-events:none;
+text-align:center;
+max-width:calc(100vw - 40px);
+}
+.ttl-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+.favorites-list, .badges-list{ text-align:left; }
+.favorite-item{
+display:flex;
+align-items:center;
+gap:12px;
+padding:8px 6px;
+border-radius:14px;
+margin-bottom:6px;
+}
+.favorite-item:hover{ background:#fdeaf5; }
+.favorite-item img{ width:44px; height:44px; border-radius:8px; object-fit:cover; flex:none; }
+.favorite-item-info{ min-width:0; flex:1; }
+.favorite-item-label{ font-family:'Kirang Haerang',sans-serif; font-size:15px; color:#3d1230; }
+.favorite-item-note{ font-size:12px; color:#9a4a7a; font-style:italic; margin-top:2px; }
+.favorite-item-remove{
+background:none; border:none; color:#c9789e; font-size:18px; cursor:pointer; flex:none; padding:4px 8px;
+}
+.favorite-item-remove:hover{ color:mediumvioletred; }
+
+.badge-item{
+display:flex;
+align-items:center;
+gap:12px;
+padding:10px 8px;
+border-radius:14px;
+margin-bottom:8px;
+opacity:.4;
+filter:grayscale(1);
+}
+.badge-item.unlocked{ opacity:1; filter:none; background:#fdeaf5; }
+.badge-emoji{ font-size:26px; flex:none; }
+.badge-info{ min-width:0; flex:1; }
+.badge-name{ font-family:'Kirang Haerang',sans-serif; font-size:14px; color:#3d1230; }
+.badge-desc{ font-size:11px; color:#9a4a7a; }
+
+.restore-look-banner{
+position:fixed;
+bottom:76px;
+right:20px;
+z-index:9998;
+max-width:260px;
+background:linear-gradient(160deg,#fff8fb 0%,#fff0f8 60%,#fdeaf5 100%);
+border:2px dashed mediumvioletred;
+border-radius:18px;
+padding:14px 16px;
+box-shadow:0 14px 34px rgba(0,0,0,.28);
+font-family:'Kirang Haerang',sans-serif;
+color:#5a1a4a;
+font-size:13px;
+display:none;
+}
+.restore-look-banner.show{ display:block; }
+.restore-look-banner .rlb-actions{ display:flex; gap:8px; margin-top:10px; }
+.restore-look-banner button{
+font:inherit;
+font-family:'Kirang Haerang',sans-serif;
+font-size:12px;
+font-weight:bold;
+border-radius:14px;
+padding:6px 12px;
+cursor:pointer;
+border:none;
+}
+.rlb-yes{ background:mediumvioletred; color:#fff; }
+.rlb-no{ background:#f3d9e4; color:#5a1a4a; }
+
+@media (max-width:768px){
+  .restore-look-banner{ bottom:calc(120px + env(safe-area-inset-bottom, 0px)); right:calc(15px + env(safe-area-inset-right, 0px)); max-width:220px; }
+}
+
+/* -----------------------------
    GAMES POPUP MODAL
 ------------------------------*/
 .games-modal-overlay{
@@ -967,11 +1428,14 @@ display:block;
 
 @media (max-width:768px){
   #gamesBtn{
-    top:calc(69px + env(safe-area-inset-top, 0px));
+    position:fixed;
+    top:calc(65px + env(safe-area-inset-top, 0px));
     right:calc(15px + env(safe-area-inset-right, 0px));
-    height:46px;
-    min-width:190px;
-    padding:0 18px;
+    height:44px;
+    width:150px;
+    min-width:0;
+    box-sizing:border-box;
+    padding:0 10px;
     font-size:13px;
     touch-action:manipulation;
   }
@@ -1032,12 +1496,15 @@ text-align:center;
   body{ cursor:auto; }
 
   #settingsBtn{
+    position:fixed;
     top:calc(15px + env(safe-area-inset-top, 0px));
     right:calc(15px + env(safe-area-inset-right, 0px));
-    height:46px;
-    min-width:190px;
-    padding:0 26px;
-    font-size:13px;
+    height:44px;
+    width:150px;
+    min-width:0;
+    box-sizing:border-box;
+    padding:0 8px;
+    font-size:12px;
     touch-action:manipulation;
   }
 
@@ -1063,9 +1530,9 @@ text-align:center;
   }
 
   .page-title{
-    font-size:28px;
+    font-size:32px;
     margin:15px;
-    margin-top:calc(125px + env(safe-area-inset-top, 0px));
+    padding-right:165px;
     text-align:left;
     min-width:0;
     width:calc(100% - 30px);
@@ -1146,8 +1613,8 @@ text-align:center;
 
 @media screen and (max-width:480px){
   .page-title{
-    font-size:22px;
-    margin-top:105px;
+    font-size:24px;
+    padding-right:135px;
     min-width:0;
     width:calc(100% - 30px);
     max-width:calc(100% - 30px);
@@ -1155,6 +1622,13 @@ text-align:center;
     overflow-wrap:break-word;
     word-break:break-word;
     white-space:normal;
+  }
+  #gamesBtn, #settingsBtn{
+    width:120px;
+    min-width:0;
+    box-sizing:border-box;
+    padding:0 6px;
+    font-size:11px;
   }
   .cursor-touch{ width:40px; }
   .butterfly{ width:35px; }
@@ -1235,6 +1709,100 @@ box-shadow:0 0 0 6px mediumvioletred, 0 0 24px rgba(255,105,180,.6);
 
 <!-- Customize button: opens the panel with all customizable elements -->
 <button id="settingsBtn" title="Customize">✨ Customize</button>
+
+<!-- Sign In button: optional login, shown when no user is signed in -->
+<button id="authBtn" title="Sign in">👤 Sign In</button>
+
+<!-- Signed-in user chip: replaces the Sign In button once logged in -->
+<button id="userChip" title="Account menu" aria-haspopup="true">
+  <img id="userChipAvatar" src="" alt="" aria-hidden="true">
+  <span id="userChipName"></span>
+</button>
+
+<!-- Account dropdown menu -->
+<div id="userMenu" role="menu">
+  <button class="user-menu-item" id="userMenuFavorites" role="menuitem">💗 My Favorite Eras</button>
+  <button class="user-menu-item" id="userMenuBadges" role="menuitem">🏅 My Badges</button>
+  <button class="user-menu-item" id="userMenuSetlist" role="menuitem">🎤 My Eras Setlist</button>
+  <button class="user-menu-item" id="userMenuSignOut" role="menuitem">Sign out</button>
+</div>
+
+<!-- Toast for greetings / quick confirmations -->
+<div class="ttl-toast" id="ttlToast"></div>
+
+<!-- Restore-look prompt: shown when a saved look exists for this signed-in name
+     but doesn't match what's currently on this device/browser -->
+<div class="restore-look-banner" id="restoreLookBanner">
+  <div id="restoreLookText">We found a saved dress-up look for you ✨</div>
+  <div class="rlb-actions">
+    <button class="rlb-yes" id="restoreLookYes" type="button">Restore it</button>
+    <button class="rlb-no" id="restoreLookNo" type="button">Not now</button>
+  </div>
+</div>
+
+<!-- Sign in modal -->
+<div class="auth-modal-overlay" id="authModalOverlay" aria-hidden="true">
+  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+    <button class="auth-modal-close" id="authModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="authModalTitle">welcome, swiftie</div>
+    <div class="auth-modal-sub">sign in to save your look ✨ (totally optional)</div>
+
+    <label class="auth-remember-row">
+      <input type="checkbox" id="authRememberMe" checked>
+      <span>Remember me on this device</span>
+    </label>
+
+    <button class="auth-provider-btn" id="googleSignInBtn" type="button">
+      <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 7 29.6 5 24 5c-7.5 0-14 4.2-17.7 10.4z"/><path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.6C29.6 35.5 27 36.5 24 36.5c-5.2 0-9.6-3.3-11.2-7.9l-6.6 5.1C9.9 40 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4.1 5.4l6.6 5.6C39.4 37.4 44 31.5 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+      Continue with Google
+    </button>
+    <button class="auth-provider-btn spotify" id="spotifySignInBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.161-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 4.322-1.32 9.702-.66 13.36 1.62.359.181.54.78.301 1.2v.001zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.301.421-1.021.599-1.561.3z"/></svg>
+      Continue with Spotify
+    </button>
+
+    <div class="auth-divider">or</div>
+
+    <form class="auth-guest-form" id="authGuestForm">
+      <input type="text" id="authGuestName" placeholder="Your name" maxlength="30" required autocomplete="given-name">
+      <button class="auth-guest-submit" type="submit">Continue as guest</button>
+    </form>
+
+    <div class="auth-modal-footnote">
+      Signing in is never required to enjoy the Lookbook — it just remembers your name and picks across visits, on this device.
+    </div>
+  </div>
+</div>
+
+<!-- Personal Eras Setlist modal (built from the signed-in Spotify user's top tracks) -->
+<div class="auth-modal-overlay" id="setlistModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="setlistModalTitle">
+    <button class="auth-modal-close" id="setlistModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="setlistModalTitle">your eras tour setlist</div>
+    <div class="auth-modal-sub" id="setlistModalSub">built from your top Taylor Swift tracks on Spotify</div>
+    <div id="setlistModalBody"><div class="setlist-loading">✦ tuning up ✦</div></div>
+  </div>
+</div>
+
+<!-- Favorites modal -->
+<div class="auth-modal-overlay" id="favoritesModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="favoritesModalTitle">
+    <button class="auth-modal-close" id="favoritesModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="favoritesModalTitle">my favorite eras</div>
+    <div class="auth-modal-sub">tap the heart on any era cover to save it here</div>
+    <div class="favorites-list" id="favoritesModalBody"></div>
+  </div>
+</div>
+
+<!-- Badges modal -->
+<div class="auth-modal-overlay" id="badgesModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="badgesModalTitle">
+    <button class="auth-modal-close" id="badgesModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="badgesModalTitle">my badges</div>
+    <div class="auth-modal-sub">little milestones as you explore the Lookbook</div>
+    <div class="badges-list" id="badgesModalBody"></div>
+  </div>
+</div>
 
 <!-- Games popup: play Taylor Swift themed classic games -->
 <div class="games-modal-overlay" id="gamesModalOverlay" aria-hidden="true">
@@ -2668,6 +3236,743 @@ document.addEventListener('keydown', function(e){
   pos1 += keyboardNudge1; pos2 += keyboardNudge2;
   keyboardNudge1 = 0; keyboardNudge2 = 0;
 });
+
+// =====================
+// SIGN IN — Google, Spotify, or Guest
+// Static GitHub Pages site: no backend, so both Google and
+// Spotify sign-in run fully client-side.
+//   - Google: uses Google Identity Services' OAuth token client
+//     (no client secret needed). Requires a free Client ID from
+//     https://console.cloud.google.com/apis/credentials — add this
+//     page's exact URL under "Authorized JavaScript origins".
+//   - Spotify: uses the Authorization Code + PKCE flow (no client
+//     secret needed either). Requires a free Client ID from
+//     https://developer.spotify.com/dashboard — add this exact
+//     page URL under "Redirect URIs" in the app settings.
+// Replace the two placeholder strings below with your real IDs.
+// =====================
+(function auth(){
+  const GOOGLE_CLIENT_ID  = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+  const SPOTIFY_CLIENT_ID = '95f34dd9dfd54eeebdb5de3540108209';
+  const REDIRECT_URI = window.location.origin + window.location.pathname;
+  const STORAGE_KEY = 'ttlUser';
+  const SPOTIFY_VERIFIER_KEY = 'ttlSpotifyVerifier';
+  const SPOTIFY_REMEMBER_KEY = 'ttlSpotifyRemember';
+
+  const authBtn         = document.getElementById('authBtn');
+  const userChip        = document.getElementById('userChip');
+  const userChipAvatar  = document.getElementById('userChipAvatar');
+  const userChipName    = document.getElementById('userChipName');
+  const userMenu        = document.getElementById('userMenu');
+  const userMenuSignOut = document.getElementById('userMenuSignOut');
+  const authModalOverlay= document.getElementById('authModalOverlay');
+  const authModalClose  = document.getElementById('authModalClose');
+  const googleSignInBtn = document.getElementById('googleSignInBtn');
+  const spotifySignInBtn= document.getElementById('spotifySignInBtn');
+  const authGuestForm   = document.getElementById('authGuestForm');
+  const authGuestName   = document.getElementById('authGuestName');
+  const authRememberMe  = document.getElementById('authRememberMe');
+  const userMenuSetlist = document.getElementById('userMenuSetlist');
+  const setlistModalOverlay = document.getElementById('setlistModalOverlay');
+  const setlistModalClose   = document.getElementById('setlistModalClose');
+  const setlistModalBody    = document.getElementById('setlistModalBody');
+  const PENDING_SETLIST_KEY = 'ttlPendingSetlist';
+
+  const userMenuFavorites   = document.getElementById('userMenuFavorites');
+  const favoritesModalOverlay = document.getElementById('favoritesModalOverlay');
+  const favoritesModalClose   = document.getElementById('favoritesModalClose');
+  const favoritesModalBody    = document.getElementById('favoritesModalBody');
+  const userMenuBadges     = document.getElementById('userMenuBadges');
+  const badgesModalOverlay = document.getElementById('badgesModalOverlay');
+  const badgesModalClose   = document.getElementById('badgesModalClose');
+  const badgesModalBody    = document.getElementById('badgesModalBody');
+  const ttlToast = document.getElementById('ttlToast');
+  const restoreLookBanner = document.getElementById('restoreLookBanner');
+  const restoreLookText   = document.getElementById('restoreLookText');
+  const restoreLookYes    = document.getElementById('restoreLookYes');
+  const restoreLookNo     = document.getElementById('restoreLookNo');
+
+  // A stable-ish key per signed-in identity, used to namespace
+  // favorites/badges/look-backup so different people on the same
+  // device (or the same person across providers) don't collide.
+  function userKey(user){
+    if(!user) return null;
+    return (user.provider || 'guest') + ':' + (user.email || user.name || 'anon');
+  }
+  function statKey(user){ return 'ttlStats_' + userKey(user); }
+  function favKey(user){ return 'ttlFavorites_' + userKey(user); }
+  function lookBackupKey(user){ return 'ttlLookBackup_' + userKey(user); }
+
+  function getStats(user){
+    try{ return JSON.parse(localStorage.getItem(statKey(user)) || '{}'); }catch(e){ return {}; }
+  }
+  function setStats(user, stats){
+    try{ localStorage.setItem(statKey(user), JSON.stringify(stats)); }catch(e){}
+  }
+  function bumpStat(field, amount){
+    const user = getUser();
+    if(!user) return;
+    const stats = getStats(user);
+    stats[field] = (stats[field] || 0) + (amount || 1);
+    setStats(user, stats);
+  }
+  function flagStat(field){
+    const user = getUser();
+    if(!user) return;
+    const stats = getStats(user);
+    stats[field] = true;
+    setStats(user, stats);
+  }
+
+  /* ---------- toast ---------- */
+  let toastTimer = null;
+  function showToast(message, duration){
+    if(!ttlToast) return;
+    ttlToast.textContent = message;
+    ttlToast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ ttlToast.classList.remove('show'); }, duration || 3200);
+  }
+
+  // kept in memory only (not persisted) — a fresh Spotify auth is
+  // triggered whenever this has expired or isn't set
+  let spotifyAccessToken = null;
+  let spotifyTokenExpiresAt = 0;
+
+  const ERA_RULES = [
+    { match:'tortured poets', label:'The Tortured Poets Department' },
+    { match:'midnights',      label:'Midnights' },
+    { match:'evermore',       label:'evermore' },
+    { match:'folklore',       label:'folklore' },
+    { match:'lover',          label:'Lover' },
+    { match:'reputation',     label:'reputation' },
+    { match:'1989',           label:'1989' },
+    { match:'red',            label:'Red' },
+    { match:'speak now',      label:'Speak Now' },
+    { match:'fearless',       label:'Fearless' }
+  ];
+  const ERA_ORDER = ['Debut','Fearless','Speak Now','Red','1989','reputation','Lover','folklore','evermore','Midnights','The Tortured Poets Department','Other'];
+
+  function eraForAlbum(albumName){
+    const n = (albumName || '').toLowerCase();
+    for(let i=0;i<ERA_RULES.length;i++){
+      if(n.indexOf(ERA_RULES[i].match) !== -1) return ERA_RULES[i].label;
+    }
+    if(n.trim() === 'taylor swift') return 'Debut';
+    return 'Other';
+  }
+
+  if(!authBtn || !authModalOverlay) return;
+
+  /* ---------- persistence ---------- */
+  /* remember=true -> localStorage (persists across visits)
+     remember=false -> sessionStorage (cleared when the tab closes) */
+  function getUser(){
+    try{
+      const persisted = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      if(persisted) return persisted;
+    }catch(e){}
+    try{ return JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null'); }
+    catch(e){ return null; }
+  }
+  function setUser(user, remember){
+    const isNewSignIn = !getUser();
+    try{
+      if(remember){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+        sessionStorage.removeItem(STORAGE_KEY);
+      } else {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    }catch(e){}
+    renderAuthUI();
+    if(isNewSignIn){
+      showToast('Welcome, ' + (user.name || 'Swiftie') + ' ✨');
+      checkLookRestore(user);
+    }
+    refreshFavoriteHearts();
+  }
+  function clearUser(){
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    try{ sessionStorage.removeItem(STORAGE_KEY); }catch(e){}
+    renderAuthUI();
+    refreshFavoriteHearts();
+    if(restoreLookBanner) restoreLookBanner.classList.remove('show');
+  }
+
+  /* ---------- UI state ---------- */
+  function renderAuthUI(){
+    const user = getUser();
+    if(user){
+      authBtn.style.display = 'none';
+      userChip.classList.add('show');
+      userChipName.textContent = user.name || 'Swiftie';
+      if(user.avatar){
+        userChipAvatar.src = user.avatar;
+        userChipAvatar.style.display = '';
+      } else {
+        userChipAvatar.style.display = 'none';
+      }
+    } else {
+      authBtn.style.display = '';
+      userChip.classList.remove('show');
+      userMenu.classList.remove('show');
+    }
+  }
+
+  function openAuthModal(){
+    authModalOverlay.classList.add('show');
+    authModalOverlay.setAttribute('aria-hidden', 'false');
+  }
+  function closeAuthModal(){
+    authModalOverlay.classList.remove('show');
+    authModalOverlay.setAttribute('aria-hidden', 'true');
+  }
+
+  authBtn.addEventListener('click', openAuthModal);
+  authModalClose.addEventListener('click', closeAuthModal);
+  authModalOverlay.addEventListener('click', function(e){
+    if(e.target === authModalOverlay) closeAuthModal();
+  });
+
+  userChip.addEventListener('click', function(e){
+    e.stopPropagation();
+    userMenu.classList.toggle('show');
+  });
+  document.addEventListener('click', function(e){
+    if(!userMenu.contains(e.target) && e.target !== userChip){
+      userMenu.classList.remove('show');
+    }
+  });
+  userMenuSignOut.addEventListener('click', function(){
+    clearUser();
+    userMenu.classList.remove('show');
+  });
+
+  /* ---------- Personal Eras Setlist ---------- */
+  function openSetlistModal(){
+    setlistModalOverlay.classList.add('show');
+    setlistModalOverlay.setAttribute('aria-hidden', 'false');
+  }
+  function closeSetlistModal(){
+    setlistModalOverlay.classList.remove('show');
+    setlistModalOverlay.setAttribute('aria-hidden', 'true');
+  }
+  setlistModalClose.addEventListener('click', closeSetlistModal);
+  setlistModalOverlay.addEventListener('click', function(e){
+    if(e.target === setlistModalOverlay) closeSetlistModal();
+  });
+
+  if(userMenuSetlist){
+    userMenuSetlist.addEventListener('click', function(){
+      userMenu.classList.remove('show');
+      openSetlistModal();
+      showSetlist();
+    });
+  }
+
+  function hasValidSpotifyToken(){
+    return !!spotifyAccessToken && Date.now() < spotifyTokenExpiresAt - 5000;
+  }
+
+  function renderConnectSpotifyPrompt(){
+    setlistModalBody.innerHTML =
+      '<div class="setlist-empty">Connect Spotify to build your personal setlist from your own most-played Taylor Swift songs.</div>' +
+      '<button class="setlist-connect-btn" id="setlistConnectSpotifyBtn" type="button">🎧 Connect Spotify</button>';
+    const btn = document.getElementById('setlistConnectSpotifyBtn');
+    if(btn){
+      btn.addEventListener('click', function(){
+        try{ sessionStorage.setItem(PENDING_SETLIST_KEY, '1'); }catch(e){}
+        startSpotifyAuth();
+      });
+    }
+  }
+
+  function showSetlist(){
+    if(!hasValidSpotifyToken()){
+      renderConnectSpotifyPrompt();
+      return;
+    }
+    setlistModalBody.innerHTML = '<div class="setlist-loading">✦ tuning up ✦</div>';
+    fetch('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term', {
+      headers: { Authorization: 'Bearer ' + spotifyAccessToken }
+    })
+    .then(function(r){
+      if(!r.ok) throw new Error('Spotify top tracks request failed (' + r.status + ')');
+      return r.json();
+    })
+    .then(function(data){
+      const items = (data && data.items) || [];
+      const taylorTracks = items.filter(function(t){
+        return t.artists && t.artists.some(function(a){ return (a.name || '').toLowerCase() === 'taylor swift'; });
+      });
+      renderSetlist(taylorTracks);
+    })
+    .catch(function(err){
+      console.warn('Setlist fetch failed:', err);
+      setlistModalBody.innerHTML = '<div class="setlist-error">Couldn\'t load your setlist right now — try reconnecting Spotify.</div>' +
+        '<button class="setlist-connect-btn" id="setlistRetryBtn" type="button">🎧 Reconnect Spotify</button>';
+      const retryBtn = document.getElementById('setlistRetryBtn');
+      if(retryBtn) retryBtn.addEventListener('click', function(){
+        try{ sessionStorage.setItem(PENDING_SETLIST_KEY, '1'); }catch(e){}
+        startSpotifyAuth();
+      });
+    });
+  }
+
+  function renderSetlist(tracks){
+    if(!tracks.length){
+      setlistModalBody.innerHTML =
+        '<div class="setlist-empty">No Taylor Swift showed up in your recent top tracks yet — give her a spin on Spotify and check back for your setlist! ✨</div>';
+      return;
+    }
+    const groups = {};
+    tracks.forEach(function(t){
+      const era = eraForAlbum(t.album && t.album.name);
+      if(!groups[era]) groups[era] = [];
+      groups[era].push(t);
+    });
+    let html = '';
+    ERA_ORDER.forEach(function(era){
+      if(!groups[era] || !groups[era].length) return;
+      html += '<div class="setlist-era-group"><div class="setlist-era-label">' + era + '</div>';
+      groups[era].forEach(function(t){
+        const art = (t.album && t.album.images && t.album.images[t.album.images.length-1] && t.album.images[t.album.images.length-1].url) || '';
+        html += '<div class="setlist-track">' +
+          (art ? '<img class="setlist-track-art" src="' + art + '" alt="" loading="lazy">' : '<div class="setlist-track-art"></div>') +
+          '<div class="setlist-track-info">' +
+            '<div class="setlist-track-name">' + escapeHtml(t.name) + '</div>' +
+            '<div class="setlist-track-album">' + escapeHtml(t.album ? t.album.name : '') + '</div>' +
+          '</div></div>';
+      });
+      html += '</div>';
+    });
+    setlistModalBody.innerHTML = html;
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  /* ---------- guest sign-in (local only, no password — see footnote) ---------- */
+  if(authGuestForm){
+    authGuestForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = authGuestName.value.trim();
+      if(!name) return;
+      setUser({ provider:'guest', name:name, avatar:null }, authRememberMe ? authRememberMe.checked : true);
+      authGuestName.value = '';
+      closeAuthModal();
+    });
+  }
+
+  /* ---------- Google sign-in ---------- */
+  let googleTokenClient = null;
+  function initGoogleClient(){
+    if(googleTokenClient || !window.google || !window.google.accounts) return;
+    googleTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: GOOGLE_CLIENT_ID,
+      scope: 'openid email profile',
+      callback: function(tokenResponse){
+        if(!tokenResponse || !tokenResponse.access_token) return;
+        fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: 'Bearer ' + tokenResponse.access_token }
+        })
+        .then(function(r){ return r.json(); })
+        .then(function(profile){
+          setUser({
+            provider:'google',
+            name: profile.given_name || profile.name || 'Swiftie',
+            avatar: profile.picture || null,
+            email: profile.email || null
+          }, authRememberMe ? authRememberMe.checked : true);
+          closeAuthModal();
+        })
+        .catch(function(err){ console.warn('Google profile fetch failed:', err); });
+      }
+    });
+  }
+  if(googleSignInBtn){
+    googleSignInBtn.addEventListener('click', function(){
+      if(GOOGLE_CLIENT_ID.indexOf('YOUR_GOOGLE_CLIENT_ID') === 0){
+        alert('Google sign-in needs a Client ID — see the auth() comment near the top of the script for setup steps.');
+        return;
+      }
+      initGoogleClient();
+      if(googleTokenClient) googleTokenClient.requestAccessToken();
+      else alert('Google sign-in is still loading — try again in a moment.');
+    });
+  }
+
+  /* ---------- Spotify sign-in (Authorization Code + PKCE) ---------- */
+  function randomVerifier(len){
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+    let out = '';
+    const arr = new Uint8Array(len);
+    crypto.getRandomValues(arr);
+    for(let i=0;i<len;i++) out += chars[arr[i] % chars.length];
+    return out;
+  }
+  function base64UrlEncode(buffer){
+    let str = '';
+    const bytes = new Uint8Array(buffer);
+    for(let i=0;i<bytes.length;i++) str += String.fromCharCode(bytes[i]);
+    return btoa(str).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  }
+  function sha256(text){
+    const enc = new TextEncoder().encode(text);
+    return crypto.subtle.digest('SHA-256', enc);
+  }
+
+  if(spotifySignInBtn){
+    spotifySignInBtn.addEventListener('click', function(){ startSpotifyAuth(); });
+  }
+  function startSpotifyAuth(){
+    if(SPOTIFY_CLIENT_ID.indexOf('YOUR_SPOTIFY_CLIENT_ID') === 0){
+      alert('Spotify sign-in needs a Client ID — see the auth() comment near the top of the script for setup steps.');
+      return;
+    }
+    const verifier = randomVerifier(64);
+    try{
+      sessionStorage.setItem(SPOTIFY_VERIFIER_KEY, verifier);
+      sessionStorage.setItem(SPOTIFY_REMEMBER_KEY, authRememberMe && !authRememberMe.checked ? '0' : '1');
+    }catch(e){}
+    sha256(verifier).then(function(digest){
+      const challenge = base64UrlEncode(digest);
+      const params = new URLSearchParams({
+        client_id: SPOTIFY_CLIENT_ID,
+        response_type: 'code',
+        redirect_uri: REDIRECT_URI,
+        code_challenge_method: 'S256',
+        code_challenge: challenge,
+        scope: 'user-read-email user-read-private user-top-read'
+      });
+      window.location.href = 'https://accounts.spotify.com/authorize?' + params.toString();
+    });
+  }
+
+  function handleSpotifyRedirect(){
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get('code');
+    if(!code) return;
+    let verifier = null;
+    try{ verifier = sessionStorage.getItem(SPOTIFY_VERIFIER_KEY); }catch(e){}
+    if(!verifier) return;
+
+    const body = new URLSearchParams({
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: REDIRECT_URI,
+      client_id: SPOTIFY_CLIENT_ID,
+      code_verifier: verifier
+    });
+
+    fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString()
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(tokenData){
+      if(!tokenData.access_token) throw new Error('No access token in Spotify response');
+      spotifyAccessToken = tokenData.access_token;
+      spotifyTokenExpiresAt = Date.now() + ((tokenData.expires_in || 3600) * 1000);
+      return fetch('https://api.spotify.com/v1/me', {
+        headers: { Authorization: 'Bearer ' + tokenData.access_token }
+      });
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(profile){
+      let remember = true;
+      try{ remember = sessionStorage.getItem(SPOTIFY_REMEMBER_KEY) !== '0'; }catch(e){}
+      setUser({
+        provider:'spotify',
+        name: profile.display_name || 'Swiftie',
+        avatar: (profile.images && profile.images[0] && profile.images[0].url) || null,
+        email: profile.email || null
+      }, remember);
+
+      let pendingSetlist = false;
+      try{ pendingSetlist = sessionStorage.getItem(PENDING_SETLIST_KEY) === '1'; }catch(e){}
+      if(pendingSetlist){
+        try{ sessionStorage.removeItem(PENDING_SETLIST_KEY); }catch(e){}
+        openSetlistModal();
+        showSetlist();
+      } else {
+        closeAuthModal();
+      }
+    })
+    .catch(function(err){ console.warn('Spotify sign-in failed:', err); })
+    .finally(function(){
+      try{
+        sessionStorage.removeItem(SPOTIFY_VERIFIER_KEY);
+        sessionStorage.removeItem(SPOTIFY_REMEMBER_KEY);
+      }catch(e){}
+      url.searchParams.delete('code');
+      url.searchParams.delete('state');
+      window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
+    });
+  }
+
+  handleSpotifyRedirect();
+  renderAuthUI();
+
+  /* ---------- Favorites (heart icons on era covers) ---------- */
+  function getFavorites(user){
+    if(!user) return [];
+    try{ return JSON.parse(localStorage.getItem(favKey(user)) || '[]'); }catch(e){ return []; }
+  }
+  function setFavorites(user, list){
+    try{ localStorage.setItem(favKey(user), JSON.stringify(list)); }catch(e){}
+  }
+  function isFavorite(user, eraId){
+    return getFavorites(user).some(function(f){ return f.era === eraId; });
+  }
+  function toggleFavorite(eraId, label, img){
+    const user = getUser();
+    if(!user){
+      showToast('Sign in to save your favorite eras 💗');
+      openAuthModal();
+      return;
+    }
+    let list = getFavorites(user);
+    const idx = list.findIndex(function(f){ return f.era === eraId; });
+    if(idx > -1){
+      list.splice(idx, 1);
+      showToast('Removed from favorites');
+    } else {
+      list.push({ era:eraId, label:label, img:img, note:'' });
+      showToast(label + ' added to favorites 💗');
+    }
+    setFavorites(user, list);
+    refreshFavoriteHearts();
+  }
+  function refreshFavoriteHearts(){
+    const user = getUser();
+    document.querySelectorAll('.era-favorite-heart').forEach(function(btn){
+      const fav = user && isFavorite(user, btn.dataset.era);
+      btn.classList.toggle('is-favorite', !!fav);
+      btn.textContent = fav ? '💗' : '🤍';
+    });
+  }
+  function injectFavoriteHearts(){
+    document.querySelectorAll('.era-img-wrap').forEach(function(wrap){
+      if(wrap.querySelector('.era-favorite-heart')) return; // already injected
+      const href = wrap.getAttribute('href') || '';
+      const eraId = href.replace(/\.html$/, '');
+      const labelEl = wrap.querySelector('.album-label');
+      const label = labelEl ? labelEl.textContent.replace(/\|/g, ' ') : eraId;
+      const img = wrap.querySelector('.era-img');
+      const imgSrc = img ? img.getAttribute('src') : '';
+      const heart = document.createElement('button');
+      heart.type = 'button';
+      heart.className = 'era-favorite-heart';
+      heart.dataset.era = eraId;
+      heart.setAttribute('aria-label', 'Save ' + label + ' to favorites');
+      heart.textContent = '🤍';
+      heart.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        toggleFavorite(eraId, label, imgSrc);
+      });
+      wrap.appendChild(heart);
+    });
+    refreshFavoriteHearts();
+  }
+  injectFavoriteHearts();
+
+  if(userMenuFavorites){
+    userMenuFavorites.addEventListener('click', function(){
+      userMenu.classList.remove('show');
+      openFavoritesModal();
+      renderFavoritesModalBody();
+    });
+  }
+  function openFavoritesModal(){
+    favoritesModalOverlay.classList.add('show');
+    favoritesModalOverlay.setAttribute('aria-hidden', 'false');
+  }
+  function closeFavoritesModal(){
+    favoritesModalOverlay.classList.remove('show');
+    favoritesModalOverlay.setAttribute('aria-hidden', 'true');
+  }
+  favoritesModalClose.addEventListener('click', closeFavoritesModal);
+  favoritesModalOverlay.addEventListener('click', function(e){
+    if(e.target === favoritesModalOverlay) closeFavoritesModal();
+  });
+
+  function renderFavoritesModalBody(){
+    const user = getUser();
+    const list = getFavorites(user);
+    if(!list.length){
+      favoritesModalBody.innerHTML = '<div class="setlist-empty">No favorites saved yet — tap the heart on any era cover above to add one here.</div>';
+      return;
+    }
+    favoritesModalBody.innerHTML = list.map(function(f, i){
+      return '<div class="favorite-item">' +
+        (f.img ? '<img src="' + f.img + '" alt="">' : '') +
+        '<div class="favorite-item-info">' +
+          '<div class="favorite-item-label">' + escapeHtml(f.label) + '</div>' +
+          '<input type="text" class="favorite-note-input" data-idx="' + i + '" placeholder="why do you love this era?" value="' + escapeHtml(f.note || '') + '" style="margin-top:4px;font:inherit;font-size:12px;padding:4px 8px;border-radius:10px;border:1px solid #f3d9e4;width:100%;box-sizing:border-box;">' +
+        '</div>' +
+        '<button class="favorite-item-remove" data-era="' + f.era + '" title="Remove" type="button">✕</button>' +
+      '</div>';
+    }).join('');
+
+    favoritesModalBody.querySelectorAll('.favorite-item-remove').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const era = btn.dataset.era;
+        let l = getFavorites(user);
+        l = l.filter(function(f){ return f.era !== era; });
+        setFavorites(user, l);
+        refreshFavoriteHearts();
+        renderFavoritesModalBody();
+      });
+    });
+    favoritesModalBody.querySelectorAll('.favorite-note-input').forEach(function(input){
+      input.addEventListener('change', function(){
+        const l = getFavorites(user);
+        const idx = parseInt(input.dataset.idx, 10);
+        if(l[idx]) l[idx].note = input.value;
+        setFavorites(user, l);
+      });
+    });
+  }
+
+  /* ---------- Badges ---------- */
+  const BADGES = [
+    { id:'signedIn',     emoji:'✨', name:'Welcome, Swiftie', desc:'Signed in for the first time',
+      unlocked:function(user, stats){ return !!user; } },
+    { id:'customize',    emoji:'🎨', name:'Stylist', desc:'Opened Customize at least once',
+      unlocked:function(user, stats){ return !!stats.customizeOpened; } },
+    { id:'gamesPlayed',  emoji:'🎮', name:'Encore!', desc:'Opened the games menu 5+ times',
+      unlocked:function(user, stats){ return (stats.gamesOpened || 0) >= 5; } },
+    { id:'favoritesThree', emoji:'💗', name:'Collector', desc:'Saved 3 or more favorite eras',
+      unlocked:function(user, stats){ return getFavorites(user).length >= 3; } },
+    { id:'spotifyLinked', emoji:'🎧', name:'On Repeat', desc:'Signed in with Spotify',
+      unlocked:function(user, stats){ return user && user.provider === 'spotify'; } },
+    { id:'highScoreBeat', emoji:'🏆', name:'New Record', desc:"Beat your own Runway Runner high score",
+      unlocked:function(user, stats){
+        let hs = 0;
+        try{ hs = parseInt(localStorage.getItem('rrRunnerHighScore') || '0', 10) || 0; }catch(e){}
+        return hs > (stats.highScoreBaseline || 0);
+      } }
+  ];
+
+  if(userMenuBadges){
+    userMenuBadges.addEventListener('click', function(){
+      userMenu.classList.remove('show');
+      openBadgesModal();
+      renderBadgesModalBody();
+    });
+  }
+  function openBadgesModal(){
+    badgesModalOverlay.classList.add('show');
+    badgesModalOverlay.setAttribute('aria-hidden', 'false');
+  }
+  function closeBadgesModal(){
+    badgesModalOverlay.classList.remove('show');
+    badgesModalOverlay.setAttribute('aria-hidden', 'true');
+  }
+  badgesModalClose.addEventListener('click', closeBadgesModal);
+  badgesModalOverlay.addEventListener('click', function(e){
+    if(e.target === badgesModalOverlay) closeBadgesModal();
+  });
+
+  function renderBadgesModalBody(){
+    const user = getUser();
+    const stats = getStats(user);
+    badgesModalBody.innerHTML = BADGES.map(function(b){
+      const unlocked = !!b.unlocked(user, stats);
+      return '<div class="badge-item' + (unlocked ? ' unlocked' : '') + '">' +
+        '<div class="badge-emoji">' + b.emoji + '</div>' +
+        '<div class="badge-info"><div class="badge-name">' + b.name + '</div><div class="badge-desc">' + b.desc + '</div></div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // track Customize / Games usage toward badges (harmless if user isn't signed in yet)
+  if(settingsBtn) settingsBtn.addEventListener('click', function(){ flagStat('customizeOpened'); });
+  if(gamesBtn) gamesBtn.addEventListener('click', function(){ bumpStat('gamesOpened', 1); });
+
+  /* ---------- Look restore (Runway Runner / Flappy dress-up look) ---------- */
+  const LOOK_KEY = 'rrRunnerLook';
+  const HIGH_SCORE_KEY = 'rrRunnerHighScore';
+  const DISMISS_RESTORE_KEY = 'ttlDismissedRestore';
+
+  function backupCurrentLook(user){
+    if(!user) return;
+    let look = null, highScore = 0;
+    try{ look = localStorage.getItem(LOOK_KEY); }catch(e){}
+    try{ highScore = parseInt(localStorage.getItem(HIGH_SCORE_KEY) || '0', 10) || 0; }catch(e){}
+    if(!look) return;
+    try{
+      localStorage.setItem(lookBackupKey(user), JSON.stringify({ look:look, highScore:highScore, savedAt:Date.now() }));
+    }catch(e){}
+  }
+  function checkLookRestore(user){
+    if(!user) return;
+    let backup = null;
+    try{ backup = JSON.parse(localStorage.getItem(lookBackupKey(user)) || 'null'); }catch(e){}
+    if(!backup || !backup.look) { backupCurrentLook(user); return; }
+    let currentLook = null;
+    try{ currentLook = localStorage.getItem(LOOK_KEY); }catch(e){}
+    let dismissed = false;
+    try{ dismissed = sessionStorage.getItem(DISMISS_RESTORE_KEY) === '1'; }catch(e){}
+    if(dismissed) return;
+    if(currentLook === backup.look) return; // already matches, nothing to restore
+    restoreLookText.textContent = 'We found a saved dress-up look for ' + (user.name || 'you') + ' ✨ Restore it on this device?';
+    restoreLookBanner.classList.add('show');
+  }
+  if(restoreLookYes){
+    restoreLookYes.addEventListener('click', function(){
+      const user = getUser();
+      if(!user) return;
+      let backup = null;
+      try{ backup = JSON.parse(localStorage.getItem(lookBackupKey(user)) || 'null'); }catch(e){}
+      if(backup && backup.look){
+        try{
+          localStorage.setItem(LOOK_KEY, backup.look);
+          const currentHigh = parseInt(localStorage.getItem(HIGH_SCORE_KEY) || '0', 10) || 0;
+          if((backup.highScore || 0) > currentHigh) localStorage.setItem(HIGH_SCORE_KEY, String(backup.highScore));
+        }catch(e){}
+        showToast('Look restored — reopen a game to see it ✨');
+      }
+      restoreLookBanner.classList.remove('show');
+    });
+  }
+  if(restoreLookNo){
+    restoreLookNo.addEventListener('click', function(){
+      restoreLookBanner.classList.remove('show');
+      try{ sessionStorage.setItem(DISMISS_RESTORE_KEY, '1'); }catch(e){}
+    });
+  }
+  // keep the backup current whenever a game (running in the same-origin
+  // srcdoc iframe) saves a new look — the iframe's localStorage writes
+  // fire a 'storage' event on this parent window since they share an origin
+  window.addEventListener('storage', function(e){
+    if(e.key === LOOK_KEY || e.key === HIGH_SCORE_KEY){
+      const user = getUser();
+      if(user) backupCurrentLook(user);
+    }
+  });
+
+  /* ---------- initial "welcome back" greeting on return visits ---------- */
+  (function initialGreeting(){
+    const user = getUser();
+    if(!user) return;
+    let alreadyGreeted = false;
+    try{ alreadyGreeted = sessionStorage.getItem('ttlGreetedThisSession') === '1'; }catch(e){}
+    if(!alreadyGreeted){
+      showToast('Welcome back, ' + (user.name || 'Swiftie') + ' ✨');
+      try{ sessionStorage.setItem('ttlGreetedThisSession', '1'); }catch(e){}
+    }
+    checkLookRestore(user);
+  })();
+})();
 
 // =====================
 // FIRST-VISIT EXPLORE HINT
