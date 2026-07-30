@@ -1196,6 +1196,163 @@ filter:grayscale(1);
 .badge-name{ font-family:'Kirang Haerang',sans-serif; font-size:14px; color:#3d1230; }
 .badge-desc{ font-size:11px; color:#9a4a7a; }
 
+/* -----------------------------
+   MORE FAB + PANEL
+------------------------------*/
+#moreFab{
+position:fixed;
+bottom:20px;
+left:20px;
+width:52px;
+height:52px;
+border-radius:50%;
+border:2px dashed mediumvioletred;
+background:#fff0f8;
+box-shadow:0 4px 14px rgba(0,0,0,.22);
+font-size:22px;
+cursor:pointer;
+z-index:9500;
+transition:transform .2s ease;
+}
+#moreFab:hover{ transform:scale(1.08) rotate(15deg); }
+#morePanel{
+position:fixed;
+bottom:80px;
+left:20px;
+width:230px;
+max-width:calc(100vw - 40px);
+background:linear-gradient(160deg,#fff8fb 0%,#fff0f8 60%,#fdeaf5 100%);
+border:2px dashed mediumvioletred;
+border-radius:18px;
+padding:10px;
+box-shadow:0 10px 30px rgba(0,0,0,.28);
+z-index:9500;
+display:none;
+flex-direction:column;
+gap:4px;
+max-height:70vh;
+overflow-y:auto;
+}
+#morePanel.show{ display:flex; }
+.more-panel-title{
+font-family:"Kirang Haerang",sans-serif;
+color:mediumvioletred;
+font-size:15px;
+font-weight:bold;
+padding:4px 8px 8px;
+}
+.more-info-line{
+font-family:"Kirang Haerang",sans-serif;
+color:#8a5a7a;
+font-size:12.5px;
+padding:2px 8px 6px;
+}
+.more-info-line:empty{ display:none; }
+
+/* -----------------------------
+   DARK MODE
+------------------------------*/
+body.dark-mode-on::after{
+content:"";
+position:fixed;
+inset:0;
+background:rgba(10,6,16,.62);
+pointer-events:none;
+z-index:2;
+}
+body.dark-mode-on .auth-modal,
+body.dark-mode-on #morePanel,
+body.dark-mode-on #userMenu{
+background:linear-gradient(160deg,#241522 0%,#1c1220 60%,#150d18 100%) !important;
+}
+body.dark-mode-on .auth-modal-title,
+body.dark-mode-on .favorite-item-label,
+body.dark-mode-on .badge-name,
+body.dark-mode-on .journal-era-title,
+body.dark-mode-on .more-panel-title{
+color:#ff9fd0 !important;
+}
+body.dark-mode-on .auth-modal-sub,
+body.dark-mode-on .badge-desc,
+body.dark-mode-on .more-info-line,
+body.dark-mode-on .setlist-empty{
+color:#c9a0be !important;
+}
+body.dark-mode-on .favorite-item:hover,
+body.dark-mode-on .badge-item.unlocked,
+body.dark-mode-on .journal-era,
+body.dark-mode-on .look-row{
+background:#2a1828 !important;
+}
+body.dark-mode-on .journal-era textarea,
+body.dark-mode-on #searchModalInput{
+background:#150d18 !important;
+color:#f3d9e8 !important;
+}
+
+/* -----------------------------
+   JOURNAL / ERA NOTES
+------------------------------*/
+.journal-era{ background:#fff8fb; border:1.5px dashed mediumvioletred; border-radius:14px; padding:10px 12px; margin-bottom:10px; }
+.journal-era-title{ font-family:"Kirang Haerang",sans-serif; color:mediumvioletred; font-size:16px; margin-bottom:6px; }
+.journal-era textarea{
+width:100%; min-height:60px; resize:vertical;
+border:1.5px solid #f3d9e4; border-radius:10px; padding:8px;
+font-family:"Kirang Haerang",sans-serif; font-size:14px; color:#5a1a4a;
+background:#fffdfb; box-sizing:border-box;
+}
+.journal-save-hint{ font-size:11px; color:#a888a0; margin-top:4px; font-style:italic; }
+
+/* -----------------------------
+   QUIZ
+------------------------------*/
+.quiz-question{ font-family:"Kirang Haerang",sans-serif; color:#5a1a4a; font-size:15px; margin-bottom:10px; }
+.quiz-options{ display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+.quiz-option{
+text-align:left; background:#fff8fb; border:1.5px dashed mediumvioletred; border-radius:12px;
+padding:10px 12px; font-family:"Kirang Haerang",sans-serif; font-size:14px; color:#5a1a4a; cursor:pointer;
+}
+.quiz-option:hover{ background:#ffe1ee; }
+.quiz-result{ text-align:center; }
+.quiz-result-title{ font-family:"Kirang Haerang",sans-serif; color:mediumvioletred; font-size:20px; font-weight:bold; margin-bottom:6px; }
+.quiz-result-sub{ font-family:"Kirang Haerang",sans-serif; color:#8a5a7a; font-size:13px; margin-bottom:14px; }
+.quiz-restart{
+border:none; background:#f3d9e4; color:#5a1a4a; border-radius:12px; padding:8px 16px;
+font-family:"Kirang Haerang",sans-serif; font-size:13px; cursor:pointer;
+}
+
+/* -----------------------------
+   SAVED LOOKS
+------------------------------*/
+.look-row{ display:flex; align-items:center; gap:10px; background:#fff8fb; border:1.5px dashed mediumvioletred; border-radius:14px; padding:8px 10px; margin-bottom:8px; }
+.look-row-name{ flex:1; font-family:"Kirang Haerang",sans-serif; color:#5a1a4a; font-size:14px; }
+.look-row button{
+border:none; border-radius:10px; padding:6px 10px; cursor:pointer;
+font-family:"Kirang Haerang",sans-serif; font-size:12px; font-weight:bold; flex:none;
+}
+.look-row-load{ background:mediumvioletred; color:#fff; }
+.look-row-delete{ background:#f3d9e4; color:#5a1a4a; }
+
+@media screen and (max-width:480px){
+  #moreFab{ width:44px; height:44px; font-size:18px; bottom:16px; left:16px; }
+  #morePanel{ bottom:68px; left:16px; width:calc(100vw - 32px); }
+}
+
+.confetti-piece{
+position:fixed;
+top:-10px;
+width:8px;
+height:14px;
+z-index:10002;
+pointer-events:none;
+animation:confetti-fall linear forwards;
+}
+@keyframes confetti-fall{
+0%{ transform:translateY(0) rotate(0deg); opacity:1; }
+100%{ transform:translateY(100vh) rotate(540deg); opacity:0; }
+}
+
+
 .restore-look-banner{
 position:fixed;
 bottom:76px;
@@ -1707,6 +1864,21 @@ box-shadow:0 0 0 6px mediumvioletred, 0 0 24px rgba(255,105,180,.6);
 <!-- Games button: opens a popup linking to the Taylor-themed mini games -->
 <button id="gamesBtn" title="Play games">🎮 Games</button>
 
+<!-- More FAB: hub for extra features (search, quiz, streak, dark mode, lookbook card, saved looks) -->
+<button id="moreFab" title="More" aria-haspopup="true" aria-expanded="false">✨</button>
+<div id="morePanel" role="menu" aria-hidden="true">
+  <div class="more-panel-title">✨ more stuff</div>
+  <div id="streakLine" class="more-info-line"></div>
+  <div id="countdownLine" class="more-info-line"></div>
+  <button class="user-menu-item" id="moreSurprise" role="menuitem">🎲 Surprise Me</button>
+  <button class="user-menu-item" id="moreSearch" role="menuitem">🔍 Find an Era</button>
+  <button class="user-menu-item" id="moreQuiz" role="menuitem">🧠 Which Era Are You?</button>
+  <button class="user-menu-item" id="moreLookbookCard" role="menuitem">📸 My Lookbook Card</button>
+  <button class="user-menu-item" id="moreLooks" role="menuitem">👗 My Saved Looks</button>
+  <button class="user-menu-item" id="moreSound" role="menuitem">🔔 Sound: <span id="moreSoundState">on</span></button>
+  <button class="user-menu-item" id="moreDarkMode" role="menuitem">🌙 Dark Mode: <span id="moreDarkState">off</span></button>
+</div>
+
 <!-- Customize button: opens the panel with all customizable elements -->
 <button id="settingsBtn" title="Customize">✨ Customize</button>
 
@@ -1724,6 +1896,7 @@ box-shadow:0 0 0 6px mediumvioletred, 0 0 24px rgba(255,105,180,.6);
   <button class="user-menu-item" id="userMenuFavorites" role="menuitem">💗 My Favorite Eras</button>
   <button class="user-menu-item" id="userMenuBadges" role="menuitem">🏅 My Badges</button>
   <button class="user-menu-item" id="userMenuSetlist" role="menuitem">🎤 My Eras Setlist</button>
+  <button class="user-menu-item" id="userMenuJournal" role="menuitem">📔 My Era Notes</button>
   <button class="user-menu-item" id="userMenuSignOut" role="menuitem">Sign out</button>
 </div>
 
@@ -1801,6 +1974,57 @@ box-shadow:0 0 0 6px mediumvioletred, 0 0 24px rgba(255,105,180,.6);
     <div class="auth-modal-title" id="badgesModalTitle">my badges</div>
     <div class="auth-modal-sub">little milestones as you explore the Lookbook</div>
     <div class="badges-list" id="badgesModalBody"></div>
+  </div>
+</div>
+
+<!-- Era Notes (journal) modal -->
+<div class="auth-modal-overlay" id="journalModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="journalModalTitle">
+    <button class="auth-modal-close" id="journalModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="journalModalTitle">my era notes</div>
+    <div class="auth-modal-sub">jot down why each era matters to you — saved on this device</div>
+    <div id="journalModalBody" class="favorites-list"></div>
+  </div>
+</div>
+
+<!-- Find an Era modal -->
+<div class="auth-modal-overlay" id="searchModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="searchModalTitle">
+    <button class="auth-modal-close" id="searchModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="searchModalTitle">find an era</div>
+    <input type="text" id="searchModalInput" placeholder="type an era name…" autocomplete="off" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #f3d9e4;border-radius:12px;font-family:'Kirang Haerang',sans-serif;font-size:15px;margin-bottom:10px;">
+    <div id="searchModalResults" class="favorites-list"></div>
+  </div>
+</div>
+
+<!-- Which Era Are You quiz modal -->
+<div class="auth-modal-overlay" id="quizModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="quizModalTitle">
+    <button class="auth-modal-close" id="quizModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="quizModalTitle">which era are you?</div>
+    <div id="quizModalBody"></div>
+  </div>
+</div>
+
+<!-- Lookbook card modal -->
+<div class="auth-modal-overlay" id="lookbookModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="lookbookModalTitle">
+    <button class="auth-modal-close" id="lookbookModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="lookbookModalTitle">my lookbook card</div>
+    <div class="auth-modal-sub">a shareable little summary card — saved on your device</div>
+    <canvas id="lookbookCanvas" width="640" height="800" style="width:100%;max-width:320px;display:block;margin:0 auto 12px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);"></canvas>
+    <button class="auth-provider-btn" id="lookbookDownloadBtn" type="button" style="justify-content:center;">⬇ Download card</button>
+  </div>
+</div>
+
+<!-- Saved Looks modal -->
+<div class="auth-modal-overlay" id="looksModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="looksModalTitle">
+    <button class="auth-modal-close" id="looksModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="looksModalTitle">my saved looks</div>
+    <div class="auth-modal-sub">save your current dress-up look, name it, and load it back any time</div>
+    <button class="auth-provider-btn" id="looksSaveCurrentBtn" type="button" style="justify-content:center;margin-bottom:12px;">💾 Save current look</button>
+    <div id="looksModalBody" class="favorites-list"></div>
   </div>
 </div>
 
@@ -3991,6 +4215,589 @@ document.addEventListener('keydown', function(e){
   document.addEventListener('mousedown', dismiss, {once:true});
   document.addEventListener('touchstart', dismiss, {once:true});
   setTimeout(dismiss, 6000);
+})();
+
+// =====================
+// SWIFTIE MORE: era notes/journal, streak + countdown, dark mode, sound,
+// surprise-me, search, "which era are you" quiz, lookbook card, saved
+// dress-up look slots, and celebratory toast+confetti for badge unlocks.
+// Reuses the existing #ttlToast element and the same identity keying
+// (userKey/statKey/favKey pattern) as the auth module above, so it stays
+// consistent with favorites/badges/stats already on this page.
+// =====================
+(function swiftieMore(){
+  const STORAGE_KEY = 'ttlUser';
+
+  function getUser(){
+    try{
+      const persisted = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      if(persisted) return persisted;
+    }catch(e){}
+    try{ return JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null'); }
+    catch(e){ return null; }
+  }
+  function userKey(user){
+    if(!user) return null;
+    return (user.provider || 'guest') + ':' + (user.email || user.name || 'anon');
+  }
+  function idKey(user){ return user ? userKey(user) : 'anon:guest'; }
+  function statKey(user){ return 'ttlStats_' + userKey(user); }
+  function favKey(user){ return 'ttlFavorites_' + userKey(user); }
+
+  function readJSON(key, fallback){
+    try{ const v = JSON.parse(localStorage.getItem(key) || 'null'); return v === null ? fallback : v; }
+    catch(e){ return fallback; }
+  }
+  function writeJSON(key, value){ try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){} }
+  function getStats(user){ return user ? readJSON(statKey(user), {}) : {}; }
+  function getFavoritesCount(user){ return user ? readJSON(favKey(user), []).length : 0; }
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- era list, derived live from the marquee so it never drifts out of sync ---------- */
+  const ERA_COLORS = {
+    taylorswift:'#7cc4e8', fearless:'#f4c95d', speaknow:'#7c4fa0', red:'#b3122a',
+    '1989':'#8fd8e8', reputation:'#2b2b2b', lover:'#f6b6d2', folklore:'#8a8f87',
+    evermore:'#a9713f', midnights:'#2b3a67', ttpd:'#e5e0d8', showgirl:'#e8b13a'
+  };
+  const ERA_BLURBS = {
+    taylorswift:'You lead with heart and honesty — the original storyteller energy.',
+    fearless:'Golden, hopeful, first-love energy — you leap before you look, and it usually works out.',
+    speaknow:'A hopeless romantic who says the brave thing out loud, even shaking.',
+    red:'Big feelings, no apologies — you love loudly and grieve just as loudly.',
+    '1989':'Sparkly, citypop confidence — you turn a bad week into a dance floor.',
+    reputation:'Guarded, sharp, unbothered — you protect your peace fiercely.',
+    lover:'Soft, romantic, a little chaotic in the best way — you believe in it.',
+    folklore:'Cardigan-and-cabin energy — you feel everything quietly and deeply.',
+    evermore:'A little wilder than folklore — you turn heartbreak into a whole novel.',
+    midnights:'3am thoughts, sharp wit, a little unhinged — in a lovable way.',
+    ttpd:'You process everything by writing it down first, feeling it second.',
+    showgirl:'Center stage, full sparkle — you were always going to end up here.'
+  };
+  function buildEraList(){
+    const seen = {};
+    const list = [];
+    document.querySelectorAll('.era-img-wrap').forEach(function(wrap){
+      const href = wrap.getAttribute('href') || '';
+      if(!href || seen[href]) return;
+      seen[href] = true;
+      const id = href.replace(/\.html$/, '');
+      const labelEl = wrap.querySelector('.album-label');
+      const name = labelEl ? labelEl.textContent.replace(/\|/g, ' ') : id;
+      list.push({ id:id, href:href, name:name, color:ERA_COLORS[id] || '#c2185b', blurb:ERA_BLURBS[id] || 'Every era looks good on you.' });
+    });
+    return list;
+  }
+  const ERA_LIST = buildEraList();
+  const ERA_BY_ID = {}; ERA_LIST.forEach(function(e){ ERA_BY_ID[e.id] = e; });
+
+  /* ---------- toast (reuses the site's existing toast element/animation) ---------- */
+  const ttlToast = document.getElementById('ttlToast');
+  let moreToastTimer = null;
+  function showMoreToast(message, duration){
+    if(!ttlToast) return;
+    ttlToast.textContent = message;
+    ttlToast.classList.add('show');
+    clearTimeout(moreToastTimer);
+    moreToastTimer = setTimeout(function(){ ttlToast.classList.remove('show'); }, duration || 3200);
+  }
+  function burstConfetti(){
+    if(reduceMotion) return;
+    const colors = ['#c2185b', '#f6b6d2', '#f4c95d', '#8fd8e8', '#7c4fa0'];
+    for(let i = 0; i < 32; i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDuration = (1.6 + Math.random() * 1.2) + 's';
+      piece.style.opacity = String(0.7 + Math.random() * 0.3);
+      document.body.appendChild(piece);
+      setTimeout(function(){ piece.remove(); }, 3200);
+    }
+  }
+
+  /* ---------- visit streak ---------- */
+  function streakKey(user){ return 'ttlStreak_' + idKey(user); }
+  function todayStr(){ return new Date().toISOString().slice(0,10); }
+  function updateStreak(){
+    const user = getUser();
+    const key = streakKey(user);
+    const s = readJSON(key, { lastVisit:null, streak:0 });
+    const today = todayStr();
+    if(s.lastVisit === today) return s;
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+    s.streak = (s.lastVisit === yesterday) ? (s.streak || 0) + 1 : 1;
+    s.lastVisit = today;
+    writeJSON(key, s);
+    return s;
+  }
+  function getStreak(){ return readJSON(streakKey(getUser()), { streak:0 }); }
+  function renderStreakLine(){
+    const el = document.getElementById('streakLine');
+    if(!el) return;
+    const s = getStreak();
+    el.textContent = (s.streak || 0) >= 2 ? '🔥 ' + s.streak + ' day visit streak' : '';
+  }
+  function renderCountdownLine(){
+    const el = document.getElementById('countdownLine');
+    if(!el) return;
+    const now = new Date();
+    let target = new Date(now.getFullYear(), 11, 13); // Dec 13
+    if(target < now) target = new Date(now.getFullYear() + 1, 11, 13);
+    const days = Math.ceil((target - now) / 86400000);
+    el.textContent = '🎂 ' + days + ' days until Taylor\u2019s birthday';
+  }
+
+  /* ---------- badge parity check (mirrors BADGES predicates above, for celebratory toast/confetti only) ---------- */
+  function computeUnlockedBadgeIds(){
+    const user = getUser();
+    const stats = getStats(user);
+    const favCount = getFavoritesCount(user);
+    let hs = 0;
+    try{ hs = parseInt(localStorage.getItem('rrRunnerHighScore') || '0', 10) || 0; }catch(e){}
+    const streak = getStreak().streak || 0;
+    const ids = [];
+    if(user) ids.push('signedIn');
+    if(stats.customizeOpened) ids.push('customize');
+    if((stats.gamesOpened || 0) >= 5) ids.push('gamesPlayed');
+    if(favCount >= 3) ids.push('favoritesThree');
+    if(user && user.provider === 'spotify') ids.push('spotifyLinked');
+    if(hs > (stats.highScoreBaseline || 0)) ids.push('highScoreBeat');
+    if((stats.gamesOpened || 0) >= 25) ids.push('dressUpDevotee');
+    if(favCount >= ERA_LIST.length && ERA_LIST.length > 0) ids.push('allFavorited');
+    if(streak >= 5) ids.push('streakFive');
+    return ids;
+  }
+  const BADGE_LABELS = {
+    signedIn:'✨ Welcome, Swiftie!', customize:'🎨 Stylist badge unlocked!', gamesPlayed:'🎮 Encore badge unlocked!',
+    favoritesThree:'💗 Collector badge unlocked!', spotifyLinked:'🎧 On Repeat badge unlocked!',
+    highScoreBeat:'🏆 New Record badge unlocked!', dressUpDevotee:'💅 Dress-up Devotee badge unlocked!',
+    allFavorited:'💞 All Eras Favorited badge unlocked!', streakFive:'🔥 5-Day Streak badge unlocked!'
+  };
+  function seenBadgesKey(){ return 'ttlSeenBadges_' + idKey(getUser()); }
+  function checkForNewBadges(){
+    const current = computeUnlockedBadgeIds();
+    const seen = readJSON(seenBadgesKey(), []);
+    const fresh = current.filter(function(id){ return seen.indexOf(id) === -1; });
+    if(fresh.length){
+      writeJSON(seenBadgesKey(), current);
+      showMoreToast(BADGE_LABELS[fresh[0]] || 'Badge unlocked!');
+      burstConfetti();
+    }
+    updateChipTooltip(current.length);
+  }
+  function updateChipTooltip(count){
+    const chip = document.getElementById('userChip');
+    if(!chip) return;
+    const total = 9;
+    chip.title = count > 0 ? count + ' of ' + total + ' badges unlocked — click for your account menu' : 'Account menu';
+  }
+
+  /* ---------- inject two extra badge rows (dressUpDevotee, allFavorited, streakFive) into the existing badges modal ---------- */
+  const EXTRA_BADGES = [
+    { id:'dressUpDevotee', emoji:'💅', name:'Dress-up Devotee', desc:'Opened the games menu 25+ times' },
+    { id:'allFavorited',   emoji:'💞', name:'All In', desc:'Favorited every single era' },
+    { id:'streakFive',     emoji:'🔥', name:'On a Roll', desc:'Visited 5 days in a row' }
+  ];
+  function appendExtraBadges(){
+    const body = document.getElementById('badgesModalBody');
+    if(!body) return;
+    const unlocked = computeUnlockedBadgeIds();
+    const html = EXTRA_BADGES.map(function(b){
+      const isUnlocked = unlocked.indexOf(b.id) !== -1;
+      return '<div class="badge-item' + (isUnlocked ? ' unlocked' : '') + '">' +
+        '<div class="badge-emoji">' + b.emoji + '</div>' +
+        '<div class="badge-info"><div class="badge-name">' + b.name + '</div><div class="badge-desc">' + b.desc + '</div></div>' +
+      '</div>';
+    }).join('');
+    body.insertAdjacentHTML('beforeend', html);
+  }
+  const userMenuBadges = document.getElementById('userMenuBadges');
+  if(userMenuBadges) userMenuBadges.addEventListener('click', function(){
+    setTimeout(appendExtraBadges, 0);
+  });
+
+  /* ---------- era notes / journal ---------- */
+  function journalKey(user){ return 'ttlJournal_' + idKey(user); }
+  function getJournal(){ return readJSON(journalKey(getUser()), {}); }
+  function saveJournalEntry(eraId, text){
+    const j = getJournal();
+    if(text){ j[eraId] = text; } else { delete j[eraId]; }
+    writeJSON(journalKey(getUser()), j);
+  }
+  let journalSaveTimer = null;
+  function renderJournalModal(){
+    const body = document.getElementById('journalModalBody');
+    if(!body) return;
+    const j = getJournal();
+    body.innerHTML = ERA_LIST.map(function(e){
+      const val = (j[e.id] || '').replace(/</g,'&lt;');
+      return '<div class="journal-era">' +
+        '<div class="journal-era-title">' + e.name + '</div>' +
+        '<textarea data-era-id="' + e.id + '" maxlength="600" placeholder="why is ' + e.name + ' your era…">' + val + '</textarea>' +
+        '</div>';
+    }).join('') + '<div class="journal-save-hint">notes save automatically as you type, on this device ✦</div>';
+  }
+  const journalModalBody = document.getElementById('journalModalBody');
+  if(journalModalBody) journalModalBody.addEventListener('input', function(e){
+    const ta = e.target.closest('textarea[data-era-id]');
+    if(!ta) return;
+    clearTimeout(journalSaveTimer);
+    journalSaveTimer = setTimeout(function(){ saveJournalEntry(ta.dataset.eraId, ta.value.trim()); }, 400);
+  });
+
+  /* ---------- modal open/close helper (mirrors the pattern used elsewhere on this page) ---------- */
+  function wireModal(overlayId, closeId, onOpenRender){
+    const overlay = document.getElementById(overlayId);
+    const closeBtn = document.getElementById(closeId);
+    if(!overlay) return { open:function(){}, close:function(){} };
+    function close(){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden', 'true'); }
+    function open(){ if(onOpenRender) onOpenRender(); overlay.classList.add('show'); overlay.setAttribute('aria-hidden', 'false'); }
+    if(closeBtn) closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) close(); });
+    return { open:open, close:close };
+  }
+  const journalModal = wireModal('journalModalOverlay', 'journalModalClose', renderJournalModal);
+  const userMenuJournal = document.getElementById('userMenuJournal');
+  const userMenuEl = document.getElementById('userMenu');
+  function closeUserMenu(){ if(userMenuEl) userMenuEl.classList.remove('show'); }
+  if(userMenuJournal) userMenuJournal.addEventListener('click', function(){ closeUserMenu(); journalModal.open(); });
+
+  /* ---------- FAB panel ---------- */
+  const moreFab = document.getElementById('moreFab');
+  const morePanel = document.getElementById('morePanel');
+  function closeMorePanel(){
+    if(!morePanel) return;
+    morePanel.classList.remove('show');
+    morePanel.setAttribute('aria-hidden', 'true');
+    if(moreFab) moreFab.setAttribute('aria-expanded', 'false');
+  }
+  function openMorePanel(){
+    if(!morePanel) return;
+    renderStreakLine();
+    renderCountdownLine();
+    morePanel.classList.add('show');
+    morePanel.setAttribute('aria-hidden', 'false');
+    if(moreFab) moreFab.setAttribute('aria-expanded', 'true');
+  }
+  if(moreFab) moreFab.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(morePanel.classList.contains('show')) closeMorePanel(); else openMorePanel();
+  });
+  document.addEventListener('click', function(e){
+    if(!morePanel || !morePanel.classList.contains('show')) return;
+    if(e.target.closest('#morePanel') || e.target.closest('#moreFab')) return;
+    closeMorePanel();
+  });
+
+  /* ---------- sound ---------- */
+  let soundOn = readJSON('ttl_sound_on', true);
+  const moreSoundState = document.getElementById('moreSoundState');
+  function reflectSoundState(){ if(moreSoundState) moreSoundState.textContent = soundOn ? 'on' : 'off'; }
+  reflectSoundState();
+  let audioCtx = null;
+  function playChime(){
+    if(!soundOn) return;
+    try{
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.35);
+    }catch(e){}
+  }
+  const moreSoundBtn = document.getElementById('moreSound');
+  if(moreSoundBtn) moreSoundBtn.addEventListener('click', function(){
+    soundOn = !soundOn;
+    writeJSON('ttl_sound_on', soundOn);
+    reflectSoundState();
+    if(soundOn) playChime();
+  });
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.era-favorite-heart')) playChime();
+  });
+
+  /* ---------- dark mode ---------- */
+  let darkOn = readJSON('ttl_dark_mode', false);
+  const moreDarkState = document.getElementById('moreDarkState');
+  function reflectDarkState(){
+    document.body.classList.toggle('dark-mode-on', darkOn);
+    if(moreDarkState) moreDarkState.textContent = darkOn ? 'on' : 'off';
+  }
+  reflectDarkState();
+  const moreDarkBtn = document.getElementById('moreDarkMode');
+  if(moreDarkBtn) moreDarkBtn.addEventListener('click', function(){
+    darkOn = !darkOn;
+    writeJSON('ttl_dark_mode', darkOn);
+    reflectDarkState();
+  });
+
+  /* ---------- surprise me ---------- */
+  const moreSurprise = document.getElementById('moreSurprise');
+  if(moreSurprise) moreSurprise.addEventListener('click', function(){
+    if(!ERA_LIST.length) return;
+    window.location.href = ERA_LIST[Math.floor(Math.random() * ERA_LIST.length)].href;
+  });
+
+  /* ---------- find an era (search) ---------- */
+  const searchModal = wireModal('searchModalOverlay', 'searchModalClose', function(){
+    const input = document.getElementById('searchModalInput');
+    if(input){ input.value = ''; setTimeout(function(){ input.focus(); }, 50); }
+    renderSearchResults('');
+  });
+  function renderSearchResults(query){
+    const body = document.getElementById('searchModalResults');
+    if(!body) return;
+    const q = query.trim().toLowerCase();
+    const matches = q ? ERA_LIST.filter(function(e){ return e.name.toLowerCase().indexOf(q) !== -1; }) : ERA_LIST;
+    if(!matches.length){
+      body.innerHTML = '<div class="setlist-empty">No era matches that — try another name.</div>';
+      return;
+    }
+    body.innerHTML = matches.map(function(e){
+      return '<a class="favorite-item" href="' + e.href + '" style="text-decoration:none;">' +
+        '<span style="width:14px;height:14px;border-radius:50%;background:' + e.color + ';flex:none;box-shadow:0 0 0 2px #fff inset;"></span>' +
+        '<div class="favorite-item-info"><div class="favorite-item-label">' + e.name + '</div></div>' +
+        '</a>';
+    }).join('');
+  }
+  const searchInput = document.getElementById('searchModalInput');
+  if(searchInput) searchInput.addEventListener('input', function(){ renderSearchResults(searchInput.value); });
+  const moreSearch = document.getElementById('moreSearch');
+  if(moreSearch) moreSearch.addEventListener('click', function(){ closeMorePanel(); searchModal.open(); });
+
+  /* ---------- which era are you quiz ---------- */
+  const QUIZ_QUESTIONS = [
+    { q:'Pick an outfit for tonight', options:[
+      { label:'Sparkly bodysuit & bold liner', eras:['1989','reputation'] },
+      { label:'Floaty sundress & curls', eras:['fearless','speaknow'] },
+      { label:'Cardigan & messy bun', eras:['folklore','evermore'] },
+      { label:'Sequins & a bit of fringe', eras:['showgirl','lover'] }
+    ]},
+    { q:'Pick a color palette', options:[
+      { label:'Red & black', eras:['red','reputation'] },
+      { label:'Pastel & gold', eras:['lover','fearless'] },
+      { label:'Grey & moss green', eras:['folklore','evermore'] },
+      { label:'Midnight blue & silver', eras:['midnights','1989'] }
+    ]},
+    { q:'What\u2019s your love language era?', options:[
+      { label:'Whirlwind romance', eras:['speaknow','lover'] },
+      { label:'Messy breakup', eras:['red','ttpd'] },
+      { label:'Quiet devotion', eras:['evermore','folklore'] },
+      { label:'Confident independence', eras:['reputation','taylorswift'] }
+    ]},
+    { q:'Friday night plans?', options:[
+      { label:'Dancing all night', eras:['1989','showgirl'] },
+      { label:'Journaling by candlelight', eras:['evermore','ttpd'] },
+      { label:'Road trip singalong', eras:['fearless','red'] },
+      { label:'Hosting a dinner party', eras:['lover','folklore'] }
+    ]},
+    { q:'Pick a word', options:[
+      { label:'Sparkle', eras:['1989','showgirl'] },
+      { label:'Heartbreak', eras:['red','ttpd'] },
+      { label:'Wonder', eras:['folklore','taylorswift'] },
+      { label:'Power', eras:['reputation','midnights'] }
+    ]}
+  ];
+  let quizIndex = 0;
+  let quizScores = {};
+  function renderQuiz(){
+    const body = document.getElementById('quizModalBody');
+    if(!body) return;
+    if(quizIndex >= QUIZ_QUESTIONS.length){
+      let bestId = null, bestScore = -1;
+      ERA_LIST.forEach(function(e){
+        const s = quizScores[e.id] || 0;
+        if(s > bestScore){ bestScore = s; bestId = e.id; }
+      });
+      const result = ERA_BY_ID[bestId] || ERA_LIST[0];
+      if(!result){ body.innerHTML = '<div class="setlist-empty">Couldn\u2019t find any eras to match against.</div>'; return; }
+      body.innerHTML = '<div class="quiz-result">' +
+        '<div style="width:100px;height:100px;border-radius:50%;margin:0 auto 12px;background:' + result.color + ';box-shadow:0 8px 24px rgba(0,0,0,.25);"></div>' +
+        '<div class="quiz-result-title">' + result.name + '</div>' +
+        '<div class="quiz-result-sub">' + result.blurb + '</div>' +
+        '<a href="' + result.href + '" class="auth-provider-btn" style="justify-content:center;text-decoration:none;margin-bottom:10px;">Visit this era</a><br>' +
+        '<button class="quiz-restart" id="quizRestartBtn" type="button">Take again</button>' +
+        '</div>';
+      const restartBtn = document.getElementById('quizRestartBtn');
+      if(restartBtn) restartBtn.addEventListener('click', function(){ quizIndex = 0; quizScores = {}; renderQuiz(); });
+      return;
+    }
+    const question = QUIZ_QUESTIONS[quizIndex];
+    body.innerHTML = '<div class="quiz-question">Q' + (quizIndex+1) + ' of ' + QUIZ_QUESTIONS.length + ': ' + question.q + '</div>' +
+      '<div class="quiz-options">' + question.options.map(function(opt, i){
+        return '<button class="quiz-option" type="button" data-i="' + i + '">' + opt.label + '</button>';
+      }).join('') + '</div>';
+    body.querySelectorAll('.quiz-option').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const opt = question.options[parseInt(btn.dataset.i, 10)];
+        opt.eras.forEach(function(id){ quizScores[id] = (quizScores[id] || 0) + 1; });
+        quizIndex++;
+        renderQuiz();
+      });
+    });
+  }
+  const quizModal = wireModal('quizModalOverlay', 'quizModalClose', function(){ quizIndex = 0; quizScores = {}; renderQuiz(); });
+  const moreQuiz = document.getElementById('moreQuiz');
+  if(moreQuiz) moreQuiz.addEventListener('click', function(){ closeMorePanel(); quizModal.open(); });
+
+  /* ---------- lookbook card ---------- */
+  function drawLookbookCard(){
+    const canvas = document.getElementById('lookbookCanvas');
+    if(!canvas || !canvas.getContext) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0, '#fff8fb'); grad.addColorStop(1, '#fdeaf5');
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = '#c2185b'; ctx.lineWidth = 6;
+    ctx.setLineDash([14, 10]);
+    ctx.strokeRect(16, 16, w-32, h-32);
+    ctx.setLineDash([]);
+
+    const user = getUser();
+    const name = (user && user.name) ? user.name.split(' ')[0] : 'Swiftie';
+    ctx.fillStyle = '#c2185b';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 34px Georgia, serif';
+    ctx.fillText('🎀 ' + name + '\u2019s Lookbook 🎀', w/2, 90);
+
+    const favIds = user ? readJSON(favKey(user), []).map(function(f){ return f.era; }) : [];
+    const favEras = ERA_LIST.filter(function(e){ return favIds.indexOf(e.id) !== -1; });
+    ctx.font = '20px Georgia, serif';
+    ctx.fillStyle = '#5a1a4a';
+    ctx.fillText('favorite eras', w/2, 140);
+
+    let y = 175;
+    if(!favEras.length){
+      ctx.font = 'italic 16px Georgia, serif';
+      ctx.fillStyle = '#8a5a7a';
+      ctx.fillText('no favorites saved yet', w/2, y + 10);
+      y += 40;
+    } else {
+      favEras.slice(0, 8).forEach(function(e){
+        ctx.fillStyle = e.color;
+        ctx.beginPath(); ctx.arc(w/2 - 100, y, 10, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#5a1a4a';
+        ctx.font = '18px Georgia, serif';
+        ctx.textAlign = 'left';
+        ctx.fillText(e.name, w/2 - 80, y + 6);
+        ctx.textAlign = 'center';
+        y += 34;
+      });
+    }
+
+    y += 20;
+    const unlockedCount = computeUnlockedBadgeIds().length;
+    const streak = getStreak().streak || 0;
+    ctx.fillStyle = '#c2185b';
+    ctx.font = 'bold 18px Georgia, serif';
+    ctx.fillText('🏅 ' + unlockedCount + ' badges  ·  🔥 ' + streak + ' day streak', w/2, y);
+
+    ctx.font = 'italic 14px Georgia, serif';
+    ctx.fillStyle = '#a888a0';
+    ctx.fillText('Taylor Swift Era\u2019s Lookbook', w/2, h - 40);
+  }
+  const lookbookModal = wireModal('lookbookModalOverlay', 'lookbookModalClose', drawLookbookCard);
+  const moreLookbookCard = document.getElementById('moreLookbookCard');
+  if(moreLookbookCard) moreLookbookCard.addEventListener('click', function(){ closeMorePanel(); lookbookModal.open(); });
+  const lookbookDownloadBtn = document.getElementById('lookbookDownloadBtn');
+  if(lookbookDownloadBtn) lookbookDownloadBtn.addEventListener('click', function(){
+    const canvas = document.getElementById('lookbookCanvas');
+    if(!canvas) return;
+    try{
+      const link = document.createElement('a');
+      link.download = 'my-lookbook-card.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }catch(e){}
+  });
+
+  /* ---------- saved looks (named dress-up slots) ---------- */
+  function looksKey(){ return 'ttlLooks_' + idKey(getUser()); }
+  function getLooks(){ return readJSON(looksKey(), {}); }
+  function renderLooksModal(){
+    const body = document.getElementById('looksModalBody');
+    if(!body) return;
+    const looks = getLooks();
+    const names = Object.keys(looks);
+    if(!names.length){
+      body.innerHTML = '<div class="setlist-empty">No saved looks yet — style yourself in a game, then save it here.</div>';
+      return;
+    }
+    body.innerHTML = names.map(function(n){
+      return '<div class="look-row">' +
+        '<span class="look-row-name">' + n.replace(/</g,'&lt;') + '</span>' +
+        '<button class="look-row-load" type="button" data-name="' + n.replace(/"/g,'&quot;') + '">Load</button>' +
+        '<button class="look-row-delete" type="button" data-name="' + n.replace(/"/g,'&quot;') + '">✕</button>' +
+        '</div>';
+    }).join('');
+  }
+  const looksModal = wireModal('looksModalOverlay', 'looksModalClose', renderLooksModal);
+  const moreLooks = document.getElementById('moreLooks');
+  if(moreLooks) moreLooks.addEventListener('click', function(){ closeMorePanel(); looksModal.open(); });
+  const looksSaveCurrentBtn = document.getElementById('looksSaveCurrentBtn');
+  if(looksSaveCurrentBtn) looksSaveCurrentBtn.addEventListener('click', function(){
+    const current = localStorage.getItem('rrRunnerLook');
+    if(!current){ alert('Open a game and style a look first, then come back to save it!'); return; }
+    const name = window.prompt('Name this look:', 'My look');
+    if(!name) return;
+    const looks = getLooks();
+    looks[name] = current;
+    writeJSON(looksKey(), looks);
+    renderLooksModal();
+  });
+  const looksModalBody = document.getElementById('looksModalBody');
+  if(looksModalBody) looksModalBody.addEventListener('click', function(e){
+    const loadBtn = e.target.closest('.look-row-load');
+    const delBtn = e.target.closest('.look-row-delete');
+    if(loadBtn){
+      const looks = getLooks();
+      const val = looks[loadBtn.dataset.name];
+      if(val){ try{ localStorage.setItem('rrRunnerLook', val); }catch(e2){} }
+      showMoreToast('Loaded! Open a game to see this look ✨');
+    } else if(delBtn){
+      const looks = getLooks();
+      delete looks[delBtn.dataset.name];
+      writeJSON(looksKey(), looks);
+      renderLooksModal();
+    }
+  });
+
+  /* ---------- watch for badge-worthy moments ---------- */
+  const gamePlayerOverlayEl = document.getElementById('gamePlayerOverlay');
+  if(gamePlayerOverlayEl){
+    let wasShown = gamePlayerOverlayEl.classList.contains('show');
+    const goMo = new MutationObserver(function(){
+      const isShown = gamePlayerOverlayEl.classList.contains('show');
+      if(!isShown && wasShown) checkForNewBadges();
+      wasShown = isShown;
+    });
+    goMo.observe(gamePlayerOverlayEl, { attributes:true, attributeFilter:['class'] });
+  }
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.era-favorite-heart')) setTimeout(checkForNewBadges, 0);
+  });
+  const userChipEl = document.getElementById('userChip');
+  if(userChipEl){
+    let wasSignedIn = userChipEl.classList.contains('show');
+    const chipMo = new MutationObserver(function(){
+      const isSignedIn = userChipEl.classList.contains('show');
+      if(isSignedIn && !wasSignedIn) checkForNewBadges();
+      wasSignedIn = isSignedIn;
+    });
+    chipMo.observe(userChipEl, { attributes:true, attributeFilter:['class'] });
+  }
+
+  /* ---------- init ---------- */
+  updateStreak();
+  checkForNewBadges();
 })();
 
 </script>
