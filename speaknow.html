@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#310f2c">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Speak Now">
@@ -244,7 +246,7 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 }
 
 .sn-program{
-  max-width:760px;
+  max-width:1400px;
   margin:0 auto;
   padding:10px 24px 80px;
 }
@@ -303,59 +305,90 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   border-bottom:1px solid var(--blush);
 }
 
+.sn-track-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:14px;
+  width:100%;
+  background-color:#2a1147;
+  padding:14px;
+  border-radius:20px;
+}
+
 .sn-track{
   display:flex;
+  flex-direction:column;
   align-items:center;
-  gap:16px;
-  padding:14px 18px;
-  border-radius:10px;
+  justify-content:center;
+  text-align:center;
+  gap:8px;
+  padding:34px 20px;
+  min-height:130px;
   cursor:none;
-  transition:.2s;
-  background:var(--paper);
-  margin-bottom:8px;
-  box-shadow:0 2px 8px rgba(58,20,60,.06);
+  transition:.25s;
+  position:relative;
+  z-index:1;
+  border-radius:16px;
+  box-shadow:0 10px 26px rgba(34,9,31,.32);
+  border:2px solid #2a1147;
+  margin:0;
+  opacity:1;
+  color-scheme:only light;
+  forced-color-adjust:none;
+  background-clip:padding-box;
 }
+/* Rotating palette so neighboring tiles read as distinct, separated
+   cards rather than one solid block — all dark enough to keep the
+   existing white/gold text legible. */
+.sn-track:nth-child(6n+1){ background-color:#3d1a63 !important; }
+.sn-track:nth-child(6n+2){ background-color:#5a2a8a !important; }
+.sn-track:nth-child(6n+3){ background-color:#4a1942 !important; }
+.sn-track:nth-child(6n+4){ background-color:#6b2f52 !important; }
+.sn-track:nth-child(6n+5){ background-color:#442a63 !important; }
+.sn-track:nth-child(6n+6){ background-color:#7a3b62 !important; }
+.sn-track:nth-child(6n+1):hover{ background-color:#5a2a8a !important; }
+.sn-track:nth-child(6n+2):hover{ background-color:#7438ab !important; }
+.sn-track:nth-child(6n+3):hover{ background-color:#63235c !important; }
+.sn-track:nth-child(6n+4):hover{ background-color:#8a3d6c !important; }
+.sn-track:nth-child(6n+5):hover{ background-color:#5c3980 !important; }
+.sn-track:nth-child(6n+6):hover{ background-color:#974a7c !important; }
 .sn-track:hover{
-  background:var(--blush);
-  transform:translateX(4px);
+  border-color:var(--gold);
+  transform:translateY(-2px);
+  box-shadow:0 14px 32px rgba(34,9,31,.4);
 }
 
 .sn-track-num{
   font-family:'Cormorant Garamond',serif;
   color:var(--gold);
-  font-size:20px;
-  width:28px;
-  text-align:center;
-  flex-shrink:0;
+  font-size:18px;
 }
 
-.sn-track-info{ flex:1; min-width:0; }
+.sn-track-info{ min-width:0; }
 
 .sn-track-title{
-  font-size:19px;
-  color:var(--accent-deep);
+  font-size:17px;
+  color:var(--paper);
+  line-height:1.25;
 }
 
 .sn-track-feature{
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:14px;
-  color:var(--accent);
+  font-size:13px;
+  color:var(--gold-light);
 }
 
 .sn-track-note{
-  flex-shrink:0;
-  font-size:18px;
+  font-size:16px;
   color:var(--gold);
 }
 
 .sn-track-synced{
-  flex-shrink:0;
-  font-size:12px;
+  font-size:11px;
   color:var(--accent);
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  margin-right:4px;
 }
 
 .sn-modal-backdrop{
@@ -543,7 +576,7 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   cursor:pointer;
   touch-action:manipulation;
   line-height:1;
-  z-index:2;
+  z-index:5;
   opacity:.85;
 }
 .sn-modal-share:hover{ opacity:1; }
@@ -557,15 +590,16 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   color:var(--accent);
   cursor:none;
   line-height:1;
-  z-index:2;
+  z-index:5;
 }
 
 .sn-modal-title{
   font-size:26px;
   color:var(--accent-deep);
-  padding-right:30px;
+  padding-right:66px;
   position:relative;
   z-index:2;
+  pointer-events:none;
 }
 
 .sn-modal-feature{
@@ -576,6 +610,7 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   margin-top:4px;
   position:relative;
   z-index:2;
+  pointer-events:none;
 }
 
 .sn-modal-body-wrap{
@@ -866,6 +901,7 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   padding:16px 26px 22px;
   border-top:1px solid var(--blush);
   background:rgba(255,250,244,.92);
+  position:relative;
 }
 
 .sn-modal-visualizer{
@@ -901,6 +937,62 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 
 @media (prefers-reduced-motion: reduce){
   .sn-viz-bar{ animation:none !important; height:20% !important; }
+}
+
+.sn-track-nav-btn{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  background:none;
+  border:none;
+  padding:14px 10px;
+  color:var(--accent);
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:40px;
+  line-height:1;
+  cursor:pointer;
+  touch-action:manipulation;
+  z-index:6600;
+  opacity:.8;
+  text-shadow:0 1px 4px rgba(34,9,31,.2);
+  transition:transform .25s ease, opacity .25s ease;
+}
+.sn-track-nav-btn::before,
+.sn-track-nav-btn::after{
+  content:'❀';
+  font-size:10px;
+  color:var(--accent);
+  opacity:.55;
+}
+.sn-track-nav-prev{ left:max(10px, env(safe-area-inset-left) + 2px); }
+.sn-track-nav-next{ right:max(10px, env(safe-area-inset-right) + 2px); }
+.sn-track-nav-btn:hover{
+  transform:translateY(-50%) scale(1.1);
+  opacity:1;
+}
+.sn-track-nav-btn:disabled{
+  opacity:.28;
+  cursor:default;
+  pointer-events:none;
+  text-shadow:none;
+}
+
+/* Only show the side arrows while the full modal is open (not while
+   minimized into the mini-player, and not before a track is opened). */
+.sn-track-nav-btn{ display:none; }
+.sn-modal-backdrop.show .sn-track-nav-btn{ display:flex; }
+.sn-modal-backdrop.show.minimized .sn-track-nav-btn{ display:none; }
+
+@media (max-width:420px){
+  .sn-track-nav-btn{ font-size:32px; padding:10px 6px; }
+  .sn-track-nav-prev{ left:max(4px, env(safe-area-inset-left)); }
+  .sn-track-nav-next{ right:max(4px, env(safe-area-inset-right)); }
 }
 
 .sn-modal-player audio{
@@ -988,15 +1080,19 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   .sn-curtain-label{ font-size:30px; }
 
   /* Give the audio track/seek bar more room to breathe on phones by
-     tightening the padding around the modal and player on small screens. */
-  .sn-modal-backdrop{ padding:10px; }
+     tightening the padding around the modal and player on small screens.
+     Also keep the popup visibly smaller than the full viewport so it
+     reads as a floating card rather than a takeover screen. */
+  .sn-modal-backdrop{ padding:26px 14px; align-items:center; }
+  .sn-modal{ max-height:72vh; border-radius:20px; }
   .sn-modal-player{ padding:14px 14px 18px; }
   .sn-modal-header{ padding:18px 16px 12px; }
   .sn-modal-body{ padding:16px 16px; }
 }
 
 @media (max-width:420px){
-  .sn-modal-backdrop{ padding:6px; }
+  .sn-modal-backdrop{ padding:16px 8px; }
+  .sn-modal{ max-height:76vh; }
   .sn-modal-player{ padding:12px 10px 16px; }
 }
 
@@ -1263,8 +1359,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   display:grid;
   grid-template-columns:repeat(6,1fr);
   grid-template-rows:repeat(4,1fr);
-  gap:5px;
-  padding:5px;
+  gap:0;
+  padding:0;
   background:var(--bg);
   overflow:hidden;
 }
@@ -1274,8 +1370,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:6px;
-  box-shadow:0 2px 10px rgba(58,20,60,.14);
+  border-radius:0;
+  box-shadow:none;
 }
 .sn-photo-grid-cell:nth-child(3n+2){ background:var(--gold-light); }
 .sn-photo-grid-cell:nth-child(3n+3){ background:#e3c7d6; }
@@ -1313,13 +1409,6 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   padding:30px 34px;
 }
 .sn-program{
-  background:rgba(255,250,244,.82);
-  backdrop-filter:blur(6px) saturate(1.1);
-  -webkit-backdrop-filter:blur(6px) saturate(1.1);
-  border-radius:24px;
-  box-shadow:0 20px 50px rgba(58,20,60,.16);
-  border:1px solid rgba(255,255,255,.5);
-  padding:30px 24px 40px;
   margin:0 auto 60px;
 }
 
@@ -1432,22 +1521,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 
 <nav class="era-nav"><a class="nav-btn" href="appp.html">✦ Back to Lookbook ✦</a></nav>
 
-<section class="sn-hero-wrap">
-  <div class="sn-hero-frame">
-    <div class="sn-cover-frame">
-      <img class="hero-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8whpZuoTHKH9IwFsjcavnFiumJ0IyLn7AvtVcbsHLw&s=10" alt="Speak Now cover">
-    </div>
-    <div class="sn-hero-text">
-      <h1 class="era-title">Speak Now</h1>
-      <p class="sn-hero-sub">a fairytale, self-written</p>
-      <p class="era-desc">Confessional storytelling and theatrical prom-dress moments — every song a speech she didn't give out loud, until now.</p>
-    </div>
-  </div>
-</section>
 
 <section class="sn-program">
-  <h2 class="sn-program-title">The Playbill</h2>
-  <p class="sn-program-sub">tap a song to read the speech and press play</p>
   <div class="sn-tabs">
     <button class="sn-tab active" data-act="original">Original</button>
     <button class="sn-tab" data-act="platinum">Platinum Edition</button>
@@ -1455,15 +1530,15 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   </div>
   <div class="sn-act active" id="act-original">
     <p class="sn-act-heading">Act I · Speak Now (2010)</p>
-    <div id="list-original"></div>
+    <div id="list-original" class="sn-track-grid"></div>
   </div>
   <div class="sn-act" id="act-platinum">
     <p class="sn-act-heading">Act II · Platinum Edition Bonus Tracks</p>
-    <div id="list-platinum"></div>
+    <div id="list-platinum" class="sn-track-grid"></div>
   </div>
   <div class="sn-act" id="act-vault">
     <p class="sn-act-heading">Act III · Speak Now (Taylor's Version): From the Vault</p>
-    <div id="list-vault"></div>
+    <div id="list-vault" class="sn-track-grid"></div>
   </div>
 </section>
 
@@ -1484,6 +1559,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
     </div>
     <div class="sn-modal-player">
       <div class="sn-modal-visualizer" id="snVisualizer"></div>
+      <button class="sn-track-nav-btn sn-track-nav-prev" id="snModalPrev" aria-label="Previous track" title="Previous track">‹</button>
+      <button class="sn-track-nav-btn sn-track-nav-next" id="snModalNext" aria-label="Next track" title="Next track">›</button>
       <audio id="snModalAudio" controls></audio>
       <p class="sn-audio-fallback" id="snAudioFallback">🎵 add this track's audio file to hear it play</p>
       <div class="sn-sync-row">
@@ -1494,7 +1571,10 @@ body.sn-open .sn-curtain{ pointer-events:none; }
         <button class="sn-sync-btn" id="snSyncClear" style="display:none;">Clear saved sync</button>
         <p class="sn-sync-hint" id="snSyncHint" style="display:none;"></p>
         <p class="sn-sync-status" id="snSyncStatus" style="display:none;"></p>
-        <textarea class="sn-sync-export" id="snSyncExport" readonly></textarea>
+        <div style="display:flex; gap:8px; align-items:flex-start; width:100%;">
+          <textarea class="sn-sync-export" id="snSyncExport" readonly style="flex:1;"></textarea>
+          <button class="sn-sync-btn" id="snSyncCopy" style="display:none; white-space:nowrap;">Copy</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1974,6 +2054,53 @@ for(var _b=0;_b<VIZ_BAR_COUNT;_b++){
   snVizEl.appendChild(bar);
 }
 
+/* ---- Real audio-reactive visualizer (falls back to the idle bob above
+   if the audio host doesn't serve CORS headers for analysis) ---- */
+var snAudioCtx = null, snAnalyser = null, snAudioSrc = null, snVizBars = null, snVizRAF = null;
+
+function initSnAudioAnalyser(){
+  if(snAudioCtx) return true;
+  try{
+    snAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    snModalAudio.crossOrigin = "anonymous";
+    snAudioSrc = snAudioCtx.createMediaElementSource(snModalAudio);
+    snAnalyser = snAudioCtx.createAnalyser();
+    snAnalyser.fftSize = 64;
+    snAudioSrc.connect(snAnalyser);
+    snAnalyser.connect(snAudioCtx.destination);
+    snVizBars = Array.from(snVizEl.querySelectorAll('.sn-viz-bar'));
+    return true;
+  } catch(e){
+    console.warn('Visualizer: falling back to idle animation (CORS or audio context issue)', e);
+    snAudioCtx = null;
+    return false;
+  }
+}
+
+function drawSnVisualizer(){
+  snVizRAF = requestAnimationFrame(drawSnVisualizer);
+  if(!snAnalyser || snModalAudio.paused) return;
+  var data = new Uint8Array(snAnalyser.frequencyBinCount);
+  snAnalyser.getByteFrequencyData(data);
+  var step = Math.floor(data.length / snVizBars.length) || 1;
+  snVizBars.forEach(function(bar, i){
+    var v = data[i * step] || 0;
+    var pct = Math.max(8, Math.min(95, (v / 255) * 100));
+    bar.style.height = pct + '%';
+  });
+}
+
+snModalAudio.addEventListener('play', function(){
+  if(initSnAudioAnalyser()){
+    if(snAudioCtx.state === 'suspended') snAudioCtx.resume();
+    snVizEl.classList.add('reactive');
+    if(!snVizRAF) drawSnVisualizer();
+  }
+});
+snModalAudio.addEventListener('pause', function(){
+  snVizEl.classList.remove('reactive');
+});
+
 /* ---- Particles ---- */
 var snParticlesEl = document.getElementById('snParticles');
 function spawnParticle(){
@@ -2014,6 +2141,48 @@ function buildScene(title){
   snScreenGlowEl.classList.remove('lit');
   var f = snScenes[title];
   if(f){ f(snSongCanvas); }
+}
+
+/* ---- Vow-moment celebration burst (uses the sn-petal / sn-heart-pop /
+   sn-dove keyframes already defined in CSS) ---- */
+function burstVowCelebration(){
+  var layer = document.createElement('div');
+  layer.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:6100;overflow:hidden;';
+  document.body.appendChild(layer);
+
+  for(var i=0;i<14;i++){
+    var petal = document.createElement('div');
+    petal.className = 'sn-petal';
+    petal.textContent = '❀';
+    petal.style.left = (Math.random()*100) + 'vw';
+    petal.style.top = '-30px';
+    petal.style.color = i % 2 ? '#c9788c' : '#e8cf8a';
+    petal.style.fontSize = (14 + Math.random()*10) + 'px';
+    petal.style.animationDuration = (2.5 + Math.random()*2) + 's';
+    petal.style.animationDelay = (Math.random()*0.6) + 's';
+    layer.appendChild(petal);
+  }
+  for(var j=0;j<8;j++){
+    var h = document.createElement('div');
+    h.className = 'sn-heart-pop';
+    h.textContent = '♥';
+    h.style.left = (30 + Math.random()*40) + 'vw';
+    h.style.bottom = '10vh';
+    h.style.color = '#c9788c';
+    h.style.fontSize = (16 + Math.random()*8) + 'px';
+    h.style.animationDuration = (1.8 + Math.random()*1.2) + 's';
+    h.style.animationDelay = (Math.random()*0.5) + 's';
+    layer.appendChild(h);
+  }
+  var dove = document.createElement('div');
+  dove.className = 'sn-dove';
+  dove.textContent = '🕊️';
+  dove.style.top = (20 + Math.random()*20) + 'vh';
+  dove.style.fontSize = '22px';
+  dove.style.animationDuration = '4s';
+  layer.appendChild(dove);
+
+  setTimeout(function(){ layer.remove(); }, 5000);
 }
 
 /* ---- Lyric rendering ---- */
@@ -2106,6 +2275,16 @@ snModalAudio.addEventListener('timeupdate', updateActiveLyric);
 snModalAudio.addEventListener('seeked', function(){ snLastActiveIdx = -1; updateActiveLyric(); });
 snModalAudio.addEventListener('play', function(){ snLastActiveIdx = -1; });
 
+snModalAudio.addEventListener('ended', function(){
+  var next = getTrackNeighbor(snCurrentId, 1);
+  if(next){
+    setTimeout(function(){
+      loadTrackIntoModal(next, {silent:true});
+      snModalAudio.play();
+    }, 400);
+  }
+});
+
 snModalAudio.addEventListener('timeupdate', function(){
   if(snCurrentId !== 'original-3') return;
   var vowEl = document.getElementById('snBgVow');
@@ -2116,6 +2295,7 @@ snModalAudio.addEventListener('timeupdate', function(){
     snVowTriggered = true;
     stampText(vowTextEl, '"Speak now or forever hold your peace"', 0.045);
     vowEl.classList.add('show');
+    burstVowCelebration();
   } else if(snVowTriggered && !inWindow){
     snVowTriggered = false;
     vowEl.classList.remove('show');
@@ -2152,17 +2332,11 @@ function markSyncTarget(idx){
   if(idx < snLyricLineEls.length) snLyricLineEls[idx].scrollIntoView({ block:'center', behavior:'smooth' });
 }
 
-document.addEventListener('click', function(e){
-  var lyricLine = e.target.closest('.sn-lyrics-line');
-  if(lyricLine && snCurrentId === 'original-3' && lyricLine.textContent.indexOf('forever hold your peace') !== -1){
-    showVowPreview(); return;
-  }
-  var row = e.target.closest('.sn-track');
-  if(!row) return;
-  var t = allTracksById[row.dataset.id];
+function loadTrackIntoModal(t, opts){
+  opts = opts || {};
   if(!t) return;
 
-  snBuzz(10);
+  if(!opts.silent) snBuzz(10);
   snModalBackdrop.classList.remove('minimized');
   snMiniPlayer.classList.remove('show');
 
@@ -2180,6 +2354,39 @@ document.addEventListener('click', function(e){
   snModalAudio.load();
   resetSyncUI();
   snModalBackdrop.classList.add('show');
+  updateSnPrevNextState();
+}
+
+function getTrackNeighbor(id, dir){
+  if(!id) return null;
+  var sep = id.lastIndexOf('-');
+  var act = id.slice(0, sep);
+  var idx = parseInt(id.slice(sep + 1), 10);
+  var list = snTracks[act];
+  if(!list) return null;
+  var newIdx = idx + dir;
+  if(newIdx < 0 || newIdx >= list.length) return null;
+  return list[newIdx];
+}
+
+function updateSnPrevNextState(){
+  var prevBtn = document.getElementById('snModalPrev');
+  var nextBtn = document.getElementById('snModalNext');
+  if(!prevBtn || !nextBtn) return;
+  prevBtn.disabled = !getTrackNeighbor(snCurrentId, -1);
+  nextBtn.disabled = !getTrackNeighbor(snCurrentId, 1);
+}
+
+document.addEventListener('click', function(e){
+  var lyricLine = e.target.closest('.sn-lyrics-line');
+  if(lyricLine && snCurrentId === 'original-3' && lyricLine.textContent.indexOf('forever hold your peace') !== -1){
+    showVowPreview(); return;
+  }
+  var row = e.target.closest('.sn-track');
+  if(!row) return;
+  var t = allTracksById[row.dataset.id];
+  if(!t) return;
+  loadTrackIntoModal(t);
 });
 
 snModalAudio.addEventListener('error', function(){
@@ -2194,6 +2401,7 @@ function closeSnModal(){
   resetSyncUI();
   snParticlesEl.innerHTML = '';
   snVizEl.classList.remove('reactive');
+  if(snVizRAF){ cancelAnimationFrame(snVizRAF); snVizRAF = null; }
   snSongCanvas.innerHTML = '';
   snSongCanvas.style.opacity = '0';
   snSongCanvas.className = 'sn-song-canvas';
@@ -2205,6 +2413,17 @@ function closeSnModal(){
   snVowTriggered = false;
   stopStoryAnimation();
 }
+
+document.getElementById('snModalPrev').addEventListener('click', function(e){
+  e.stopPropagation();
+  var prev = getTrackNeighbor(snCurrentId, -1);
+  if(prev){ snBuzz(10); loadTrackIntoModal(prev, {silent:true}); }
+});
+document.getElementById('snModalNext').addEventListener('click', function(e){
+  e.stopPropagation();
+  var next = getTrackNeighbor(snCurrentId, 1);
+  if(next){ snBuzz(10); loadTrackIntoModal(next, {silent:true}); }
+});
 
 document.getElementById('snModalClose').addEventListener('click', closeSnModal);
 snModalBackdrop.addEventListener('click', function(e){ if(e.target === snModalBackdrop) closeSnModal(); });
@@ -2374,6 +2593,7 @@ function finishSync(){
     if(label) label.textContent = 'synced';
     snSyncExport.style.display = 'block';
     snSyncExport.value = 'timedLyrics: ' + JSON.stringify(snSyncTaps) + ',';
+    document.getElementById('snSyncCopy').style.display = 'inline-block';
     snSyncStatus.textContent = 'Saved ✓ — copy the box below into that track object to make it permanent.';
   }
   snSyncStart.style.display = 'inline-block';
@@ -2392,6 +2612,13 @@ snSyncClear.addEventListener('click', function(){
   if(label && !(allTracksById[snCurrentId] && allTracksById[snCurrentId].timedLyrics)) label.textContent = '';
   snSyncExport.style.display = 'none';
   snSyncClear.style.display = 'none';
+  document.getElementById('snSyncCopy').style.display = 'none';
+});
+
+document.getElementById('snSyncCopy').addEventListener('click', function(){
+  navigator.clipboard.writeText(snSyncExport.value).then(function(){
+    snShowToast('Copied ✦');
+  }).catch(function(){});
 });
 
 /* ---- Curtain ---- */
@@ -4995,6 +5222,9 @@ buildScene = function(title) {
 };
 
 </script>
+</div>
+</body>
+</html>
 </div>
 </body>
 </html>
