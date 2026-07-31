@@ -307,27 +307,32 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 
 .sn-track-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
-  gap:14px;
-  width:100%;
+  grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
+  gap:16px;
+  width:100vw;
+  position:relative;
+  left:50%;
+  right:50%;
+  margin-left:-50vw;
+  margin-right:-50vw;
   background-color:transparent;
 }
 
 .sn-track{
   display:flex;
-  flex-direction:column;
+  flex-direction:row;
   align-items:center;
   justify-content:center;
   text-align:center;
-  gap:8px;
-  padding:34px 20px;
-  min-height:130px;
+  gap:6px;
+  padding:14px 10px;
+  min-height:64px;
   cursor:none;
   transition:.25s;
   position:relative;
   z-index:1;
-  border-radius:16px;
-  box-shadow:0 10px 26px rgba(34,9,31,.32);
+  border-radius:10px;
+  box-shadow:0 6px 16px rgba(34,9,31,.28);
   border:2px solid #2a1147;
   margin:0;
   opacity:1;
@@ -359,34 +364,39 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 .sn-track-num{
   font-family:'Cormorant Garamond',serif;
   color:var(--gold);
-  font-size:18px;
+  font-size:13px;
+  flex-shrink:0;
 }
 
-.sn-track-info{ min-width:0; }
+.sn-track-info{ min-width:0; overflow:hidden; }
 
 .sn-track-title{
-  font-size:17px;
+  font-size:12px;
   color:var(--paper);
-  line-height:1.25;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .sn-track-feature{
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:13px;
+  font-size:10px;
   color:var(--gold-light);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .sn-track-note{
-  font-size:16px;
+  font-size:12px;
   color:var(--gold);
+  flex-shrink:0;
 }
 
 .sn-track-synced{
-  font-size:11px;
-  color:var(--accent);
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic;
+  display:none;
 }
 
 .sn-modal-backdrop{
@@ -1938,19 +1948,49 @@ Object.keys(snTracks).forEach(function(act){
   });
 });
 
+function tileHtml(t, num){
+  return '<div class="sn-track" data-id="' + t.id + '">' +
+    '<span class="sn-track-num">' + num + '</span>' +
+    '<div class="sn-track-info">' +
+      '<div class="sn-track-title">' + t.title + '</div>' +
+      (t.feature ? '<div class="sn-track-feature">' + t.feature + '</div>' : '') +
+    '</div>' +
+    (hasSavedSync(t.id) ? '<span class="sn-track-synced" data-synced-label="' + t.id + '">synced</span>' : '<span class="sn-track-synced" data-synced-label="' + t.id + '"></span>') +
+    '<span class="sn-track-note">✦</span>' +
+  '</div>';
+}
+
+var snGridResizeTimers = {};
+
 function renderList(containerId, tracks){
   const el = document.getElementById(containerId);
-  el.innerHTML = tracks.map(function(t, i){
-    return '<div class="sn-track" data-id="' + t.id + '">' +
-      '<span class="sn-track-num">' + (i+1) + '</span>' +
-      '<div class="sn-track-info">' +
-        '<div class="sn-track-title">' + t.title + '</div>' +
-        (t.feature ? '<div class="sn-track-feature">' + t.feature + '</div>' : '') +
-      '</div>' +
-      (hasSavedSync(t.id) ? '<span class="sn-track-synced" data-synced-label="' + t.id + '">synced</span>' : '<span class="sn-track-synced" data-synced-label="' + t.id + '"></span>') +
-      '<span class="sn-track-note">✦</span>' +
-    '</div>';
-  }).join('');
+
+  function fillGrid(){
+    var colMinWidth = 130;
+    var gap = 8;
+    var containerWidth = window.innerWidth;
+    var cols = Math.max(1, Math.floor((containerWidth + gap) / (colMinWidth + gap)));
+    var tileHeight = 72;
+    // Fill at least one full viewport's worth of rows below where the
+    // grid starts, so the tiles read as covering the screen rather than
+    // stopping short after a couple of rows.
+    var rowsNeeded = Math.max(1, Math.ceil(window.innerHeight / (tileHeight + gap)));
+    var totalNeeded = Math.max(tracks.length, cols * rowsNeeded);
+
+    var html = '';
+    for(var i = 0; i < totalNeeded; i++){
+      var t = tracks[i % tracks.length];
+      html += tileHtml(t, (i % tracks.length) + 1);
+    }
+    el.innerHTML = html;
+  }
+
+  fillGrid();
+
+  window.addEventListener('resize', function(){
+    clearTimeout(snGridResizeTimers[containerId]);
+    snGridResizeTimers[containerId] = setTimeout(fillGrid, 200);
+  });
 }
 
 const allTracksById = {};
