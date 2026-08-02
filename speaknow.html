@@ -308,7 +308,7 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 .sn-track-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
-  gap:16px;
+  gap:20px;
   width:100vw;
   position:relative;
   left:50%;
@@ -368,15 +368,14 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   flex-shrink:0;
 }
 
-.sn-track-info{ min-width:0; overflow:hidden; }
+.sn-track-info{ min-width:0; flex:1; }
 
 .sn-track-title{
   font-size:12px;
   color:var(--paper);
   line-height:1.2;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  white-space:normal;
+  overflow-wrap:break-word;
 }
 
 .sn-track-feature{
@@ -384,9 +383,8 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   font-style:italic;
   font-size:10px;
   color:var(--gold-light);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  white-space:normal;
+  overflow-wrap:break-word;
 }
 
 .sn-track-note{
@@ -619,6 +617,71 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   position:relative;
   z-index:2;
   pointer-events:none;
+}
+
+.sn-version-toggle{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  position:relative;
+  z-index:2;
+}
+
+.sn-version-btn{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;
+  font-weight:600;
+  padding:5px 14px;
+  border-radius:16px;
+  border:1.5px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  cursor:pointer;
+  transition:.2s;
+}
+.sn-version-btn.active{
+  background:var(--accent);
+  color:#fff;
+}
+.sn-version-btn:hover{
+  background:var(--accent);
+  color:#fff;
+}
+
+.sn-audio-links{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:10px;
+  position:relative;
+  z-index:2;
+}
+.sn-audio-links-label{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:12px;
+  color:var(--accent);
+}
+.sn-audio-links-label input{
+  font-family:'EB Garamond',serif;
+  font-style:normal;
+  font-size:13px;
+  padding:6px 10px;
+  border-radius:8px;
+  border:1px solid var(--blush);
+  background:var(--paper);
+  color:var(--text);
+}
+.sn-audio-links-label input:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+#snSaveAudioLinks{
+  align-self:flex-start;
+  margin-top:2px;
 }
 
 .sn-modal-body-wrap{
@@ -1531,23 +1594,7 @@ body.sn-open .sn-curtain{ pointer-events:none; }
 
 
 <section class="sn-program">
-  <div class="sn-tabs">
-    <button class="sn-tab active" data-act="original">Original</button>
-    <button class="sn-tab" data-act="platinum">Platinum Edition</button>
-    <button class="sn-tab" data-act="vault">From the Vault (TV)</button>
-  </div>
-  <div class="sn-act active" id="act-original">
-    <p class="sn-act-heading">Act I · Speak Now (2010)</p>
-    <div id="list-original" class="sn-track-grid"></div>
-  </div>
-  <div class="sn-act" id="act-platinum">
-    <p class="sn-act-heading">Act II · Platinum Edition Bonus Tracks</p>
-    <div id="list-platinum" class="sn-track-grid"></div>
-  </div>
-  <div class="sn-act" id="act-vault">
-    <p class="sn-act-heading">Act III · Speak Now (Taylor's Version): From the Vault</p>
-    <div id="list-vault" class="sn-track-grid"></div>
-  </div>
+  <div id="list-all" class="sn-track-grid"></div>
 </section>
 
 <div class="sn-modal-backdrop" id="snModalBackdrop">
@@ -1561,12 +1608,26 @@ body.sn-open .sn-curtain{ pointer-events:none; }
       <button class="sn-modal-share" id="snModalShare" title="Share this track" aria-label="Share this track">⤴</button>
       <h3 class="sn-modal-title" id="snModalTitle"></h3>
       <p class="sn-modal-feature" id="snModalFeature"></p>
+      <div class="sn-version-toggle" id="snVersionToggle" style="display:none;">
+        <button class="sn-version-btn active" data-version="original">Original</button>
+        <button class="sn-version-btn" data-version="tv">Taylor's Version</button>
+      </div>
+      <div class="sn-audio-links" id="snAudioLinks" style="display:none;">
+        <label class="sn-audio-links-label">Original audio link
+          <input type="text" id="snOriginalAudioInput" placeholder="Paste Original (2010) audio URL">
+        </label>
+        <label class="sn-audio-links-label">Taylor's Version audio link
+          <input type="text" id="snTvAudioInput" placeholder="Paste Taylor's Version audio URL">
+        </label>
+        <button class="sn-sync-btn primary" id="snSaveAudioLinks">Save links</button>
+      </div>
     </div>
     <div class="sn-modal-body-wrap">
       <div class="sn-modal-body" id="snModalLyrics"></div>
     </div>
     <div class="sn-modal-player">
       <div class="sn-modal-visualizer" id="snVisualizer"></div>
+      <p class="sn-queue-info" id="snQueueInfo"></p>
       <button class="sn-track-nav-btn sn-track-nav-prev" id="snModalPrev" aria-label="Previous track" title="Previous track">‹</button>
       <button class="sn-track-nav-btn sn-track-nav-next" id="snModalNext" aria-label="Next track" title="Next track">›</button>
       <audio id="snModalAudio" controls></audio>
@@ -1948,8 +2009,57 @@ Object.keys(snTracks).forEach(function(act){
   });
 });
 
+// Every Original (2010) and Platinum Edition track was re-recorded for
+// Speak Now (Taylor's Version) in 2023. Vault tracks are new songs that
+// only ever existed on the TV release, so they don't get a toggle.
+['original', 'platinum'].forEach(function(act){
+  snTracks[act].forEach(function(t){
+    if(!t.tvAudio){
+      var slug = t.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      t.tvAudio = 'audio/tv/' + slug + '-tv.mp3';
+    }
+  });
+});
+
+function getSnFavorites(){
+  try{ return JSON.parse(localStorage.getItem('snFavorites') || '[]'); }catch(e){ return []; }
+}
+function setSnFavorites(list){
+  try{ localStorage.setItem('snFavorites', JSON.stringify(list)); }catch(e){}
+}
+function toggleSnFavorite(id){
+  var favs = getSnFavorites();
+  var idx = favs.indexOf(id);
+  if(idx === -1) favs.push(id); else favs.splice(idx, 1);
+  setSnFavorites(favs);
+  return favs.indexOf(id) !== -1;
+}
+
+// Deterministic little decorative waveform per track (not derived from
+// real audio — just a stable pattern based on the title so each tile
+// keeps the same look between renders).
+function miniWaveHtml(seedStr){
+  var bars = [];
+  for(var i = 0; i < 5; i++){
+    var code = seedStr.charCodeAt(i % seedStr.length) + i * 13;
+    bars.push(30 + (code % 70));
+  }
+  return '<span class="sn-track-wave" aria-hidden="true">' +
+    bars.map(function(h){ return '<span style="height:' + h + '%"></span>'; }).join('') +
+  '</span>';
+}
+
 function tileHtml(t, num){
+  var isFav = getSnFavorites().indexOf(t.id) !== -1;
+  var badge = '';
+  if(t.tvAudio){
+    var defaultVersion = (getSnAudioOverrides()[t.id] || {}).defaultVersion || 'original';
+    badge = '<span class="sn-track-badge">' + (defaultVersion === 'tv' ? 'TV' : "'10") + '</span>';
+  }
   return '<div class="sn-track" data-id="' + t.id + '">' +
+    '<button class="sn-track-fav' + (isFav ? ' active' : '') + '" data-fav-id="' + t.id + '" aria-label="Toggle favorite">' + (isFav ? '★' : '☆') + '</button>' +
+    badge +
+    miniWaveHtml(t.title) +
     '<span class="sn-track-num">' + num + '</span>' +
     '<div class="sn-track-info">' +
       '<div class="sn-track-title">' + t.title + '</div>' +
@@ -1965,9 +2075,20 @@ var snGridResizeTimers = {};
 function renderList(containerId, tracks){
   const el = document.getElementById(containerId);
 
+  function orderedTracks(){
+    var favs = getSnFavorites();
+    if(!favs.length) return tracks;
+    var favSet = {};
+    favs.forEach(function(id){ favSet[id] = true; });
+    var favTracks = tracks.filter(function(t){ return favSet[t.id]; });
+    var rest = tracks.filter(function(t){ return !favSet[t.id]; });
+    return favTracks.concat(rest);
+  }
+
   function fillGrid(){
+    var ordered = orderedTracks();
     var colMinWidth = 130;
-    var gap = 8;
+    var gap = 20;
     var containerWidth = window.innerWidth;
     var cols = Math.max(1, Math.floor((containerWidth + gap) / (colMinWidth + gap)));
     var tileHeight = 72;
@@ -1975,12 +2096,32 @@ function renderList(containerId, tracks){
     // grid starts, so the tiles read as covering the screen rather than
     // stopping short after a couple of rows.
     var rowsNeeded = Math.max(1, Math.ceil(window.innerHeight / (tileHeight + gap)));
-    var totalNeeded = Math.max(tracks.length, cols * rowsNeeded);
+    var rows = Math.max(rowsNeeded, Math.ceil(ordered.length / cols));
+    var totalNeeded = rows * cols;
+
+    // Build the sequence in column-major order (fill straight down each
+    // column first), then emit tiles in row-major DOM order — since CSS
+    // grid places DOM children row-major by default, this lines the two
+    // up so the visual fill order reads top-to-bottom, column by column.
+    var matrix = new Array(rows);
+    for(var r = 0; r < rows; r++){ matrix[r] = new Array(cols); }
+    var counter = 0;
+    for(var c = 0; c < cols; c++){
+      for(var r2 = 0; r2 < rows; r2++){
+        matrix[r2][c] = counter;
+        counter++;
+      }
+    }
+
+    el.style.gridTemplateColumns = 'repeat(' + cols + ', minmax(' + colMinWidth + 'px, 1fr))';
 
     var html = '';
-    for(var i = 0; i < totalNeeded; i++){
-      var t = tracks[i % tracks.length];
-      html += tileHtml(t, (i % tracks.length) + 1);
+    for(var row = 0; row < rows; row++){
+      for(var col = 0; col < cols; col++){
+        var seq = matrix[row][col];
+        var t = ordered[seq % ordered.length];
+        html += tileHtml(t, (seq % ordered.length) + 1);
+      }
     }
     el.innerHTML = html;
   }
@@ -1991,6 +2132,8 @@ function renderList(containerId, tracks){
     clearTimeout(snGridResizeTimers[containerId]);
     snGridResizeTimers[containerId] = setTimeout(fillGrid, 200);
   });
+
+  return fillGrid;
 }
 
 const allTracksById = {};
@@ -2008,54 +2151,30 @@ function getSyncFor(id){
   return snSyncStore[id] || (allTracksById[id] && allTracksById[id].timedLyrics) || null;
 }
 
-renderList('list-original', snTracks.original);
-renderList('list-platinum', snTracks.platinum);
-renderList('list-vault', snTracks.vault);
-
-var snTabOrder = ['original', 'platinum', 'vault'];
-function activateSnTab(act){
-  var tab = document.querySelector('.sn-tab[data-act="' + act + '"]');
-  if(!tab) return;
-  document.querySelectorAll('.sn-tab').forEach(function(b){ b.classList.remove('active'); });
-  document.querySelectorAll('.sn-act').forEach(function(a){ a.classList.remove('active'); });
-  tab.classList.add('active');
-  document.getElementById('act-' + act).classList.add('active');
+function shuffleArray(arr){
+  var a = arr.slice();
+  for(var i = a.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
 }
 
-document.querySelectorAll('.sn-tab').forEach(function(tab){
-  tab.addEventListener('click', function(){ activateSnTab(tab.dataset.act); });
+var snAllTracksCombined = shuffleArray(
+  snTracks.original.concat(snTracks.platinum).concat(snTracks.vault)
+);
+
+var snMainGridRefresh = renderList('list-all', snAllTracksCombined);
+
+document.getElementById('list-all').addEventListener('click', function(e){
+  var favBtn = e.target.closest('.sn-track-fav');
+  if(!favBtn) return;
+  e.stopPropagation();
+  var id = favBtn.dataset.favId;
+  toggleSnFavorite(id);
+  snBuzz(8);
+  snMainGridRefresh();
 });
-
-/* Swipe left/right across the track-list area to move between
-   Original / Platinum / Vault tabs on mobile. */
-(function(){
-  var swipeZone = document.querySelector('.sn-tabs');
-  var listZone = document.querySelector('.sn-tabs') && document.querySelector('.sn-tabs').parentElement;
-  if(!listZone) return;
-  var sx = 0, sy = 0, tracking = false;
-
-  listZone.addEventListener('touchstart', function(e){
-    if(e.touches.length !== 1) return;
-    sx = e.touches[0].clientX;
-    sy = e.touches[0].clientY;
-    tracking = true;
-  }, {passive:true});
-
-  listZone.addEventListener('touchend', function(e){
-    if(!tracking) return;
-    tracking = false;
-    var dx = e.changedTouches[0].clientX - sx;
-    var dy = e.changedTouches[0].clientY - sy;
-    if(Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
-    var activeTab = document.querySelector('.sn-tab.active');
-    if(!activeTab) return;
-    var idx = snTabOrder.indexOf(activeTab.dataset.act);
-    var nextIdx = dx < 0 ? idx + 1 : idx - 1;
-    if(nextIdx < 0 || nextIdx >= snTabOrder.length) return;
-    snBuzz(8);
-    activateSnTab(snTabOrder[nextIdx]);
-  });
-})();
 
 const snModalBackdrop = document.getElementById('snModalBackdrop');
 const snModalTitle     = document.getElementById('snModalTitle');
@@ -2080,6 +2199,7 @@ let snLastActiveIdx = -1;
 let snSyncMode = false;
 let snSyncTaps = [];
 let snCurrentId = null;
+let snCurrentVersion = 'original';
 let snVowTriggered = false;
 
 /* ---- Equalizer bars ---- */
@@ -2370,6 +2490,21 @@ function markSyncTarget(idx){
   if(idx < snLyricLineEls.length) snLyricLineEls[idx].scrollIntoView({ block:'center', behavior:'smooth' });
 }
 
+function getSnAudioOverrides(){
+  try{ return JSON.parse(localStorage.getItem('snAudioOverrides') || '{}'); }catch(e){ return {}; }
+}
+function setSnAudioOverride(id, field, url){
+  var all = getSnAudioOverrides();
+  all[id] = all[id] || {};
+  all[id][field] = url;
+  try{ localStorage.setItem('snAudioOverrides', JSON.stringify(all)); }catch(e){}
+}
+function getEffectiveAudio(t, version){
+  var o = getSnAudioOverrides()[t.id] || {};
+  if(version === 'tv') return o.tv || t.tvAudio || '';
+  return o.original || t.audio || '';
+}
+
 function loadTrackIntoModal(t, opts){
   opts = opts || {};
   if(!t) return;
@@ -2379,6 +2514,7 @@ function loadTrackIntoModal(t, opts){
   snMiniPlayer.classList.remove('show');
 
   snCurrentId = t.id;
+  snCurrentVersion = (getSnAudioOverrides()[t.id] || {}).defaultVersion || 'original';
   snVowTriggered = false;
   snModalTitle.textContent = t.title;
   snModalFeature.textContent = t.feature || '';
@@ -2386,7 +2522,29 @@ function loadTrackIntoModal(t, opts){
   buildScene(t.title);
   requestAnimationFrame(function(){ snSongCanvas.style.opacity = '1'; });
 
-  snModalAudio.src = t.audio;
+  var versionToggle = document.getElementById('snVersionToggle');
+  var audioLinksPanel = document.getElementById('snAudioLinks');
+  if(t.tvAudio){
+    versionToggle.style.display = 'flex';
+    versionToggle.querySelectorAll('.sn-version-btn').forEach(function(btn){
+      btn.classList.toggle('active', btn.dataset.version === snCurrentVersion);
+    });
+    audioLinksPanel.style.display = 'flex';
+    var overrides = getSnAudioOverrides()[t.id] || {};
+    document.getElementById('snOriginalAudioInput').value = overrides.original || '';
+    document.getElementById('snTvAudioInput').value = overrides.tv || '';
+  } else {
+    versionToggle.style.display = 'none';
+    audioLinksPanel.style.display = 'none';
+  }
+
+  var queueNext = getTrackNeighbor(t.id, 1);
+  var queuePos = snAllTracksCombined.findIndex(function(x){ return x.id === t.id; });
+  document.getElementById('snQueueInfo').textContent =
+    'Track ' + (queuePos + 1) + ' of ' + snAllTracksCombined.length +
+    (queueNext ? '  ·  Up next: ' + queueNext.title : '  ·  End of queue');
+
+  snModalAudio.src = getEffectiveAudio(t, snCurrentVersion);
   snAudioFallback.style.display = 'none';
   snModalAudio.style.display = 'block';
   snModalAudio.load();
@@ -2397,14 +2555,11 @@ function loadTrackIntoModal(t, opts){
 
 function getTrackNeighbor(id, dir){
   if(!id) return null;
-  var sep = id.lastIndexOf('-');
-  var act = id.slice(0, sep);
-  var idx = parseInt(id.slice(sep + 1), 10);
-  var list = snTracks[act];
-  if(!list) return null;
+  var idx = snAllTracksCombined.findIndex(function(t){ return t.id === id; });
+  if(idx === -1) return null;
   var newIdx = idx + dir;
-  if(newIdx < 0 || newIdx >= list.length) return null;
-  return list[newIdx];
+  if(newIdx < 0 || newIdx >= snAllTracksCombined.length) return null;
+  return snAllTracksCombined[newIdx];
 }
 
 function updateSnPrevNextState(){
@@ -2465,6 +2620,36 @@ document.getElementById('snModalNext').addEventListener('click', function(e){
 
 document.getElementById('snModalClose').addEventListener('click', closeSnModal);
 snModalBackdrop.addEventListener('click', function(e){ if(e.target === snModalBackdrop) closeSnModal(); });
+
+document.getElementById('snVersionToggle').addEventListener('click', function(e){
+  var btn = e.target.closest('.sn-version-btn');
+  if(!btn || !snCurrentId) return;
+  var version = btn.dataset.version;
+  if(version === snCurrentVersion) return;
+
+  var t = allTracksById[snCurrentId];
+  if(!t) return;
+  var newSrc = getEffectiveAudio(t, version);
+  if(!newSrc) return;
+
+  snCurrentVersion = version;
+  document.getElementById('snVersionToggle').querySelectorAll('.sn-version-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.version === version);
+  });
+  setSnAudioOverride(snCurrentId, 'defaultVersion', version);
+  if(typeof snMainGridRefresh === 'function') snMainGridRefresh();
+
+  var wasPlaying = !snModalAudio.paused;
+  var resumeAt = snModalAudio.currentTime || 0;
+  snModalAudio.src = newSrc;
+  snModalAudio.load();
+  snModalAudio.addEventListener('loadedmetadata', function onReady(){
+    snModalAudio.removeEventListener('loadedmetadata', onReady);
+    snModalAudio.currentTime = Math.min(resumeAt, snModalAudio.duration || resumeAt);
+    if(wasPlaying) snModalAudio.play();
+  });
+  snBuzz(8);
+});
 
 /* ---- Share current track ---- */
 document.getElementById('snModalShare').addEventListener('click', function(e){
@@ -2644,6 +2829,19 @@ function finishSync(){
 }
 
 snSyncFinish.addEventListener('click', finishSync);
+
+document.getElementById('snSaveAudioLinks').addEventListener('click', function(){
+  if(!snCurrentId) return;
+  var t = allTracksById[snCurrentId];
+  if(!t) return;
+  var origVal = document.getElementById('snOriginalAudioInput').value.trim();
+  var tvVal = document.getElementById('snTvAudioInput').value.trim();
+  setSnAudioOverride(snCurrentId, 'original', origVal);
+  setSnAudioOverride(snCurrentId, 'tv', tvVal);
+  snModalAudio.src = getEffectiveAudio(t, snCurrentVersion);
+  snModalAudio.load();
+  snShowToast('Audio links saved ✦');
+});
 snSyncClear.addEventListener('click', function(){
   delete snSyncStore[snCurrentId];
   var label = document.querySelector('[data-synced-label="' + snCurrentId + '"]');
