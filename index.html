@@ -1332,57 +1332,52 @@ font-family:"Kirang Haerang",sans-serif; font-size:13px; cursor:pointer;
 border:none; background:#f3d9e4; color:#5a1a4a; border-radius:12px; padding:8px 16px;
 font-family:"Kirang Haerang",sans-serif; font-size:13px; cursor:pointer;
 }
-.quiz-result-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:2px; }
-.quiz-share-btn{
-border-radius:12px; padding:8px 14px; border:1.5px solid mediumvioletred; background:#fff8fb; color:mediumvioletred;
+.quiz-result-actions{ display:flex; flex-direction:column; gap:8px; margin-top:4px; align-items:flex-start; }
+.quiz-compare-btn{
+border:1.5px dashed mediumvioletred; background:#fff8fb; color:mediumvioletred; border-radius:12px; padding:8px 16px;
 font-family:"Kirang Haerang",sans-serif; font-size:13px; cursor:pointer;
 }
-.quiz-share-btn:hover{ background:#ffe1ee; }
-.quiz-compare{ text-align:center; }
-.quiz-compare-pair{ display:flex; justify-content:center; gap:22px; margin-bottom:12px; flex-wrap:wrap; }
-.quiz-compare-side{ display:flex; flex-direction:column; align-items:center; gap:4px; }
-.quiz-compare-label{ font-family:"Kirang Haerang",sans-serif; font-size:11px; color:#8a5a7a; text-transform:uppercase; letter-spacing:.5px; }
-.quiz-compare-era{ font-family:"Kirang Haerang",sans-serif; font-size:14px; color:mediumvioletred; font-weight:bold; }
-.quiz-compare-match{ font-family:"Kirang Haerang",sans-serif; font-size:21px; color:mediumvioletred; font-weight:bold; margin-bottom:14px; }
-.quiz-compare-empty p{ font-family:"Kirang Haerang",sans-serif; font-size:13px; color:#5a1a4a; margin:10px 0 14px; }
-
-/* -----------------------------
-   TRIVIA
-------------------------------*/
-.trivia-question{ font-family:"Kirang Haerang",sans-serif; color:#5a1a4a; font-size:15px; margin-bottom:12px; text-align:center; }
-.trivia-options{ display:flex; flex-direction:column; gap:8px; }
-.trivia-feedback{ font-family:"Kirang Haerang",sans-serif; font-size:14px; margin:12px 0; text-align:center; }
-.trivia-feedback.correct{ color:#3a8a5a; }
-.trivia-feedback.wrong{ color:#b3122a; }
-.trivia-fact{ font-family:"Kirang Haerang",sans-serif; font-size:12.5px; color:#8a5a7a; text-align:center; margin-bottom:14px; font-style:italic; }
-.trivia-streak{ font-family:"Kirang Haerang",sans-serif; font-size:13px; color:mediumvioletred; text-align:center; margin-bottom:10px; }
-.trivia-done{ text-align:center; }
-.trivia-done p{ font-family:"Kirang Haerang",sans-serif; font-size:13px; color:#5a1a4a; }
-
-/* -----------------------------
-   STYLE BUILDER (outfit dress-up)
-------------------------------*/
-.style-builder{ display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; }
-.style-preview{ flex:0 0 100px; display:flex; justify-content:center; }
-.style-controls{ flex:1; min-width:200px; }
-.style-group{ margin-bottom:10px; }
-.style-group-label{ font-family:"Kirang Haerang",sans-serif; font-size:12px; color:#8a5a7a; text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; }
-.style-swatch-row{ display:flex; flex-wrap:wrap; gap:6px; }
-.style-swatch{
-border:1.5px solid mediumvioletred; background:#fff8fb; color:#5a1a4a; border-radius:10px;
-padding:6px 10px; font-family:"Kirang Haerang",sans-serif; font-size:12px; cursor:pointer;
-}
-.style-swatch.picked{ background:mediumvioletred; color:#fff; }
-.style-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-.style-saved-list{ margin-top:14px; border-top:1.5px dashed #f3d9e4; padding-top:10px; }
+.quiz-compare-btn:hover{ background:#ffe1ee; }
+.quiz-compare-wrap{ text-align:center; }
+.quiz-compare-pair{ display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:8px; }
+.quiz-compare-side{ display:flex; flex-direction:column; align-items:center; flex:0 0 92px; }
+.quiz-compare-side .quiz-char-glow{ transform:scale(.82); margin-bottom:-14px; }
+.quiz-compare-name{ font-family:"Kirang Haerang",sans-serif; font-size:12px; color:#5a1a4a; margin-top:2px; line-height:1.3; }
+.quiz-compare-vs{ font-family:"Kirang Haerang",sans-serif; font-size:20px; font-weight:bold; color:mediumvioletred; flex:0 0 auto; line-height:1.15; }
+.quiz-compare-msg{ font-family:"Kirang Haerang",sans-serif; font-size:14px; color:#8a5a7a; margin:6px 0 14px; }
 @media screen and (max-width:480px){
   .quiz-layout{ flex-direction:column; }
   .quiz-content-col{ text-align:center; }
   .quiz-question{ text-align:center; }
   .quiz-result{ text-align:center; }
-  .style-builder{ flex-direction:column; align-items:center; text-align:center; }
-  .style-swatch-row{ justify-content:center; }
+  .quiz-result-actions{ align-items:center; }
+  .quiz-compare-pair{ gap:6px; }
+  .quiz-compare-side{ flex:0 0 76px; }
 }
+.trivia-streak{ font-family:"Kirang Haerang",sans-serif; color:mediumvioletred; font-size:14px; margin-bottom:10px; text-align:center; }
+.trivia-question{ font-family:"Kirang Haerang",sans-serif; color:#5a1a4a; font-size:16px; margin-bottom:14px; text-align:center; line-height:1.4; }
+.trivia-options{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+.trivia-option{
+  text-align:left; background:#fff8fb; border:1.5px dashed mediumvioletred; border-radius:12px;
+  padding:10px 14px; font-family:"Kirang Haerang",sans-serif; font-size:14px; color:#5a1a4a; cursor:pointer;
+}
+.trivia-option:hover:not(:disabled){ background:#ffe1ee; }
+.trivia-option:disabled{ cursor:default; }
+.trivia-option.correct{ background:#dff5e1; border-color:#3f9f52; border-style:solid; color:#245c31; font-weight:bold; }
+.trivia-option.wrong{ background:#fbe0e6; border-color:#c2185b; border-style:solid; color:#8a1c3f; }
+.trivia-result{ font-family:"Kirang Haerang",sans-serif; font-size:16px; color:mediumvioletred; text-align:center; margin-bottom:8px; font-weight:bold; }
+.trivia-fact{ font-family:"Kirang Haerang",sans-serif; font-size:13.5px; color:#8a5a7a; text-align:center; background:#fdeaf5; border-radius:12px; padding:10px 14px; margin-bottom:10px; line-height:1.5; }
+.trivia-next{ font-family:"Kirang Haerang",sans-serif; font-size:12.5px; color:#a888a0; text-align:center; font-style:italic; }
+.style-trait-label{ font-family:"Kirang Haerang",sans-serif; font-size:13px; color:mediumvioletred; margin:12px 0 6px; font-weight:bold; }
+.style-trait-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.style-chip{
+  background:#fff8fb; border:1.5px solid #f3d9e4; border-radius:20px; padding:6px 12px;
+  font-family:"Kirang Haerang",sans-serif; font-size:12.5px; color:#5a1a4a; cursor:pointer;
+}
+.style-chip:hover{ background:#ffe1ee; }
+.style-chip.active{ background:mediumvioletred; border-color:mediumvioletred; color:#fff; font-weight:bold; }
+.style-actions{ display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 14px; }
+.style-saved-title{ font-family:"Kirang Haerang",sans-serif; font-size:14px; color:#5a1a4a; margin:6px 0 8px; border-top:1px dashed #f3d9e4; padding-top:12px; }
 
 /* -----------------------------
    QUIZ CHARACTER — a chibi paper-doll dancer styled to match the
@@ -2169,9 +2164,9 @@ box-shadow:0 0 0 6px mediumvioletred, 0 0 24px rgba(255,105,180,.6);
   <button class="user-menu-item" id="moreSurprise" role="menuitem">🎲 Surprise Me</button>
   <button class="user-menu-item" id="moreSearch" role="menuitem">🔍 Find an Era</button>
   <button class="user-menu-item" id="moreQuiz" role="menuitem">🧠 Which Era Are You?</button>
-  <button class="user-menu-item" id="moreStyleMe" role="menuitem">💇 Style Yourself</button>
   <button class="user-menu-item" id="moreLookbookCard" role="menuitem">📸 My Lookbook Card</button>
   <button class="user-menu-item" id="moreLooks" role="menuitem">👗 My Saved Looks</button>
+  <button class="user-menu-item" id="moreStyle" role="menuitem">💇 Style Yourself</button>
   <button class="user-menu-item" id="moreSound" role="menuitem">🔔 Sound: <span id="moreSoundState">on</span></button>
   <button class="user-menu-item" id="moreDarkMode" role="menuitem">🌙 Dark Mode: <span id="moreDarkState">off</span></button>
 </div>
@@ -2312,16 +2307,6 @@ box-shadow:0 0 0 6px mediumvioletred, 0 0 24px rgba(255,105,180,.6);
   </div>
 </div>
 
-<!-- Style Yourself (outfit builder) modal -->
-<div class="auth-modal-overlay" id="styleModalOverlay" aria-hidden="true">
-  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="styleModalTitle">
-    <button class="auth-modal-close" id="styleModalClose" aria-label="Close">✕</button>
-    <div class="auth-modal-title" id="styleModalTitle">style yourself</div>
-    <div class="auth-modal-sub">mix and match to build your own look — no quiz required</div>
-    <div id="styleModalBody"></div>
-  </div>
-</div>
-
 <!-- Lookbook card modal -->
 <div class="auth-modal-overlay" id="lookbookModalOverlay" aria-hidden="true">
   <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="lookbookModalTitle">
@@ -2341,6 +2326,15 @@ box-shadow:0 0 0 6px mediumvioletred, 0 0 24px rgba(255,105,180,.6);
     <div class="auth-modal-sub">save your current dress-up look, name it, and load it back any time</div>
     <button class="auth-provider-btn" id="looksSaveCurrentBtn" type="button" style="justify-content:center;margin-bottom:12px;">💾 Save current look</button>
     <div id="looksModalBody" class="favorites-list"></div>
+  </div>
+</div>
+
+<!-- Style Yourself: freely mix hair/outfit/palette/prop on the quiz avatar, save named looks -->
+<div class="auth-modal-overlay" id="styleModalOverlay" aria-hidden="true">
+  <div class="auth-modal setlist-modal" role="dialog" aria-modal="true" aria-labelledby="styleModalTitle">
+    <button class="auth-modal-close" id="styleModalClose" aria-label="Close">✕</button>
+    <div class="auth-modal-title" id="styleModalTitle">style yourself</div>
+    <div id="styleModalBody"></div>
   </div>
 </div>
 
@@ -2365,11 +2359,11 @@ box-shadow:0 0 0 6px mediumvioletred, 0 0 24px rgba(255,105,180,.6);
           <div class="game-card-sub">flutter between the pillars, keep her soaring over the crowd</div>
         </div>
       </button>
-      <button class="game-card" type="button" id="gameCardTrivia" aria-label="Play Daily Era Trivia: one quick question a day, keep your streak going">
-        <div class="game-card-icon" aria-hidden="true">🧩</div>
+      <button class="game-card" type="button" data-game="trivia" aria-label="Play Daily Era Trivia: one hardcore Swiftie question a day, keep your streak alive">
+        <div class="game-card-icon" aria-hidden="true">🎯</div>
         <div>
           <div class="game-card-title">Daily Era Trivia</div>
-          <div class="game-card-sub">one quick question a day, keep your streak going</div>
+          <div class="game-card-sub">one hardcore question a day — keep your streak alive</div>
         </div>
       </button>
     </div>
@@ -3641,7 +3635,13 @@ if(gamesBtn && gamesModalOverlay){
   document.querySelectorAll('.game-card[data-game]').forEach(function(btn){
     btn.addEventListener('click', function(e){
       e.stopPropagation();
-      openGame(btn.getAttribute('data-game'));
+      const which = btn.getAttribute('data-game');
+      if(which === 'trivia'){
+        closeGamesModal();
+        document.dispatchEvent(new CustomEvent('ttl:openTrivia'));
+        return;
+      }
+      openGame(which);
     });
   });
   gamePlayerClose.addEventListener("click", function(e){
@@ -4898,14 +4898,14 @@ document.addEventListener('keydown', function(e){
   /* ---------- which era are you quiz ---------- */
   const QUIZ_QUESTIONS = [
     { q:'Pick an outfit for tonight', trait:'hat', options:[
-      { label:'Sparkly bodysuit & bold liner', eras:['1989','reputation'], hat:'', dressStyle:'bodysuit' },
+      { label:'Sparkly bodysuit & bold liner', eras:['1989','reputation'], hat:'👑' },
       { label:'Floaty sundress & curls', eras:['fearless','speaknow'], hat:'', hairstyle:'curls', dressStyle:'sundress' },
       { label:'Cardigan & messy bun', eras:['folklore','evermore'], hat:'', hairstyle:'bun', dressStyle:'cardigan' },
-      { label:'Sequins & a bit of fringe', eras:['showgirl','lover'], hat:'', dressStyle:'fringejacket' }
+      { label:'Sequins & a bit of fringe', eras:['showgirl','lover'], hat:'✨' }
     ]},
     { q:'Pick a color palette', trait:'gradient', options:[
       { label:'Red & black', eras:['red','reputation'], gradient:['#b3122a','#1a1a1a'] },
-      { label:'Pastel & gold', eras:['lover','fearless'], gradient:['#d9c4ee','#f0b93d'] },
+      { label:'Pastel & gold', eras:['lover','fearless'], gradient:['#f6b6d2','#f4c95d'] },
       { label:'Grey & moss green', eras:['folklore','evermore'], gradient:['#9aa192','#5c6b52'] },
       { label:'Midnight blue & silver', eras:['midnights','1989'], gradient:['#2b3a67','#aeb9c9'] }
     ]},
@@ -4931,7 +4931,8 @@ document.addEventListener('keydown', function(e){
   let quizIndex = 0;
   let quizScores = {};
   let quizAnswers = new Array(QUIZ_QUESTIONS.length).fill(null);
-  function freshQuizAvatar(){ return { gradient:['#d9c4ee','#f0b93d'], hat:'', hairstyle:'', dressStyle:'', mood:'', activity:'', aura:'', pose:'', emotion:'' }; }
+  let pendingFriendAnswers = null; /* set when the user arrived via a "compare with a friend" link but hadn't taken the quiz yet */
+  function freshQuizAvatar(){ return { gradient:['#f6b6d2','#f4c95d'], hat:'', hairstyle:'', dressStyle:'', mood:'', activity:'', aura:'', pose:'', emotion:'' }; }
   let quizAvatar = freshQuizAvatar();
   function rebuildQuizAvatarUpTo(index){
     /* rebuilds avatar + scores from scratch based on answers[0..index], so
@@ -5021,8 +5022,6 @@ document.addEventListener('keydown', function(e){
     }
     const isSundress = quizAvatar.dressStyle === 'sundress';
     const isCardigan = quizAvatar.dressStyle === 'cardigan';
-    const isBodysuit = quizAvatar.dressStyle === 'bodysuit';
-    const isFringeJacket = quizAvatar.dressStyle === 'fringejacket';
     const shirtColor = '#fff8fb';
     const outfitSvg = isSundress
       ? '<path d="M29,-2 L28,-9" stroke="' + ink + '" stroke-width="2.2" stroke-linecap="round"/>' +
@@ -5037,23 +5036,6 @@ document.addEventListener('keydown', function(e){
         '<circle cx="28.5" cy="16" r="1.3" fill="' + ink + '"/><circle cx="28" cy="24" r="1.3" fill="' + ink + '"/><circle cx="28" cy="32" r="1.3" fill="' + ink + '"/><circle cx="28.5" cy="39" r="1.3" fill="' + ink + '"/>' +
         '<path d="M22,9 Q16,3 10,5.5" stroke="' + ink + '" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.55"/>' +
         '<path d="M48,9 Q54,3 60,5.5" stroke="' + ink + '" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.55"/>'
-      : isBodysuit
-      ? '<path d="M28,-4 L27,4" stroke="' + ink + '" stroke-width="1.8" stroke-linecap="round"/>' +
-        '<path d="M42,-4 L43,4" stroke="' + ink + '" stroke-width="1.8" stroke-linecap="round"/>' +
-        '<path d="M24,4 C24,-2 29,-6 35,-6 C41,-6 46,-2 46,4 L48,14 C49,23 47,31 42,37 L36,37 L35,32 L34,37 L28,37 C23,31 21,23 22,14 Z" fill="' + outfitColor + '" stroke="' + ink + '" stroke-width="2" stroke-linejoin="round"/>' +
-        '<g fill="#ffffff" opacity="0.9">' +
-          '<circle cx="29" cy="8" r="1.4"/><circle cx="41" cy="10" r="1.2"/><circle cx="35" cy="12" r="1.1"/><circle cx="33" cy="16" r="1.4"/><circle cx="38" cy="20" r="1.2"/><circle cx="30" cy="26" r="1.3"/><circle cx="40" cy="28" r="1.1"/>' +
-        '</g>'
-      : isFringeJacket
-      ? '<path d="M25,3 C20,-3 13,-5 8,0 C6,2 7,4.8 9.5,5.8 C13.5,2.5 19,4.5 22,9.5 L24,26 C22,32 23,37 26,41 L31,38 C28,33 27.5,28 29,22 L26,4 Z" fill="' + outfitColor + '" stroke="' + ink + '" stroke-width="2" stroke-linejoin="round"/>' +
-        '<path d="M45,3 C50,-3 57,-5 62,0 C64,2 63,4.8 60.5,5.8 C56.5,2.5 51,4.5 48,9.5 L46,26 C48,32 47,37 44,41 L39,38 C42,33 42.5,28 41,22 L44,4 Z" fill="' + outfitColor + '" stroke="' + ink + '" stroke-width="2" stroke-linejoin="round"/>' +
-        '<g fill="#ffffff" opacity="0.85">' +
-          '<circle cx="18" cy="10" r="1.3"/><circle cx="20" cy="18" r="1.2"/><circle cx="24" cy="28" r="1.3"/><circle cx="52" cy="10" r="1.3"/><circle cx="50" cy="18" r="1.2"/><circle cx="46" cy="28" r="1.3"/>' +
-        '</g>' +
-        '<g stroke="' + outfitColor + '" stroke-width="1.6" stroke-linecap="round">' +
-          '<line x1="25" y1="40" x2="24" y2="47"/><line x1="28" y1="41" x2="27.5" y2="48"/><line x1="31" y1="40" x2="31" y2="47"/>' +
-          '<line x1="39" y1="40" x2="39" y2="47"/><line x1="42" y1="41" x2="42.5" y2="48"/><line x1="45" y1="40" x2="46" y2="47"/>' +
-        '</g>'
       : '<path d="M24,4 C24,-2 29,-6 35,-6 C41,-6 46,-2 46,4 L48,14 C49,24 46,34 40,42 C37,46 33,46 30,42 C24,34 21,24 22,14 Z" fill="' + outfitColor + '" stroke="' + ink + '" stroke-width="2" stroke-linejoin="round"/>' +
         '<g fill="#ffffff" opacity="0.85">' +
           '<circle cx="30" cy="10" r="1.6"/><circle cx="41" cy="16" r="1.3"/><circle cx="33" cy="27" r="1.6"/><circle cx="42" cy="7" r="1.1"/>' +
@@ -5143,98 +5125,154 @@ document.addEventListener('keydown', function(e){
       '</div>' +
     '</div>';
   }
+  /* ---------- Era Soulmate Compare ---------- */
   function quizAnswersKey(){ return 'ttlQuizAnswers_' + idKey(getUser()); }
-  function encodeQuizAnswers(answers){
-    return answers.map(function(a){ return (a === null || a === undefined) ? 'x' : String(a); }).join('');
+  function renderQuizCharFor(avatarObj){
+    /* renderQuizChar() reads the module-level quizAvatar; swap it in/out so
+       we can render a second (friend's) avatar without disturbing the live one */
+    const prev = quizAvatar;
+    quizAvatar = avatarObj;
+    const html = renderQuizChar();
+    quizAvatar = prev;
+    return html;
   }
-  function decodeQuizAnswers(str){
-    return String(str || '').split('').map(function(c){ return c === 'x' ? null : parseInt(c, 10); });
-  }
-  function buildAvatarAndScores(answers){
+  function computeQuizResultForAnswers(answersArr){
     const avatar = freshQuizAvatar();
     const scores = {};
-    QUIZ_QUESTIONS.forEach(function(question, i){
-      const idx = answers[i];
-      const opt = (idx === null || idx === undefined) ? null : question.options[idx];
-      if(!opt) return;
+    for(let i = 0; i < QUIZ_QUESTIONS.length; i++){
+      const ansIdx = answersArr ? answersArr[i] : null;
+      if(ansIdx === null || ansIdx === undefined) continue;
+      const opt = QUIZ_QUESTIONS[i].options[ansIdx];
+      if(!opt) continue;
       opt.eras.forEach(function(id){ scores[id] = (scores[id] || 0) + 1; });
-      Object.keys(opt).forEach(function(k){ if(k !== 'label' && k !== 'eras') avatar[k] = opt[k]; });
-    });
-    return { avatar:avatar, scores:scores };
-  }
-  function bestEraFor(scores){
+      Object.keys(opt).forEach(function(k){
+        if(k !== 'label' && k !== 'eras') avatar[k] = opt[k];
+      });
+    }
     let bestId = null, bestScore = -1;
     ERA_LIST.forEach(function(e){
       const s = scores[e.id] || 0;
       if(s > bestScore){ bestScore = s; bestId = e.id; }
     });
-    return ERA_BY_ID[bestId] || ERA_LIST[0];
+    const era = ERA_BY_ID[bestId] || ERA_LIST[0];
+    avatar.gradient = [era.color, era.color];
+    return { avatar:avatar, scores:scores, era:era };
   }
-  function renderAvatarHTML(avatar){
-    const prev = quizAvatar;
-    quizAvatar = avatar;
-    const html = renderQuizChar();
-    quizAvatar = prev;
-    return html;
+  function encodeQuizAnswers(answersArr){
+    const str = answersArr.map(function(a){ return (a === null || a === undefined) ? 'x' : a; }).join(',');
+    try{ return btoa(str).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); }
+    catch(e){ return ''; }
   }
-  function downloadQuizResultCard(result){
+  function decodeQuizAnswers(code){
+    try{
+      let b64 = code.replace(/-/g,'+').replace(/_/g,'/');
+      while(b64.length % 4) b64 += '=';
+      const str = atob(b64);
+      const arr = str.split(',').map(function(v){ return v === 'x' ? null : parseInt(v, 10); });
+      return arr.length ? arr : null;
+    }catch(e){ return null; }
+  }
+  function copyCompareLink(url){
+    function done(ok){
+      showMoreToast(ok ? '\ud83d\udc8c Link copied \u2014 send it to a friend!' : ('Copy this link: ' + url), ok ? 3200 : 6000);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){ done(true); }).catch(function(){ done(false); });
+    } else {
+      try{
+        const ta = document.createElement('textarea');
+        ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        done(true);
+      }catch(e){ done(false); }
+    }
+  }
+  function compareMessage(pct){
+    if(pct >= 80) return '\u2728 Era soulmates \u2014 basically the same setlist.';
+    if(pct >= 50) return '\ud83d\udc95 Pretty in sync, different bridges.';
+    if(pct >= 25) return '\ud83c\udfad Different eras, same fandom.';
+    return '\ud83c\udf19 Total opposites \u2014 chaotic good duo.';
+  }
+  function showQuizCompare(friendAnswers){
+    const body = document.getElementById('quizModalBody');
+    if(!body || !friendAnswers) return;
+    const mine = computeQuizResultForAnswers(quizAnswers);
+    const theirs = computeQuizResultForAnswers(friendAnswers);
+    const total = QUIZ_QUESTIONS.length;
+    let matches = 0;
+    for(let i = 0; i < total; i++){
+      if(quizAnswers[i] !== null && quizAnswers[i] !== undefined && quizAnswers[i] === friendAnswers[i]) matches++;
+    }
+    const pct = Math.round((matches / total) * 100);
+    body.innerHTML = '<div class="quiz-compare-wrap">' +
+      '<div class="quiz-compare-pair">' +
+        '<div class="quiz-compare-side">' + renderQuizCharFor(mine.avatar) +
+          '<div class="quiz-compare-name">You<br><span style="color:' + mine.era.color + '">' + mine.era.name + '</span></div></div>' +
+        '<div class="quiz-compare-vs">' + pct + '%<br><span style="font-size:11px;">match</span></div>' +
+        '<div class="quiz-compare-side">' + renderQuizCharFor(theirs.avatar) +
+          '<div class="quiz-compare-name">Friend<br><span style="color:' + theirs.era.color + '">' + theirs.era.name + '</span></div></div>' +
+      '</div>' +
+      '<div class="quiz-compare-msg">' + compareMessage(pct) + '</div>' +
+      '<button class="quiz-restart" id="quizCompareBackBtn" type="button">\u2190 Back to my result</button>' +
+    '</div>';
+    const back = document.getElementById('quizCompareBackBtn');
+    if(back) back.addEventListener('click', function(){ showQuizResult(); });
+    if(typeof burstConfetti === 'function' && pct >= 80) burstConfetti();
+  }
+  function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
+    const words = String(text || '').split(' ');
+    let line = '';
+    const lines = [];
+    words.forEach(function(word){
+      const test = line ? (line + ' ' + word) : word;
+      if(ctx.measureText(test).width > maxWidth && line){
+        lines.push(line);
+        line = word;
+      } else {
+        line = test;
+      }
+    });
+    if(line) lines.push(line);
+    const startY = y - ((lines.length - 1) * lineHeight) / 2;
+    lines.forEach(function(l, i){ ctx.fillText(l, x, startY + i * lineHeight); });
+    return lines.length;
+  }
+  function drawQuizResultCard(result){
     const canvas = document.createElement('canvas');
-    canvas.width = 640; canvas.height = 640;
+    canvas.width = 640; canvas.height = 800;
     const ctx = canvas.getContext('2d');
-    if(!ctx) return;
+    if(!ctx) return canvas;
     const w = canvas.width, h = canvas.height;
     const grad = ctx.createLinearGradient(0, 0, w, h);
-    grad.addColorStop(0, '#fff8fb'); grad.addColorStop(1, result.color + '33');
+    grad.addColorStop(0, result.color); grad.addColorStop(1, '#3d1230');
     ctx.fillStyle = grad; ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = result.color; ctx.lineWidth = 6;
+    ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = 6;
     ctx.setLineDash([14, 10]);
     ctx.strokeRect(16, 16, w-32, h-32);
     ctx.setLineDash([]);
+
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#c2185b';
-    ctx.font = 'bold 22px Georgia, serif';
-    ctx.fillText('✦ WHICH ERA ARE YOU? ✦', w/2, 90);
-    ctx.fillStyle = result.color;
-    ctx.beginPath(); ctx.arc(w/2, 220, 90, 0, Math.PI*2); ctx.fill();
-    ctx.strokeStyle = '#5a1a4a'; ctx.lineWidth = 3; ctx.stroke();
-    ctx.fillStyle = '#5a1a4a';
-    ctx.font = 'bold 40px Georgia, serif';
-    ctx.fillText(result.name, w/2, 370);
-    ctx.font = 'italic 18px Georgia, serif';
-    ctx.fillStyle = '#8a5a7a';
-    wrapCanvasText(ctx, result.blurb, w/2, 415, w - 120, 26);
-    ctx.font = 'italic 14px Georgia, serif';
-    ctx.fillStyle = '#a888a0';
-    ctx.fillText('Taylor Swift Era\u2019s Lookbook', w/2, h - 40);
-    try{
-      const link = document.createElement('a');
-      link.download = 'my-era-' + result.id + '.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }catch(e){}
-  }
-  function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
-    const words = String(text).split(' ');
-    let line = '', curY = y;
-    words.forEach(function(word){
-      const test = line ? line + ' ' + word : word;
-      if(ctx.measureText(test).width > maxWidth && line){
-        ctx.fillText(line, x, curY);
-        line = word; curY += lineHeight;
-      } else { line = test; }
-    });
-    if(line) ctx.fillText(line, x, curY);
-  }
-  function shareCompareLink(){
-    const encoded = encodeQuizAnswers(quizAnswers);
-    const url = window.location.origin + window.location.pathname + '#compare=' + encoded;
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(url).then(function(){
-        showMoreToast('Link copied! Send it to a friend 💌');
-      }).catch(function(){ window.prompt('Copy this link and send it to a friend:', url); });
-    } else {
-      window.prompt('Copy this link and send it to a friend:', url);
-    }
+    ctx.fillStyle = 'rgba(255,255,255,.85)';
+    ctx.font = 'italic 20px Georgia, serif';
+    ctx.fillText('my taylor swift era is\u2026', w/2, 150);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 48px Georgia, serif';
+    wrapCanvasText(ctx, result.name, w/2, 240, w-100, 54);
+
+    ctx.beginPath(); ctx.arc(w/2, 340, 22, 0, Math.PI*2);
+    ctx.fillStyle = result.color; ctx.fill();
+    ctx.lineWidth = 5; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+
+    ctx.fillStyle = '#fff8fb';
+    ctx.font = '21px Georgia, serif';
+    wrapCanvasText(ctx, result.blurb, w/2, 430, w-140, 32);
+
+    ctx.font = 'italic 15px Georgia, serif';
+    ctx.fillStyle = 'rgba(255,255,255,.75)';
+    ctx.fillText('Taylor Swift Era\u2019s Lookbook \u00b7 take the quiz yourself', w/2, h - 50);
+    return canvas;
   }
   function showQuizResult(){
     const body = document.getElementById('quizModalBody');
@@ -5258,9 +5296,9 @@ document.addEventListener('keydown', function(e){
         '<div class="quiz-result-sub">' + result.blurb + '</div>' +
         '<a href="' + result.href + '" class="auth-provider-btn" style="justify-content:center;text-decoration:none;margin-bottom:10px;">Visit this era</a>' +
         '<div class="quiz-result-actions">' +
-          '<button class="quiz-share-btn" id="quizSaveCardBtn" type="button">📸 Save my card</button>' +
-          '<button class="quiz-share-btn" id="quizCompareBtn" type="button">🔗 Compare with a friend</button>' +
           '<button class="quiz-restart" id="quizRestartBtn" type="button">Take again</button>' +
+          '<button class="quiz-compare-btn" id="quizCompareBtn" type="button">\ud83d\udd17 Compare with a friend</button>' +
+          '<button class="quiz-compare-btn" id="quizSaveCardBtn" type="button">\ud83d\udcf8 Save my card</button>' +
         '</div>' +
       '</div></div>' +
     '</div>';
@@ -5270,58 +5308,30 @@ document.addEventListener('keydown', function(e){
       quizAvatar = freshQuizAvatar();
       renderQuiz();
     });
-    const saveCardBtn = document.getElementById('quizSaveCardBtn');
-    if(saveCardBtn) saveCardBtn.addEventListener('click', function(){ downloadQuizResultCard(result); });
     const compareBtn = document.getElementById('quizCompareBtn');
-    if(compareBtn) compareBtn.addEventListener('click', shareCompareLink);
-    if(typeof burstConfetti === 'function') burstConfetti();
-    if(typeof playChime === 'function') playChime();
-  }
-  function renderQuizCompare(encoded){
-    const body = document.getElementById('quizModalBody');
-    if(!body) return;
-    const friendAnswers = decodeQuizAnswers(encoded);
-    const friendBuilt = buildAvatarAndScores(friendAnswers);
-    const friendResult = bestEraFor(friendBuilt.scores);
-    friendBuilt.avatar.gradient = [friendResult.color, friendResult.color];
-    const myAnswers = readJSON(quizAnswersKey(), null);
-    if(!myAnswers){
-      body.innerHTML = '<div class="quiz-compare quiz-compare-empty">' +
-        '<div class="quiz-char-col" style="display:flex;justify-content:center;margin-bottom:8px;">' + renderAvatarHTML(friendBuilt.avatar) + '</div>' +
-        '<p>A friend shared their result: <strong>' + friendResult.name + '</strong>! Take the quiz yourself to see your match ✨</p>' +
-        '<button class="quiz-restart" id="quizCompareStartBtn" type="button">Take the quiz</button>' +
-      '</div>';
-      const startBtn = document.getElementById('quizCompareStartBtn');
-      if(startBtn) startBtn.addEventListener('click', function(){
-        quizIndex = 0; quizScores = {}; quizAnswers = new Array(QUIZ_QUESTIONS.length).fill(null);
-        quizAvatar = freshQuizAvatar();
-        renderQuiz();
-      });
-      return;
-    }
-    const myBuilt = buildAvatarAndScores(myAnswers);
-    const myResult = bestEraFor(myBuilt.scores);
-    myBuilt.avatar.gradient = [myResult.color, myResult.color];
-    let matches = 0;
-    for(let i = 0; i < QUIZ_QUESTIONS.length; i++){
-      if(myAnswers[i] !== null && myAnswers[i] !== undefined && myAnswers[i] === friendAnswers[i]) matches++;
-    }
-    const pct = Math.round((matches / QUIZ_QUESTIONS.length) * 100);
-    body.innerHTML = '<div class="quiz-compare">' +
-      '<div class="quiz-compare-pair">' +
-        '<div class="quiz-compare-side"><div class="quiz-compare-label">You</div>' + renderAvatarHTML(myBuilt.avatar) + '<div class="quiz-compare-era">' + myResult.name + '</div></div>' +
-        '<div class="quiz-compare-side"><div class="quiz-compare-label">Your friend</div>' + renderAvatarHTML(friendBuilt.avatar) + '<div class="quiz-compare-era">' + friendResult.name + '</div></div>' +
-      '</div>' +
-      '<div class="quiz-compare-match">' + pct + '% era match</div>' +
-      '<button class="quiz-restart" id="quizCompareCloseBtn" type="button">Take the quiz again</button>' +
-    '</div>';
-    const closeBtn = document.getElementById('quizCompareCloseBtn');
-    if(closeBtn) closeBtn.addEventListener('click', function(){
-      quizIndex = 0; quizScores = {}; quizAnswers = new Array(QUIZ_QUESTIONS.length).fill(null);
-      quizAvatar = freshQuizAvatar();
-      renderQuiz();
+    if(compareBtn) compareBtn.addEventListener('click', function(){
+      const code = encodeQuizAnswers(quizAnswers);
+      const url = location.origin + location.pathname + '?compare=' + code;
+      copyCompareLink(url);
+    });
+    const saveCardBtn = document.getElementById('quizSaveCardBtn');
+    if(saveCardBtn) saveCardBtn.addEventListener('click', function(){
+      try{
+        const cardCanvas = drawQuizResultCard(result);
+        const link = document.createElement('a');
+        link.download = 'my-era-' + result.id + '.png';
+        link.href = cardCanvas.toDataURL('image/png');
+        link.click();
+        showMoreToast('\ud83d\udcf8 Card saved!', 2400);
+      }catch(e){ showMoreToast('Couldn\u2019t save the card \u2014 try again', 3000); }
     });
     if(typeof burstConfetti === 'function') burstConfetti();
+    if(typeof playChime === 'function') playChime();
+    if(pendingFriendAnswers){
+      const toShow = pendingFriendAnswers;
+      pendingFriendAnswers = null;
+      setTimeout(function(){ showQuizCompare(toShow); }, 1400);
+    }
   }
   function renderQuiz(){
     const body = document.getElementById('quizModalBody');
@@ -5380,16 +5390,285 @@ document.addEventListener('keydown', function(e){
   const moreQuiz = document.getElementById('moreQuiz');
   if(moreQuiz) moreQuiz.addEventListener('click', function(){ closeMorePanel(); quizModal.open(); });
 
-  /* ---------- open straight into compare mode if a friend shared a #compare= link ---------- */
-  (function checkCompareHash(){
-    const m = window.location.hash.match(/compare=([a-z0-9x]+)/i);
-    if(!m) return;
-    const overlay = document.getElementById('quizModalOverlay');
-    if(!overlay) return;
-    overlay.classList.add('show');
-    overlay.setAttribute('aria-hidden', 'false');
-    renderQuizCompare(m[1]);
+  /* ---------- handle an incoming "compare with a friend" link ---------- */
+  (function handleIncomingCompareLink(){
+    let compareCode = null;
+    try{ compareCode = new URLSearchParams(location.search).get('compare'); }catch(e){}
+    if(!compareCode) return;
+    const friendAnswers = decodeQuizAnswers(compareCode);
+    if(!friendAnswers){ return; }
+    /* scrub the param from the URL so reloads/re-shares don't re-trigger this */
+    try{
+      const cleanUrl = location.pathname + location.hash;
+      history.replaceState(null, '', cleanUrl);
+    }catch(e){}
+    const myOwnAnswers = readJSON(quizAnswersKey(), null);
+    if(myOwnAnswers && myOwnAnswers.length === QUIZ_QUESTIONS.length){
+      quizAnswers = myOwnAnswers.slice();
+      const rebuilt = rebuildQuizAvatarUpTo(QUIZ_QUESTIONS.length - 1);
+      quizAvatar = rebuilt.avatar;
+      quizScores = rebuilt.scores;
+      const overlay = document.getElementById('quizModalOverlay');
+      setTimeout(function(){
+        if(overlay){ overlay.classList.add('show'); overlay.setAttribute('aria-hidden', 'false'); }
+        showQuizCompare(friendAnswers);
+      }, 400);
+    } else {
+      pendingFriendAnswers = friendAnswers;
+      setTimeout(function(){
+        showMoreToast('\ud83d\udc8c A friend shared their era \u2014 take the quiz to see your match!', 5000);
+      }, 900);
+    }
   })();
+
+  /* ---------- Daily Era Trivia ---------- */
+  const TRIVIA_QUESTIONS = [
+    { id:'nils', q:'Taylor used which pseudonym as co-writer on Calvin Harris & Rihanna\u2019s \u201cThis Is What You Came For\u201d?', options:['Nils Sj\u00f6berg','William Bowery','Ivy Wilder','Betty Lockwood'], answer:0,
+      fact:'She used the alias so the song wouldn\u2019t be overshadowed by her relationship with then-boyfriend Calvin Harris \u2014 her involvement only came out after their 2016 breakup, when Harris confirmed it himself.' },
+    { id:'epiphany', q:'\u201cepiphany\u201d opens from the WWII perspective of which real relative of Taylor\u2019s?', options:['Her grandfather, Dean Swift','Her great-uncle','Her father, Scott','Her grandmother, Marjorie'], answer:0,
+      fact:'Archie \u201cDean\u201d Swift Jr. served as a Marine Corps medic and fought at the Battle of Guadalcanal \u2014 Taylor also pictured his photo in the \u201ccardigan\u201d music video.' },
+    { id:'cats', q:'Which of these is NOT one of Taylor\u2019s real cats?', options:['Meredith Grey','Olivia Benson','Benjamin Button','Detective Stevens'], answer:3,
+      fact:'Meredith, Olivia, and Benjamin are all named after characters from Grey\u2019s Anatomy, Law & Order: SVU, and the 2008 film, respectively.' },
+    { id:'midnights', q:'In Nov 2022, Midnights made Taylor the first artist ever to do what on the Billboard Hot 100?', options:['Occupy the entire top 10 at once','Debut 20 songs in one week','Hold #1 for 20 straight weeks','Chart in every country simultaneously'], answer:0,
+      fact:'\u201cAnti-Hero\u201d led the sweep at #1 \u2014 a feat she has since repeated with The Tortured Poets Department and The Life of a Showgirl.' },
+    { id:'starbucks', q:'The \u201cStarbucks Lovers\u201d meme comes from fans mishearing which \u201cBlank Space\u201d lyric?', options:['\u201cGot a long list of ex-lovers\u201d','\u201cMade you my Achilles heel\u201d','\u201cScreaming, crying, perfect storm\u201d','\u201cCast a spell on you\u201d'], answer:0,
+      fact:'It became one of the most famous mondegreens in pop history \u2014 even Taylor has joked about it onstage.' },
+    { id:'betty', q:'\u201cbetty\u201d is narrated from the perspective of a teenage boy named:', options:['James','August','Augustine','Dorothea'], answer:0,
+      fact:'It completes folklore\u2019s \u201cTeenage Love Triangle\u201d alongside \u201ccardigan\u201d (Betty\u2019s POV) and \u201caugust\u201d (the other girl\u2019s POV).' },
+    { id:'marjorie', q:'The faint singing voice in the outro of \u201cmarjorie\u201d is:', options:['A real recording of Taylor\u2019s grandmother','An AI-generated opera voice','Taylor singing in a different register','A sample from a 1940s film'], answer:0,
+      fact:'Taylor\u2019s mom found old LPs of grandmother Marjorie Finlay, an opera singer, and sent them to Aaron Dessner, who wove her real voice into the outro.' },
+    { id:'fearless', q:'Taylor\u2019s tradition of hiding secret messages in random CAPITALIZED lyric-booklet letters began on which album?', options:['Fearless (2008)','Taylor Swift (2006)','Speak Now (2010)','Red (2012)'], answer:0,
+      fact:'The Easter egg has continued in liner notes on every album since \u2014 Swifties still comb through booklets letter by letter to decode them.' },
+    { id:'bowery', q:'\u201cWilliam Bowery,\u201d credited on \u201cexile\u201d and \u201cbetty,\u201d is really:', options:['Joe Alwyn','Jack Antonoff','Aaron Dessner','Justin Vernon'], answer:0,
+      fact:'Taylor confirmed it in \u201cfolklore: the long pond studio sessions.\u201d The name combines his great-grandfather William, a composer, and NYC\u2019s Bowery Hotel, where the couple spent time early on.' },
+    { id:'slut', q:'Which \u201c1989 (Taylor\u2019s Version)\u201d vault track has an exclamation point in its official title?', options:['\u201cSlut!\u201d','\u201cSay Don\u2019t Go\u201d','\u201cSuburban Legends\u201d','\u201cNow That We Don\u2019t Talk\u201d'], answer:0,
+      fact:'Fans decoded all five vault titles through a Google puzzle hunt before the album dropped \u2014 the punctuation was confirmed as intentional.' }
+  ];
+  function triviaKey(){ return 'ttlTrivia_' + idKey(getUser()); }
+  function todayStr(d){
+    d = d || new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function dayOfYear(d){
+    const start = new Date(d.getFullYear(), 0, 0);
+    return Math.floor((d - start) / 86400000);
+  }
+  function getTodaysTrivia(){ return TRIVIA_QUESTIONS[dayOfYear(new Date()) % TRIVIA_QUESTIONS.length]; }
+  function getTriviaState(){
+    return readJSON(triviaKey(), { streak:0, lastDate:null, lastCorrect:null, pickedIdx:null, totalAnswered:0, totalCorrect:0 });
+  }
+  function saveTriviaState(state){ writeJSON(triviaKey(), state); }
+  function submitTriviaAnswer(idx){
+    const q = getTodaysTrivia();
+    const state = getTriviaState();
+    const today = todayStr();
+    if(state.lastDate === today) return null; /* already answered today */
+    const isCorrect = idx === q.answer;
+    const y = new Date(); y.setDate(y.getDate() - 1);
+    const wasYesterday = state.lastDate === todayStr(y);
+    state.streak = wasYesterday ? (state.streak + 1) : 1;
+    state.lastDate = today;
+    state.lastCorrect = isCorrect;
+    state.pickedIdx = idx;
+    state.totalAnswered = (state.totalAnswered || 0) + 1;
+    state.totalCorrect = (state.totalCorrect || 0) + (isCorrect ? 1 : 0);
+    saveTriviaState(state);
+    return { isCorrect: isCorrect };
+  }
+  function renderTriviaModal(){
+    const body = document.getElementById('triviaModalBody');
+    if(!body) return;
+    const q = getTodaysTrivia();
+    const state = getTriviaState();
+    const today = todayStr();
+    const alreadyAnswered = state.lastDate === today;
+    let html = '<div class="trivia-streak">\ud83d\udd25 ' + (state.streak || 0) + '-day streak' +
+      (state.totalAnswered ? ' \u00b7 ' + (state.totalCorrect || 0) + '/' + state.totalAnswered + ' correct' : '') + '</div>';
+    html += '<div class="trivia-question">' + q.q + '</div>';
+    html += '<div class="trivia-options">';
+    q.options.forEach(function(opt, i){
+      let cls = 'trivia-option';
+      if(alreadyAnswered){
+        if(i === q.answer) cls += ' correct';
+        else if(i === state.pickedIdx) cls += ' wrong';
+      }
+      html += '<button class="' + cls + '" type="button" data-i="' + i + '"' + (alreadyAnswered ? ' disabled' : '') + '>' + opt + '</button>';
+    });
+    html += '</div>';
+    if(alreadyAnswered){
+      html += '<div class="trivia-result">' + (state.lastCorrect ? '\u2705 Correct!' : ('\u274c Not quite \u2014 it\u2019s \u201c' + q.options[q.answer] + '\u201d')) + '</div>';
+      html += '<div class="trivia-fact">\ud83d\udcad ' + q.fact + '</div>';
+      html += '<div class="trivia-next">Come back tomorrow for a new question!</div>';
+    }
+    body.innerHTML = html;
+    if(!alreadyAnswered){
+      body.querySelectorAll('.trivia-option').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          const idx = parseInt(btn.getAttribute('data-i'), 10);
+          const result = submitTriviaAnswer(idx);
+          renderTriviaModal();
+          if(result && result.isCorrect && typeof burstConfetti === 'function') burstConfetti();
+        });
+      });
+    }
+  }
+  const triviaModal = wireModal('triviaModalOverlay', 'triviaModalClose', renderTriviaModal);
+  document.addEventListener('ttl:openTrivia', function(){ triviaModal.open(); });
+
+  /* ---------- Style Yourself: free-mix avatar builder ---------- */
+  const STYLE_TRAITS = {
+    hairstyle: [
+      { value:'', label:'Sleek & down' },
+      { value:'curls', label:'Bouncy curls' },
+      { value:'bun', label:'Messy bun' }
+    ],
+    dressStyle: [
+      { value:'', label:'Sparkly bodysuit' },
+      { value:'sundress', label:'Floaty sundress' },
+      { value:'cardigan', label:'Cozy cardigan' }
+    ],
+    hat: [
+      { value:'', label:'None' },
+      { value:'\ud83d\udc51', label:'Crown' },
+      { value:'\u2728', label:'Sparkle clip' }
+    ],
+    gradient: [
+      { value:['#b3122a','#1a1a1a'], label:'Red & black' },
+      { value:['#f6b6d2','#f4c95d'], label:'Pastel & gold' },
+      { value:['#9aa192','#5c6b52'], label:'Grey & moss green' },
+      { value:['#2b3a67','#aeb9c9'], label:'Midnight blue & silver' }
+    ],
+    moodPair: [
+      { value:['',''], label:'Neutral' },
+      { value:['\ud83d\udcab','romance'], label:'Whirlwind romance' },
+      { value:['\ud83d\udc94','breakup'], label:'Messy breakup' },
+      { value:['\ud83d\udd6f\ufe0f','devotion'], label:'Quiet devotion' },
+      { value:['\ud83e\udd8b','power'], label:'Confident power' }
+    ],
+    activityPair: [
+      { value:['',''], label:'Just posing' },
+      { value:['\ud83e\udea9','dance'], label:'Dancing all night' },
+      { value:['\ud83d\udcd3','journal'], label:'Journaling' },
+      { value:['\ud83d\ude97','roadtrip'], label:'Road trip' },
+      { value:['\ud83c\udf7d\ufe0f','dinner'], label:'Dinner party' }
+    ],
+    aura: [
+      { value:'', label:'None' },
+      { value:'aura-sparkle', label:'Sparkle' },
+      { value:'aura-heartbreak', label:'Heartbreak' },
+      { value:'aura-wonder', label:'Wonder' },
+      { value:'aura-power', label:'Power' }
+    ]
+  };
+  const STYLE_CATS = ['hairstyle', 'hat', 'dressStyle', 'gradient', 'moodPair', 'activityPair', 'aura'];
+  let styleAvatar = null;
+  function freshStyleAvatar(){
+    return { gradient:['#f6b6d2','#f4c95d'], hat:'', hairstyle:'', dressStyle:'', mood:'', activity:'', aura:'', pose:'', emotion:'' };
+  }
+  function styleLooksKey(){ return 'ttlStyleLooks_' + idKey(getUser()); } /* deliberately separate from ttlLooks_ (Runway Runner looks) */
+  function getStyleLooks(){ return readJSON(styleLooksKey(), {}); }
+  function saveStyleLooksMap(map){ writeJSON(styleLooksKey(), map); }
+  function applyStyleTrait(cat, value){
+    if(cat === 'moodPair'){ styleAvatar.mood = value[0]; styleAvatar.emotion = value[1]; }
+    else if(cat === 'activityPair'){ styleAvatar.activity = value[0]; styleAvatar.pose = value[1]; }
+    else if(cat === 'gradient'){ styleAvatar.gradient = value.slice(); }
+    else { styleAvatar[cat] = value; }
+  }
+  function renderStyleTraitRow(catLabel, cat, activeMatcher){
+    let html = '<div class="style-trait-label">' + catLabel + '</div><div class="style-trait-row">';
+    STYLE_TRAITS[cat].forEach(function(item, i){
+      const isActive = activeMatcher(item.value);
+      html += '<button class="style-chip' + (isActive ? ' active' : '') + '" type="button" data-cat="' + cat + '" data-idx="' + i + '">' + item.label + '</button>';
+    });
+    html += '</div>';
+    return html;
+  }
+  function renderStyleModal(){
+    const body = document.getElementById('styleModalBody');
+    if(!body) return;
+    if(!styleAvatar) styleAvatar = freshStyleAvatar();
+    const prevAvatar = quizAvatar;
+    quizAvatar = styleAvatar;
+    const charHtml = renderQuizChar();
+    quizAvatar = prevAvatar;
+
+    let html = '<div class="quiz-char-col" style="margin:0 auto 8px;max-width:220px;">' + charHtml + '</div>';
+    html += renderStyleTraitRow('Hair', 'hairstyle', function(v){ return v === styleAvatar.hairstyle; });
+    html += renderStyleTraitRow('Accessory', 'hat', function(v){ return v === styleAvatar.hat; });
+    html += renderStyleTraitRow('Outfit', 'dressStyle', function(v){ return v === styleAvatar.dressStyle; });
+    html += renderStyleTraitRow('Palette', 'gradient', function(v){ return v[0] === styleAvatar.gradient[0] && v[1] === styleAvatar.gradient[1]; });
+    html += renderStyleTraitRow('Mood', 'moodPair', function(v){ return v[1] === styleAvatar.emotion; });
+    html += renderStyleTraitRow('Prop', 'activityPair', function(v){ return v[1] === styleAvatar.pose; });
+    html += renderStyleTraitRow('Aura', 'aura', function(v){ return v === styleAvatar.aura; });
+    html += '<div class="style-actions">' +
+      '<button class="quiz-restart" id="styleRandomizeBtn" type="button">\ud83c\udfb2 Randomize</button>' +
+      '<button class="quiz-compare-btn" id="styleSaveBtn" type="button">\ud83d\udcbe Save this look</button>' +
+    '</div>';
+    const looks = getStyleLooks();
+    const names = Object.keys(looks);
+    html += '<div class="style-saved-title">My styled looks</div>';
+    if(!names.length){
+      html += '<div class="setlist-empty">No saved looks yet \u2014 mix a look above and save it!</div>';
+    } else {
+      html += names.map(function(n){
+        return '<div class="look-row">' +
+          '<span class="look-row-name">' + n.replace(/</g,'&lt;') + '</span>' +
+          '<button class="look-row-load" type="button" data-name="' + n.replace(/"/g,'&quot;') + '">Load</button>' +
+          '<button class="look-row-delete" type="button" data-name="' + n.replace(/"/g,'&quot;') + '">\u2715</button>' +
+          '</div>';
+      }).join('');
+    }
+    body.innerHTML = html;
+
+    body.querySelectorAll('.style-chip').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const cat = btn.getAttribute('data-cat');
+        const idx = parseInt(btn.getAttribute('data-idx'), 10);
+        applyStyleTrait(cat, STYLE_TRAITS[cat][idx].value);
+        renderStyleModal();
+      });
+    });
+    const randomizeBtn = document.getElementById('styleRandomizeBtn');
+    if(randomizeBtn) randomizeBtn.addEventListener('click', function(){
+      STYLE_CATS.forEach(function(cat){
+        const items = STYLE_TRAITS[cat];
+        applyStyleTrait(cat, items[Math.floor(Math.random() * items.length)].value);
+      });
+      renderStyleModal();
+      if(typeof burstConfetti === 'function') burstConfetti();
+    });
+    const saveBtn = document.getElementById('styleSaveBtn');
+    if(saveBtn) saveBtn.addEventListener('click', function(){
+      const name = window.prompt('Name this look:', 'My look');
+      if(!name) return;
+      const map = getStyleLooks();
+      map[name] = JSON.stringify(styleAvatar);
+      saveStyleLooksMap(map);
+      showMoreToast('\ud83d\udc97 Look saved!', 2200);
+      renderStyleModal();
+    });
+    body.querySelectorAll('.look-row-load').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const map = getStyleLooks();
+        const raw = map[btn.getAttribute('data-name')];
+        if(!raw) return;
+        try{ styleAvatar = JSON.parse(raw); }catch(e){}
+        renderStyleModal();
+        showMoreToast('Look loaded! \u2728', 1800);
+      });
+    });
+    body.querySelectorAll('.look-row-delete').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const map = getStyleLooks();
+        delete map[btn.getAttribute('data-name')];
+        saveStyleLooksMap(map);
+        renderStyleModal();
+      });
+    });
+  }
+  const styleModal = wireModal('styleModalOverlay', 'styleModalClose', renderStyleModal);
+  const moreStyle = document.getElementById('moreStyle');
+  if(moreStyle) moreStyle.addEventListener('click', function(){ closeMorePanel(); styleModal.open(); });
 
   /* ---------- lookbook card ---------- */
   function drawLookbookCard(){
@@ -5511,209 +5790,6 @@ document.addEventListener('keydown', function(e){
       delete looks[delBtn.dataset.name];
       writeJSON(looksKey(), looks);
       renderLooksModal();
-    }
-  });
-
-  /* ---------- daily era trivia ---------- */
-  const TRIVIA_QUESTIONS = [
-    { q:'How many "From the Vault" tracks are on Fearless (Taylor\u2019s Version)?', options:['4','5','6','7'], correct:2, fact:'Fearless (TV) has 6 vault tracks; Antonoff and Dessner split production on them.' },
-    { q:'How many "From the Vault" tracks are on Red (Taylor\u2019s Version)?', options:['6','7','9','11'], correct:2, fact:'Red (TV) has 9 vault tracks, the most of any re-record so far, including features from Chris Stapleton, Phoebe Bridgers, and Ed Sheeran.' },
-    { q:'How many "From the Vault" tracks are on Speak Now (Taylor\u2019s Version)?', options:['5','6','8','9'], correct:1, fact:'Speak Now (TV) has 6 vault tracks, two of which feature Fall Out Boy and Hayley Williams.' },
-    { q:'How many "From the Vault" tracks are on 1989 (Taylor\u2019s Version)?', options:['3','4','5','6'], correct:2, fact:'1989 (TV) has 5 vault tracks \u2014 the only re-record vault batch with no guest features.' },
-    { q:'Which two artists guest on Fearless (Taylor\u2019s Version)\u2019s vault tracks?', options:['Ed Sheeran & Gary Lightbody', 'Keith Urban & Maren Morris', 'Chris Stapleton & Phoebe Bridgers', 'Fall Out Boy & Hayley Williams'], correct:1, fact:'Keith Urban features on "That\u2019s When" and Maren Morris on "You All Over Me."' },
-    { q:'Which two acts guest on Speak Now (Taylor\u2019s Version)\u2019s vault tracks?', options:['Bon Iver & HAIM', 'Ed Sheeran & Chris Stapleton', 'Fall Out Boy & Hayley Williams', 'Keith Urban & Gracie Abrams'], correct:2, fact:'Fall Out Boy appears on "Electric Touch" and Hayley Williams on "Castles Crumbling."' },
-    { q:'"William Bowery," the co-writing credit on folklore and evermore tracks like "exile" and "betty," is a pseudonym for whom?', options:['Aaron Dessner', 'Joe Alwyn', 'Jack Antonoff', 'Matt Berninger'], correct:1, fact:'William Bowery was later revealed to be Joe Alwyn, Taylor\u2019s partner at the time.' },
-    { q:'Which producer has worked on every one of Taylor\u2019s studio albums starting with 1989?', options:['Max Martin', 'Jack Antonoff', 'Ryan Tedder', 'Aaron Dessner'], correct:1, fact:'Jack Antonoff has co-produced on every Taylor Swift album since 1989 (2014) onward.' },
-    { q:'Which album is Taylor\u2019s only one written 100% solo, with no co-writers on any track?', options:['Fearless', 'Red', 'Speak Now', 'reputation'], correct:2, fact:'Speak Now (2010) is Taylor\u2019s sole fully solo-written album.' },
-    { q:'Which music video did Taylor Swift direct entirely herself?', options:['"cardigan"', '"Bad Blood"', '"Blank Space"', '"Look What You Made Me Do"'], correct:0, fact:'Taylor solo-directed the "cardigan" video from her home during the folklore era.' },
-    { q:'What is the title of Taylor\u2019s 2020 Netflix documentary covering the reputation fallout and Lover era?', options:['Miss Americana', 'The Long Pond Studio Sessions', 'Reputation Stadium Tour', 'Renegades'], correct:0, fact:'Miss Americana premiered at Sundance in January 2020 before its Netflix release.' },
-    { q:'How many surprise songs did Taylor typically perform in the acoustic set each night of The Eras Tour?', options:['1', '2', '3', 'It varied every night'], correct:1, fact:'The format was two surprise songs per show: one on guitar, one on piano.' },
-    { q:'The Tortured Poets Department was surprise-expanded at 2am on release night into what edition?', options:['The Vault Edition', 'The Anthology', 'The 3am Edition', 'The Director\u2019s Cut'], correct:1, fact:'TTPD doubled from 16 to 31 tracks as "The Tortured Poets Department: The Anthology."' },
-    { q:'Midnights was expanded a few months after release with a batch of extra tracks under what name?', options:['3am Edition', 'Til Dawn Edition', 'Vault Edition', 'Moonlight Edition'], correct:0, fact:'The "3am Edition" added 7 extra tracks, including "Bigger Than the Whole Sky" and "Hits Different."' },
-    { q:'Which folklore track is partly inspired by her grandfather Dean\u2019s WWII combat experience at Guadalcanal?', options:['"epiphany"', '"the 1"', '"mirrorball"', '"peace"'], correct:0, fact:'"epiphany" weaves her grandfather\u2019s wartime experience together with frontline healthcare workers during the pandemic.' },
-    { q:'Which studio is closely associated with the recording of folklore and evermore, owned by Aaron Dessner?', options:['Electric Lady Studios', 'Long Pond Studio', 'Abbey Road', 'Conway Recording Studios'], correct:1, fact:'Much of folklore and evermore was written and recorded remotely with Dessner at his Long Pond Studio in New York\u2019s Hudson Valley.' }
-  ];
-  function daysSinceEpoch(){ return Math.floor(Date.now() / 86400000); }
-  function todaysTrivia(){ return TRIVIA_QUESTIONS[daysSinceEpoch() % TRIVIA_QUESTIONS.length]; }
-  function triviaAnsweredKey(){ return 'ttlTriviaAnswered_' + idKey(getUser()) + '_' + todayStr(); }
-  function triviaStreakKey(){ return 'ttlTriviaStreak_' + idKey(getUser()); }
-  function getTriviaStreak(){ return readJSON(triviaStreakKey(), { lastCorrectDate:null, streak:0 }); }
-  function recordTriviaAnswer(wasCorrect){
-    writeJSON(triviaAnsweredKey(), { correct:wasCorrect });
-    if(wasCorrect){
-      const s = getTriviaStreak();
-      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
-      s.streak = (s.lastCorrectDate === yesterday) ? (s.streak || 0) + 1 : 1;
-      s.lastCorrectDate = todayStr();
-      writeJSON(triviaStreakKey(), s);
-    }
-  }
-  function renderTriviaModal(){
-    const body = document.getElementById('triviaModalBody');
-    if(!body) return;
-    const question = todaysTrivia();
-    const already = readJSON(triviaAnsweredKey(), null);
-    const streak = getTriviaStreak().streak || 0;
-    if(already){
-      body.innerHTML =
-        (streak >= 2 ? '<div class="trivia-streak">🔥 ' + streak + ' day trivia streak</div>' : '') +
-        '<div class="trivia-question">' + question.q + '</div>' +
-        '<div class="trivia-feedback ' + (already.correct ? 'correct' : 'wrong') + '">' + (already.correct ? '✔ You got today\u2019s right!' : '✕ Not quite \u2014 the answer was ' + question.options[question.correct]) + '</div>' +
-        '<div class="trivia-fact">' + question.fact + '</div>' +
-        '<div class="trivia-done"><p>Come back tomorrow for a new question ✦</p></div>';
-      return;
-    }
-    body.innerHTML =
-      (streak >= 2 ? '<div class="trivia-streak">🔥 ' + streak + ' day trivia streak</div>' : '') +
-      '<div class="trivia-question">' + question.q + '</div>' +
-      '<div class="trivia-options">' + question.options.map(function(opt, i){
-        return '<button class="quiz-option" type="button" data-i="' + i + '">' + opt + '</button>';
-      }).join('') + '</div>';
-    body.querySelectorAll('.trivia-options .quiz-option').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        const i = parseInt(btn.dataset.i, 10);
-        const correct = i === question.correct;
-        recordTriviaAnswer(correct);
-        body.querySelectorAll('.trivia-options .quiz-option').forEach(function(b, bi){
-          b.disabled = true;
-          if(bi === question.correct) b.classList.add('picked');
-        });
-        body.insertAdjacentHTML('beforeend',
-          '<div class="trivia-feedback ' + (correct ? 'correct' : 'wrong') + '">' + (correct ? '✔ Correct!' : '✕ Not quite!') + '</div>' +
-          '<div class="trivia-fact">' + question.fact + '</div>' +
-          '<div class="trivia-done"><p>Come back tomorrow for a new question ✦</p></div>');
-        if(correct && typeof burstConfetti === 'function') burstConfetti();
-        if(typeof playChime === 'function' && correct) playChime();
-      });
-    });
-  }
-  const triviaModal = wireModal('triviaModalOverlay', 'triviaModalClose', renderTriviaModal);
-  const gameCardTrivia = document.getElementById('gameCardTrivia');
-  if(gameCardTrivia) gameCardTrivia.addEventListener('click', function(e){
-    e.stopPropagation();
-    const gamesOverlay = document.getElementById('gamesModalOverlay');
-    if(gamesOverlay){ gamesOverlay.classList.remove('show'); gamesOverlay.setAttribute('aria-hidden', 'true'); }
-    triviaModal.open();
-  });
-
-  /* ---------- style yourself (freeform outfit builder, independent of the quiz) ---------- */
-  const STYLE_HAIR_OPTIONS = [
-    { label:'Default', value:'' }, { label:'Curls', value:'curls' }, { label:'Bun', value:'bun' }
-  ];
-  const STYLE_OUTFIT_OPTIONS = [
-    { label:'Classic', value:'' }, { label:'Sundress', value:'sundress' }, { label:'Cardigan', value:'cardigan' },
-    { label:'Bodysuit', value:'bodysuit' }, { label:'Fringe jacket', value:'fringejacket' }
-  ];
-  const STYLE_PALETTE_OPTIONS = [
-    { label:'Red & black', value:['#b3122a','#1a1a1a'] }, { label:'Pastel & gold', value:['#d9c4ee','#f0b93d'] },
-    { label:'Grey & moss', value:['#9aa192','#5c6b52'] }, { label:'Midnight blue', value:['#2b3a67','#aeb9c9'] },
-    { label:'Sparkly pink', value:['#f6b6d2','#f4c95d'] }, { label:'Showgirl gold', value:['#e8b13a','#fff4d6'] }
-  ];
-  const STYLE_ACTIVITY_OPTIONS = [
-    { label:'None', value:'' }, { label:'Disco ball', value:'🪩' }, { label:'Guitar', value:'🎸' },
-    { label:'Notebook', value:'📓' }, { label:'Camera flash', value:'📸' }, { label:'Stars', value:'✨' }
-  ];
-  let styleAvatar = null;
-  function freshStyleAvatar(){
-    const a = freshQuizAvatar();
-    a.gradient = STYLE_PALETTE_OPTIONS[4].value;
-    return a;
-  }
-  function styleLooksKey(){ return 'ttlStyleLooks_' + idKey(getUser()); }
-  function getStyleLooks(){ return readJSON(styleLooksKey(), {}); }
-  function styleSwatchRow(groupLabel, options, current, field){
-    return '<div class="style-group">' +
-      '<div class="style-group-label">' + groupLabel + '</div>' +
-      '<div class="style-swatch-row">' + options.map(function(opt, i){
-        const isPicked = JSON.stringify(opt.value) === JSON.stringify(current);
-        return '<button class="style-swatch' + (isPicked ? ' picked' : '') + '" type="button" data-field="' + field + '" data-i="' + i + '">' + opt.label + '</button>';
-      }).join('') + '</div>' +
-    '</div>';
-  }
-  function renderStyleModal(){
-    const body = document.getElementById('styleModalBody');
-    if(!body) return;
-    if(!styleAvatar) styleAvatar = freshStyleAvatar();
-    const looks = getStyleLooks();
-    const names = Object.keys(looks);
-    body.innerHTML = '<div class="style-builder">' +
-      '<div class="style-preview">' + renderAvatarHTML(styleAvatar) + '</div>' +
-      '<div class="style-controls">' +
-        styleSwatchRow('Hair', STYLE_HAIR_OPTIONS, styleAvatar.hairstyle, 'hairstyle') +
-        styleSwatchRow('Outfit', STYLE_OUTFIT_OPTIONS, styleAvatar.dressStyle, 'dressStyle') +
-        styleSwatchRow('Palette', STYLE_PALETTE_OPTIONS, styleAvatar.gradient, 'gradient') +
-        styleSwatchRow('Prop', STYLE_ACTIVITY_OPTIONS, styleAvatar.activity, 'activity') +
-        '<div class="style-actions">' +
-          '<button class="quiz-share-btn" id="styleRandomBtn" type="button">🔀 Randomize</button>' +
-          '<button class="quiz-share-btn" id="styleSaveBtn" type="button">💾 Save this look</button>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="style-saved-list" id="styleSavedList">' +
-      (names.length
-        ? names.map(function(n){
-            return '<div class="look-row">' +
-              '<span class="look-row-name">' + n.replace(/</g,'&lt;') + '</span>' +
-              '<button class="look-row-load" type="button" data-name="' + n.replace(/"/g,'&quot;') + '">Load</button>' +
-              '<button class="look-row-delete" type="button" data-name="' + n.replace(/"/g,'&quot;') + '">✕</button>' +
-            '</div>';
-          }).join('')
-        : '<div class="setlist-empty">No saved looks yet \u2014 build one above and save it.</div>') +
-    '</div>';
-  }
-  function reRenderStylePreviewAndControls(){
-    renderStyleModal();
-  }
-  const styleModal = wireModal('styleModalOverlay', 'styleModalClose', function(){
-    if(!styleAvatar) styleAvatar = freshStyleAvatar();
-    renderStyleModal();
-  });
-  const moreStyleMe = document.getElementById('moreStyleMe');
-  if(moreStyleMe) moreStyleMe.addEventListener('click', function(){ closeMorePanel(); styleModal.open(); });
-  const styleModalBody = document.getElementById('styleModalBody');
-  if(styleModalBody) styleModalBody.addEventListener('click', function(e){
-    const swatch = e.target.closest('.style-swatch');
-    if(swatch){
-      const field = swatch.dataset.field;
-      const i = parseInt(swatch.dataset.i, 10);
-      let opt;
-      if(field === 'hairstyle') opt = STYLE_HAIR_OPTIONS[i];
-      else if(field === 'dressStyle') opt = STYLE_OUTFIT_OPTIONS[i];
-      else if(field === 'gradient') opt = STYLE_PALETTE_OPTIONS[i];
-      else if(field === 'activity') opt = STYLE_ACTIVITY_OPTIONS[i];
-      if(opt) styleAvatar[field] = opt.value;
-      reRenderStylePreviewAndControls();
-      return;
-    }
-    if(e.target.closest('#styleRandomBtn')){
-      styleAvatar.hairstyle = STYLE_HAIR_OPTIONS[Math.floor(Math.random()*STYLE_HAIR_OPTIONS.length)].value;
-      styleAvatar.dressStyle = STYLE_OUTFIT_OPTIONS[Math.floor(Math.random()*STYLE_OUTFIT_OPTIONS.length)].value;
-      styleAvatar.gradient = STYLE_PALETTE_OPTIONS[Math.floor(Math.random()*STYLE_PALETTE_OPTIONS.length)].value;
-      styleAvatar.activity = STYLE_ACTIVITY_OPTIONS[Math.floor(Math.random()*STYLE_ACTIVITY_OPTIONS.length)].value;
-      reRenderStylePreviewAndControls();
-      return;
-    }
-    if(e.target.closest('#styleSaveBtn')){
-      const name = window.prompt('Name this look:', 'My look');
-      if(!name) return;
-      const looks = getStyleLooks();
-      looks[name] = JSON.parse(JSON.stringify(styleAvatar));
-      writeJSON(styleLooksKey(), looks);
-      showMoreToast('Look saved ✨');
-      reRenderStylePreviewAndControls();
-      return;
-    }
-    const loadBtn = e.target.closest('.look-row-load');
-    const delBtn = e.target.closest('.look-row-delete');
-    if(loadBtn){
-      const looks = getStyleLooks();
-      const val = looks[loadBtn.dataset.name];
-      if(val){ styleAvatar = Object.assign(freshStyleAvatar(), val); reRenderStylePreviewAndControls(); }
-    } else if(delBtn){
-      const looks = getStyleLooks();
-      delete looks[delBtn.dataset.name];
-      writeJSON(styleLooksKey(), looks);
-      reRenderStylePreviewAndControls();
     }
   });
 
