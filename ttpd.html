@@ -1081,16 +1081,25 @@ function openCurtain(){
 }
 var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(prefersReducedMotion){
-  document.getElementById('tpCurtain').style.display = 'none';
-  tpCurtainOpened = true;
+  var curtainEl = document.getElementById('tpCurtain');
+  curtainEl.style.transition = 'opacity .5s ease';
+  setTimeout(function(){
+    curtainEl.style.opacity = '0';
+    document.body.classList.add('tp-open');
+    tpCurtainOpened = true;
+    setTimeout(function(){ curtainEl.style.display = 'none'; }, 550);
+  }, 500);
 } else {
   if(document.readyState === 'complete' || document.readyState === 'interactive'){
     setTimeout(openCurtain, 700);
   } else {
     document.addEventListener('DOMContentLoaded', function(){ setTimeout(openCurtain, 700); });
   }
+  window.addEventListener('load', function(){ setTimeout(openCurtain, 700); });
   setTimeout(openCurtain, 2500);
 }
+document.addEventListener('click', openCurtain, { once: true });
+document.addEventListener('touchstart', openCurtain, { once: true, passive: true });
 document.getElementById('tpReplayCurtain').addEventListener('click', function(){
   tpBuzz(10);
   var curtain = document.getElementById('tpCurtain');
