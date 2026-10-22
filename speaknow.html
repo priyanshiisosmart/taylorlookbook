@@ -1746,7 +1746,7 @@ When they said, "Speak now"`,
     { title:"Dear John", audio:"audio/dear-john.mp3" },
     { title:"Mean", audio:"audio/mean.mp3" },
     { title:"The Story of Us",
-     audio:"https://youtu.be/pRhWAXg4xek?si=wG5bY02s0IKaLz_U",
+     audio:"audio/the-story-of-us.mp3",
     lyrics: `I used to think one day we'd tell the story of us
 How we met and the sparks flew instantly
 And people would say, "They're the lucky ones"
@@ -2217,22 +2217,8 @@ for(var _b=0;_b<VIZ_BAR_COUNT;_b++){
 var snAudioCtx = null, snAnalyser = null, snAudioSrc = null, snVizBars = null, snVizRAF = null;
 
 function initSnAudioAnalyser(){
-  if(snAudioCtx) return true;
-  try{
-    snAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    snModalAudio.crossOrigin = "anonymous";
-    snAudioSrc = snAudioCtx.createMediaElementSource(snModalAudio);
-    snAnalyser = snAudioCtx.createAnalyser();
-    snAnalyser.fftSize = 64;
-    snAudioSrc.connect(snAnalyser);
-    snAnalyser.connect(snAudioCtx.destination);
-    snVizBars = Array.from(snVizEl.querySelectorAll('.sn-viz-bar'));
-    return true;
-  } catch(e){
-    console.warn('Visualizer: falling back to idle animation (CORS or audio context issue)', e);
-    snAudioCtx = null;
-    return false;
-  }
+  // Disabled: createMediaElementSource silences audio from hosts without CORS headers.
+  return false;
 }
 
 function drawSnVisualizer(){
@@ -2583,8 +2569,10 @@ document.addEventListener('click', function(e){
 });
 
 snModalAudio.addEventListener('error', function(){
-  snModalAudio.style.display = 'none';
+  // Keep the controls visible; just explain what went wrong.
+  snModalAudio.style.display = 'block';
   snAudioFallback.style.display = 'block';
+  snAudioFallback.textContent = '\u26A0 This track could not be loaded. The audio link may be dead or the file missing: ' + (snModalAudio.currentSrc || snModalAudio.src || '(no link)');
 });
 
 function closeSnModal(){
@@ -5458,9 +5446,6 @@ buildScene = function(title) {
 };
 
 </script>
-</div>
-</body>
-</html>
 </div>
 </body>
 </html>
