@@ -648,42 +648,6 @@ body.sn-open .sn-curtain{ pointer-events:none; }
   color:#fff;
 }
 
-.sn-audio-links{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:10px;
-  position:relative;
-  z-index:2;
-}
-.sn-audio-links-label{
-  display:flex;
-  flex-direction:column;
-  gap:3px;
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic;
-  font-size:12px;
-  color:var(--accent);
-}
-.sn-audio-links-label input{
-  font-family:'EB Garamond',serif;
-  font-style:normal;
-  font-size:13px;
-  padding:6px 10px;
-  border-radius:8px;
-  border:1px solid var(--blush);
-  background:var(--paper);
-  color:var(--text);
-}
-.sn-audio-links-label input:focus{
-  outline:none;
-  border-color:var(--accent);
-}
-#snSaveAudioLinks{
-  align-self:flex-start;
-  margin-top:2px;
-}
-
 .sn-modal-body-wrap{
   position:relative;
   flex:1;
@@ -1612,15 +1576,6 @@ body.sn-open .sn-curtain{ pointer-events:none; }
         <button class="sn-version-btn active" data-version="original">Original</button>
         <button class="sn-version-btn" data-version="tv">Taylor's Version</button>
       </div>
-      <div class="sn-audio-links" id="snAudioLinks" style="display:none;">
-        <label class="sn-audio-links-label">Original audio link
-          <input type="text" id="snOriginalAudioInput" placeholder="Paste Original (2010) audio URL">
-        </label>
-        <label class="sn-audio-links-label">Taylor's Version audio link
-          <input type="text" id="snTvAudioInput" placeholder="Paste Taylor's Version audio URL">
-        </label>
-        <button class="sn-sync-btn primary" id="snSaveAudioLinks">Save links</button>
-      </div>
     </div>
     <div class="sn-modal-body-wrap">
       <div class="sn-modal-body" id="snModalLyrics"></div>
@@ -2486,9 +2441,8 @@ function setSnAudioOverride(id, field, url){
   try{ localStorage.setItem('snAudioOverrides', JSON.stringify(all)); }catch(e){}
 }
 function getEffectiveAudio(t, version){
-  var o = getSnAudioOverrides()[t.id] || {};
-  if(version === 'tv') return o.tv || t.tvAudio || '';
-  return o.original || t.audio || '';
+  if(version === 'tv') return t.tvAudio || '';
+  return t.audio || '';
 }
 
 function loadTrackIntoModal(t, opts){
@@ -2509,19 +2463,13 @@ function loadTrackIntoModal(t, opts){
   requestAnimationFrame(function(){ snSongCanvas.style.opacity = '1'; });
 
   var versionToggle = document.getElementById('snVersionToggle');
-  var audioLinksPanel = document.getElementById('snAudioLinks');
   if(t.tvAudio){
     versionToggle.style.display = 'flex';
     versionToggle.querySelectorAll('.sn-version-btn').forEach(function(btn){
       btn.classList.toggle('active', btn.dataset.version === snCurrentVersion);
     });
-    audioLinksPanel.style.display = 'flex';
-    var overrides = getSnAudioOverrides()[t.id] || {};
-    document.getElementById('snOriginalAudioInput').value = overrides.original || '';
-    document.getElementById('snTvAudioInput').value = overrides.tv || '';
   } else {
     versionToggle.style.display = 'none';
-    audioLinksPanel.style.display = 'none';
   }
 
   var queueNext = getTrackNeighbor(t.id, 1);
@@ -2818,18 +2766,6 @@ function finishSync(){
 
 snSyncFinish.addEventListener('click', finishSync);
 
-document.getElementById('snSaveAudioLinks').addEventListener('click', function(){
-  if(!snCurrentId) return;
-  var t = allTracksById[snCurrentId];
-  if(!t) return;
-  var origVal = document.getElementById('snOriginalAudioInput').value.trim();
-  var tvVal = document.getElementById('snTvAudioInput').value.trim();
-  setSnAudioOverride(snCurrentId, 'original', origVal);
-  setSnAudioOverride(snCurrentId, 'tv', tvVal);
-  snModalAudio.src = getEffectiveAudio(t, snCurrentVersion);
-  snModalAudio.load();
-  snShowToast('Audio links saved ✦');
-});
 snSyncClear.addEventListener('click', function(){
   delete snSyncStore[snCurrentId];
   var label = document.querySelector('[data-synced-label="' + snCurrentId + '"]');
